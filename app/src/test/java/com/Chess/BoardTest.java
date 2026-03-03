@@ -1,22 +1,24 @@
 package com.Chess;
 
+import com.pieces.Pawn;
 import org.junit.jupiter.api.*;
 import static org.assertj.core.api.Assertions.*;
 
 public class BoardTest {
 
+    public void verifyBoard(Board board, int pawnColor, int index){
+        Pawn newPawn = new Pawn(pawnColor);
+        board.add(newPawn);
+        assertThat(index+1).isEqualTo(board.size());
+        assertThat(newPawn).isEqualTo(board.findPawn(index));
+    }
+
     @Test
     public void create() throws Exception{
         Board newBoard = new Board();
-        Pawn whitePawn = new Pawn(Pawn.WHITE_COLOR);
-        newBoard.add(whitePawn);
-        assertThat(1).isEqualTo(newBoard.size());
-        assertThat(whitePawn).isEqualTo(newBoard.findPawn(0));
-
-        Pawn blackPawn = new Pawn(Pawn.BLACK_COLOR);
-        newBoard.add(blackPawn);
-        assertThat(2).isEqualTo(newBoard.size());
-        assertThat(blackPawn).isEqualTo(newBoard.findPawn(1));
-
+        verifyBoard(newBoard, Pawn.WHITE_COLOR, 0);
+        verifyBoard(newBoard, Pawn.BLACK_COLOR, 1);
     }
+
+
 }

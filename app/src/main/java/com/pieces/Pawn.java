@@ -1,8 +1,8 @@
-package com.Chess;
+package com.pieces;
 
 public class Pawn {
-    static int WHITE_COLOR = 1;
-    static int BLACK_COLOR = 0;
+    public static final int WHITE_COLOR = 1;
+    public static final int BLACK_COLOR = 0;
 
     int color; // 0 - black , 1 - white
 

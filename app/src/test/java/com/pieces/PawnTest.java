@@ -1,4 +1,4 @@
-package com.Chess;
+package com.pieces;
 
 
 import org.junit.jupiter.api.*;
