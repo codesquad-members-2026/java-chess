@@ -20,5 +20,13 @@ public class BoardTest {
         verifyBoard(newBoard, Pawn.BLACK_COLOR, 1);
     }
 
+    @Test
+    public void initialize() throws Exception{
+        Board newBoard = new Board();
+        newBoard.initialize();
+        assertThat(newBoard.getWhitePawnsResult()).isEqualTo("pppppppp");
+        assertThat(newBoard.getBlackPawnsResult()).isEqualTo("PPPPPPPP");
+    }
+
 
 }
