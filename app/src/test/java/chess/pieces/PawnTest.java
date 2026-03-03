@@ -11,19 +11,19 @@ class PawnTest {
     @Test
     @DisplayName("흰색 폰이 생성되어야 한다")
     public void create() {
-        verifyPawn(chess.pieces.Pawn.WHITE_COLOR);
-        verifyPawn(chess.pieces.Pawn.BLACK_COLOR);
+        verifyPawn(Pawn.WHITE_COLOR);
+        verifyPawn(Pawn.BLACK_COLOR);
     }
 
     private void verifyPawn(final String color) {
-        chess.pieces.Pawn pawn = new chess.pieces.Pawn(color);
+        Pawn pawn = new Pawn(color);
         assertThat(pawn.getColor()).isEqualTo(color);
     }
 
 
     @Test
     public void create_기본생성자() throws IOException {
-        chess.pieces.Pawn pawn = new chess.pieces.Pawn();
-        assertEquals(chess.pieces.Pawn.WHITE_COLOR, pawn.getColor());
+        Pawn pawn = new Pawn();
+        assertEquals(Pawn.WHITE_COLOR, pawn.getColor());
     }
 }
