@@ -24,4 +24,11 @@ public class PawnTest {
          Pawn p = new Pawn();
          assertThat(p.getColor()).isEqualTo("white");
     }
+
+
+    void verifyPawn(final String color, final char representation) {
+        Pawn pawn = new Pawn(color, representation);
+        assertEquals(color, pawn.getColor());
+        assertEquals(representation, pawn.getRepresentation());
+    }
 }

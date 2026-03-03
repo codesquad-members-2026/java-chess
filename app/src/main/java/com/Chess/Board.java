@@ -6,7 +6,8 @@ import java.util.List;
 
 public class Board {
     private int size;
-    private List<Pawn> pawnList = new ArrayList<>();
+    private final List<Pawn> pawnList = new ArrayList<>();
+    private final char[][] gameBoard = new char[8][8];
 
     public void add(Pawn piece){
         this.pawnList.add(piece);
