@@ -1,6 +1,8 @@
 # Created by https://www.toptal.com/developers/gitignore/api/java,gradle,macos
 # Edit at https://www.toptal.com/developers/gitignore?templates=java,gradle,macos
 
+.idea
+
 ### Java ###
 # Compiled class file
 *.class
@@ -34,7 +36,8 @@ replay_pid*
 .LSOverride
 
 # Icon must end with two \r
-Icon
+Icon
+
 
 # Thumbnails
 ._*
