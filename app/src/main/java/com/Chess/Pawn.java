@@ -4,7 +4,7 @@ public class Pawn {
     String color;
 
     public Pawn(String color){
-        this.color = color;
+        this.color = color.toLowerCase();
     }
 
     public String getColor(){

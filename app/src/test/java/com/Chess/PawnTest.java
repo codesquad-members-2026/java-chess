@@ -14,7 +14,7 @@ public class PawnTest {
 
     @Test
     void create(){
-        verifyPawn("White");
-        verifyPawn("Black");
+        verifyPawn("white");
+        verifyPawn("black");
     }
 }
