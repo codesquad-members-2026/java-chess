@@ -8,12 +8,9 @@ public class PawnTest {
     @Test
     @DisplayName("흰색과 검은색 폰이 올바르게 생성되어야 한다")
     public void create() {
-
-        String white = "white";
-        String black = "black";
-
-        verifyPawn(white);
-        verifyPawn(black);
+        // 요구사항: 상수를 활용하여 중복 제거
+        verifyPawn(Pawn.WHITE_COLOR);
+        verifyPawn(Pawn.BLACK_COLOR);
     }
 
     private void verifyPawn(String color) {
@@ -22,10 +19,9 @@ public class PawnTest {
     }
 
     @Test
-    @DisplayName("매개변수 없이 생성하면 흰색 폰이 생성되어야 한다")
+    @DisplayName("기본 생성자로 생성하면 흰색 폰이 생성되어야 한다")
     public void create_default() {
         Pawn pawn = new Pawn();
-        assertThat(pawn.getColor()).isEqualTo("white");
+        assertThat(pawn.getColor()).isEqualTo(Pawn.WHITE_COLOR);
     }
-
 }
