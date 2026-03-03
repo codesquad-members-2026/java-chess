@@ -1,6 +1,9 @@
+package chess;
+
 import java.util.ArrayList;
 import java.util.List;
-import pieces.Pawn;
+
+import chess.pieces.Pawn;
 
 public class Board {
     private final List<Pawn> board = new ArrayList<>();

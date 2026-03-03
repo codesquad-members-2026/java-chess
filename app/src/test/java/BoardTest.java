@@ -1,8 +1,9 @@
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+import chess.Board;
 import org.junit.jupiter.api.Test;
 
-import pieces.Pawn;
+import chess.pieces.Pawn;
 
 public class BoardTest {
     @Test
