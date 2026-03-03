@@ -12,9 +12,16 @@ public class PawnTest {
         assertThat(newPawn.getColor()).isEqualTo(color);
     }
 
+    @DisplayName("Verify if pawn spawns with correct color")
     @Test
-    void create(){
+    public void create(){
         verifyPawn("white");
         verifyPawn("black");
+    }
+
+    @Test
+    public void create_defaultConstructor() throws Exception{
+         Pawn p = new Pawn();
+         assertThat(p.getColor()).isEqualTo("white");
     }
 }
