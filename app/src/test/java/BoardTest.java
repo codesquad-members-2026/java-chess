@@ -13,13 +13,15 @@ public class BoardTest {
     @BeforeEach
     public void init() {
         board = new Board();
+        board.initialize();
     }
 
     @Test
     public void create() throws Exception {
-        verifyAddPawn(new Pawn(Pawn.WHITE_COLOR), 1);
-        verifyAddPawn(new Pawn(Pawn.BLACK_COLOR), 2);
-        verifyAddPawn(new Pawn(Pawn.WHITE_COLOR), 3);
+        int size = board.size();
+        verifyAddPawn(new Pawn(Pawn.WHITE_COLOR, Pawn.WHITE_REPRESENTATION), size + 1);
+        verifyAddPawn(new Pawn(Pawn.BLACK_COLOR, Pawn.BLACK_REPRESENTATION), size + 2);
+        verifyAddPawn(new Pawn(Pawn.WHITE_COLOR, Pawn.WHITE_REPRESENTATION), size + 3);
     }
 
     private void verifyAddPawn(Pawn pawn, int boardSize) {
@@ -32,5 +34,27 @@ public class BoardTest {
     @DisplayName("체스판에 폰 이외의 객체 추가")
     public void addNonPawn() {
         //board.add(Integer.valueOf(7)); 컴파일 에러
+    }
+
+    @Test
+    public void initialize() throws Exception {
+        assertEquals("♙♙♙♙♙♙♙♙", board.getWhitePawnsResult());
+        assertEquals("♟♟♟♟♟♟♟♟", board.getBlackPawnsResult());
+    }
+
+    @Test
+    public void print() {
+        String expected = """
+                ........
+                ♙♙♙♙♙♙♙♙
+                ........
+                ........
+                ........
+                ........
+                ♟♟♟♟♟♟♟♟
+                ........""";
+        String actual = board.print();
+        assertEquals(expected, actual);
+        System.out.println(actual);
     }
 }
