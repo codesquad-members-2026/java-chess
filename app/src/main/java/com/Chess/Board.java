@@ -59,7 +59,6 @@ public class Board {
                     tmp = Piece.createWhiteRook();
                     this.add(tmp,color);
                     row.append(tmp.getRepresentation());
-                    row.append(appendNewLine(""));
                     this.gameBoard[i] = row.toString();
                 }
                 case 1 -> {
@@ -70,7 +69,6 @@ public class Board {
                         this.add(tmp,color);
                         row.append(tmp.getRepresentation());
                     }
-                    row.append(appendNewLine(""));
                     this.gameBoard[i] = row.toString();
                 }
                 case 6 -> {
@@ -81,7 +79,6 @@ public class Board {
                         this.add(tmp,color);
                         row.append(tmp.getRepresentation());
                     }
-                    row.append(appendNewLine(""));
                     this.gameBoard[i] = row.toString();
                 }
                 case 7 ->{
@@ -113,7 +110,6 @@ public class Board {
                         tmp = Piece.createBlackRook();
                         this.add(tmp,color);
                         row.append(tmp.getRepresentation());
-                        row.append(appendNewLine(""));
                         this.gameBoard[i] = row.toString();
                     }
                 }
