@@ -7,13 +7,14 @@ import chess.pieces.Pawn;
 
 public class Board {
     private static final char EMPTY_SQUARE = '.';
+    private static final int SIZE = 8;
     private final List<Pawn> board = new ArrayList<>();
     private final List<Pawn> whitePawns = new ArrayList<>();
     private final List<Pawn> blackPawns = new ArrayList<>();
 
     public void initialize() {
-        for (int row = 0; row < 8; row++) {
-            for (int col = 0; col < 8; col++) {
+        for (int row = 0; row < SIZE; row++) {
+            for (int col = 0; col < SIZE; col++) {
                 Pawn pawn = null;
                 if (row == 1) {
                     pawn = new Pawn(Pawn.WHITE_COLOR, Pawn.WHITE_REPRESENTATION);
@@ -57,9 +58,9 @@ public class Board {
 
     public String print() {
         StringBuilder sb = new StringBuilder();
-        for (int row = 0; row < 8; row++) {
-            for (int col = 0; col < 8; col++) {
-                Pawn pawn = board.get(row * 8 + col);
+        for (int row = 0; row < SIZE; row++) {
+            for (int col = 0; col < SIZE; col++) {
+                Pawn pawn = board.get(row * SIZE + col);
                 char representation = pawn == null ? EMPTY_SQUARE : pawn.getRepresentation();
                 sb.append(representation);
             }
