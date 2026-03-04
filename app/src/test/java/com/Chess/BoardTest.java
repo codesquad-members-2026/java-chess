@@ -20,5 +20,14 @@ public class BoardTest {
         verifyBoard(newBoard, Pawn.BLACK_COLOR, 1);
     }
 
+    @DisplayName("Make sure pawns are in correct lines")
+    @Test
+    public void initialize() throws Exception{
+        Board newBoard = new Board();
+        newBoard.initialize();
+        assertThat(newBoard.getWhitePawnsResult()).isEqualTo("PPPPPPPP");
+        assertThat(newBoard.getBlackPawnsResult()).isEqualTo("pppppppp");
+    }
+
 
 }
