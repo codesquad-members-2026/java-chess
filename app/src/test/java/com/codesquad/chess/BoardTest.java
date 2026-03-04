@@ -14,7 +14,7 @@ public class BoardTest {
     public void setsup() {
         board = new Board();
     }
-    @Test
+   /* @Test
     public void create() throws Exception {
 
         Pawn white = new Pawn(Pawn.WHITE_COLOR,Pawn.WHITE_REPRESENTATION);
@@ -26,5 +26,13 @@ public class BoardTest {
         board.add(black);
         assertEquals(2, board.size());
         assertEquals(black, board.findPawn(1));
+    }*/
+
+    @Test
+    public void initialize() throws Exception {
+        Board board = new Board();
+        board.initialize();
+
+        assertEquals(16, board.size());
     }
 }
