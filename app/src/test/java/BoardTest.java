@@ -22,11 +22,11 @@ public class BoardTest {
         assertEquals(32, board.pieceCount());
         String blankRank = appendNewLine("........");
         assertEquals(
-                appendNewLine("♖♘♗♕♔♗♘♖") +
-                        appendNewLine("♙♙♙♙♙♙♙♙") +
-                        blankRank + blankRank + blankRank + blankRank +
+                appendNewLine("♜♞♝♛♚♝♞♜") +
                         appendNewLine("♟♟♟♟♟♟♟♟") +
-                        appendNewLine("♜♞♝♛♚♝♞♜"),
+                        blankRank + blankRank + blankRank + blankRank +
+                        appendNewLine("♙♙♙♙♙♙♙♙") +
+                        appendNewLine("♖♘♗♕♔♗♘♖"),
                 board.showBoard());
     }
 
