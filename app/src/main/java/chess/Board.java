@@ -5,6 +5,8 @@ import java.util.List;
 
 import chess.pieces.Pawn;
 
+import static utils.StringUtils.appendNewLine;
+
 public class Board {
     private static final char EMPTY_SQUARE = '.';
     private static final int SIZE = 8;
@@ -59,12 +61,13 @@ public class Board {
     public String print() {
         StringBuilder sb = new StringBuilder();
         for (int row = 0; row < SIZE; row++) {
+            StringBuilder rowSb = new StringBuilder();
             for (int col = 0; col < SIZE; col++) {
                 Pawn pawn = board.get(row * SIZE + col);
                 char representation = pawn == null ? EMPTY_SQUARE : pawn.getRepresentation();
-                sb.append(representation);
+                rowSb.append(representation);
             }
-            sb.append('\n');
+            sb.append(appendNewLine(rowSb.toString()));
         }
         sb.deleteCharAt(sb.length() - 1);
         return sb.toString();
