@@ -1,21 +1,31 @@
 package com.codesquad.chess;
 
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Test;
-
-import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
+import org.junit.jupiter.api.*;
+import static org.assertj.core.api.Assertions.*;
 
 public class PawnTest {
 
     @Test
-    @DisplayName("폰 생성 및 색깔 일치 체크")
-    public void createWhitePawn(){
-        verifyPawn("black");
-        verifyPawn("white");
+    @DisplayName("흰색과 검은색 폰이 올바르게 생성되어야 한다")
+    public void create() {
+
+        String white = "white";
+        String black = "black";
+
+        verifyPawn(white);
+        verifyPawn(black);
     }
 
-    private void verifyPawn(final String color){
+    private void verifyPawn(String color) {
         Pawn pawn = new Pawn(color);
         assertThat(pawn.getColor()).isEqualTo(color);
     }
+
+    @Test
+    @DisplayName("매개변수 없이 생성하면 흰색 폰이 생성되어야 한다")
+    public void create_default() {
+        Pawn pawn = new Pawn();
+        assertThat(pawn.getColor()).isEqualTo("white");
+    }
+
 }
