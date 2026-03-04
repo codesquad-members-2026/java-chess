@@ -1,77 +1,139 @@
 package com.Chess;
 import com.pieces.*;
+import static com.utils.StringUtils.appendNewLine;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class Board {
-    private int size;
-    private final List<Pawn> pawnList = new ArrayList<>();
-    private final List<Pawn> whitePawnList = new ArrayList<>();
-    private final List<Pawn> blackPawnList = new ArrayList<>();
-    private final char[][] gameBoard = new char[8][8];
 
-    public void add(Pawn piece){
-        this.pawnList.add(piece);
-        this.size ++;
+    private final List<Piece> pieceList = new ArrayList<>();
+    private final List<Piece> whitePieceList = new ArrayList<>();
+    private final List<Piece> blackPieceList = new ArrayList<>();
+    private final String[] gameBoard = new String[8];
+    private int pieceCount = 0;
+
+    public void add(Piece piece, String color){
+        if(color.equalsIgnoreCase("white")){
+            this.whitePieceList.add(piece);
+        }
+        else{
+            this.blackPieceList.add(piece);
+        }
+        this.pieceList.add(piece);
+        pieceCount ++;
     }
 
-    public int size(){
-        return this.size;
-    }
+    private void addInitialPieces(){
 
-    public Pawn findPawn(int index){
-        return this.pawnList.get(index);
     }
 
     public void initialize(){
+        for(int i =0; i<this.gameBoard.length; i++){
+            switch (i){
+                case 0 ->{
+                    Piece tmp;
+                    String row ="";
+                    String color = "white";
 
-        for(int i =0; i< this.gameBoard.length; i++){
-            for(int j=0; j<this.gameBoard[0].length; j++){
-                switch(i){
-                    case 1 -> {
-                        this.gameBoard[i][j] = Pawn.WHITE_REPRESENTATION;
-                        Pawn tmp = new Pawn();
-                        this.whitePawnList.add(tmp);
-                        this.pawnList.add(tmp);
+                    tmp = Piece.createWhiteRook();
+                    this.add(tmp,color);
+                    row += tmp.getRepresentation();
+                    tmp = Piece.createWhiteKnight();
+                    this.add(tmp,color);
+                    row += tmp.getRepresentation();
+                    tmp = Piece.createWhiteBishop();
+                    this.add(tmp,color);
+                    row += tmp.getRepresentation();
+                    tmp = Piece.createWhiteQueen();
+                    this.add(tmp,color);
+                    row += tmp.getRepresentation();
+                    tmp = Piece.createWhiteKing();
+                    this.add(tmp,color);
+                    row += tmp.getRepresentation();
+                    tmp = Piece.createWhiteBishop();
+                    this.add(tmp,color);
+                    row += tmp.getRepresentation();
+                    tmp = Piece.createWhiteKnight();
+                    this.add(tmp,color);
+                    row += tmp.getRepresentation();
+                    tmp = Piece.createWhiteRook();
+                    this.add(tmp,color);
+                    row += tmp.getRepresentation();
+                    row = appendNewLine(row);
+                    this.gameBoard[i] = row;
+                }
+                case 1 -> {
+                    String row ="";
+                    String color = "white";
+                    for(int j =0; j < this.gameBoard.length; j++){
+                        Piece tmp = Piece.createWhitePawn();
+                        this.add(tmp,color);
+                        row += tmp.getRepresentation();
                     }
-                    case 6 -> {
-                            this.gameBoard[i][j] = Pawn.BLACK_REPRESENTATION;
-                            Pawn tmp = new Pawn("black",Pawn.BLACK_REPRESENTATION);
-                            this.blackPawnList.add(tmp);
-                            this.pawnList.add(tmp);
+                    row = appendNewLine(row);
+                    this.gameBoard[i] = row;
+                }
+                case 6 -> {
+                    String row ="";
+                    String color ="black";
+                    for(int j =0; j < this.gameBoard.length; j++){
+                        Piece tmp = Piece.createBlackPawn();
+                        this.add(tmp,color);
+                        row += tmp.getRepresentation();
                     }
-                    default -> this.gameBoard[i][j] = '.';
+                    row = appendNewLine(row);
+                    this.gameBoard[i] = row;
+                }
+                case 7 ->{
+                    {
+                        Piece tmp;
+                        String row ="";
+                        String color = "black";
+                        tmp = Piece.createBlackRook();
+                        this.add(tmp,color);
+                        row += tmp.getRepresentation();
+                        tmp = Piece.createBlackKnight();
+                        this.add(tmp,color);
+                        row += tmp.getRepresentation();
+                        tmp = Piece.createBlackBishop();
+                        this.add(tmp,color);
+                        row += tmp.getRepresentation();
+                        tmp = Piece.createBlackQueen();
+                        this.add(tmp,color);
+                        row += tmp.getRepresentation();
+                        tmp = Piece.createBlackKing();
+                        this.add(tmp,color);
+                        row += tmp.getRepresentation();
+                        tmp = Piece.createBlackBishop();
+                        this.add(tmp,color);
+                        row += tmp.getRepresentation();
+                        tmp = Piece.createBlackKnight();
+                        this.add(tmp,color);
+                        row += tmp.getRepresentation();
+                        tmp = Piece.createBlackRook();
+                        this.add(tmp,color);
+                        row += tmp.getRepresentation();
+                        row = appendNewLine(row);
+                        this.gameBoard[i] = row;
+                    }
+                }
+                default -> {
+                    this.gameBoard[i] = "........";
                 }
             }
         }
 
     }
 
-    public String getWhitePawnsResult(){
-        StringBuilder sb = new StringBuilder();
-        for(Pawn p : this.whitePawnList){
-            sb.append(p.getRepresentation());
-        }
-        return sb.toString();
+    public int pieceCount(){
+        return this.pieceCount;
     }
 
-    public String getBlackPawnsResult(){
+    public String showBoard(){
         StringBuilder sb = new StringBuilder();
-        for(Pawn p : this.blackPawnList){
-            sb.append(p.getRepresentation());
-        }
-        return sb.toString();
-    }
-
-    public String print(){
-        StringBuilder sb = new StringBuilder();
-
         for(int i =0; i < this.gameBoard.length; i++){
-            for(char c : this.gameBoard[i]){
-                sb.append(c);
-            }
-            sb.append('\n');
+            sb.append(appendNewLine(this.gameBoard[i]));
         }
         return sb.toString();
     }
