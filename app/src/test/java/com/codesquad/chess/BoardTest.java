@@ -1,5 +1,6 @@
 package com.codesquad.chess;
 
+import com.codesquad.chess.piece.Pawn;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 

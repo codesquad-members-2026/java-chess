@@ -1,4 +1,4 @@
-package com.codesquad.chess;
+package com.codesquad.chess.piece;
 
 public class Pawn {
     private final String color;

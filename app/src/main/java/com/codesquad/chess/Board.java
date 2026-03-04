@@ -1,5 +1,7 @@
 package com.codesquad.chess;
 
+import com.codesquad.chess.piece.Pawn;
+
 import java.util.ArrayList;
 
 public class Board {
