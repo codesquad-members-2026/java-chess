@@ -3,20 +3,33 @@ package com.codesquad.chess;
 import pieces.Pawn;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class Board {
 
-    ArrayList<Pawn> pawns = new ArrayList<>();
+    private List<Pawn> WhitePawns = new ArrayList<>();
+    private List<Pawn> BlackPawns = new ArrayList<>();
 
-    public void add(Pawn pawn) {
-        pawns.add(pawn);
+    public void addWhite(Pawn pawn) {
+        WhitePawns.add(pawn);
+    }
+
+    public void addBlack(Pawn pawn) {
+        BlackPawns.add(pawn);
     }
 
     public int size() {
-        return pawns.size();
+        return WhitePawns.size() + BlackPawns.size();
     }
 
     public Pawn findPawn(int index) {
-        return pawns.get(index);
+        return WhitePawns.get(index);
+    }
+
+    public void initialize() {
+        for(int i = 0; i < 8; i++) {
+            addWhite(new Pawn(Pawn.WHITE_COLOR, Pawn.WHITE_REPRESENTATION));
+            addBlack(new Pawn(Pawn.BLACK_COLOR, Pawn.BLACK_REPRESENTATION));
+        }
     }
 }
