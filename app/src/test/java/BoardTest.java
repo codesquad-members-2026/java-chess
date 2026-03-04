@@ -33,4 +33,12 @@ public class BoardTest {
     public void addNonPawn() {
         //board.add(Integer.valueOf(7)); 컴파일 에러
     }
+
+    @Test
+    public void initialize() throws Exception {
+        Board board = new Board();
+        board.initialize();
+        assertEquals("♙♙♙♙♙♙♙♙", board.getWhitePawnsResult());
+        assertEquals("♟♟♟♟♟♟♟♟", board.getBlackPawnsResult());
+    }
 }
