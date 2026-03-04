@@ -1,5 +1,7 @@
 plugins {
     id 'java'
+    // 1. application 플러그인을 추가하여 실행 구조를 표준화합니다.
+    id 'application'
 }
 
 group = 'org.example'
@@ -9,14 +11,18 @@ repositories {
     mavenCentral()
 }
 
+// 2. 메인 클래스를 명시적으로 지정합니다.
+application {
+    mainClass = 'com.codesquad.chess.Main'
+}
+
 dependencies {
-    // JUnit 4 사용
     testImplementation 'junit:junit:4.13.2'
     testImplementation 'org.assertj:assertj-core:3.25.3'
 }
 
 test {
-    
+    // JUnit 4를 사용하기 위해 플랫폼 사용을 중단합니다.
     // useJUnitPlatform()
 }
 
@@ -28,18 +34,21 @@ tasks.withType(Test) {
     systemProperty "file.encoding", "UTF-8"
 }
 
-// build.gradle 하단에 추가
 java {
     toolchain {
         languageVersion = JavaLanguageVersion.of(21)
     }
 }
 
-// 'run' 태스크를 직접 정의하여 실행 오류를 우회합니다.
+// 3. 기존의 runGame 태스크도 유지하되, 입력을 받을 수 있도록 보강합니다.
+tasks.named('run', JavaExec) {
+    standardInput = System.in
+}
+
 tasks.register('runGame', JavaExec) {
     group = 'application'
     description = '체스 게임 실행'
-    mainClass = 'com.codesquad.chess.main' // 메인 클래스 경로 확인!
+    mainClass = 'com.codesquad.chess.Main'
     classpath = sourceSets.main.runtimeClasspath
-    standardInput = System.in // 이 줄이 있어야 콘솔에서 'start' 입력을 받을 수 있습니다.
+    standardInput = System.in
 }

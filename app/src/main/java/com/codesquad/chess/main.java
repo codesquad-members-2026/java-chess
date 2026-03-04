@@ -8,7 +8,7 @@ public class main {
         Scanner sc = new Scanner(System.in);
         Board board = new Board();
 
-        System.out.println("게임을 시작할려면 start, 게임을 종료할려면 end를 입력하시오");
+        System.out.println("Chess Game Start: [start] / Exit: [end]");
 
         while (true) {
             System.out.print("> ");
@@ -21,11 +21,11 @@ public class main {
             }
 
             if (command.equals("end")) {
-                System.out.println("게임을 종료합니다.");
+                System.out.println("End Game.");
                 break;
             }
 
-            System.out.println("알 수 없는 명령어입니다. start 또는 end를 입력하세요.");
+            System.out.println("Error.");
         }
 
         sc.close();
