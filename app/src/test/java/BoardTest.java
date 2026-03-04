@@ -17,9 +17,9 @@ public class BoardTest {
 
     @Test
     public void create() throws Exception {
-        verifyAddPawn(new Pawn(Pawn.WHITE_COLOR), 1);
-        verifyAddPawn(new Pawn(Pawn.BLACK_COLOR), 2);
-        verifyAddPawn(new Pawn(Pawn.WHITE_COLOR), 3);
+        verifyAddPawn(new Pawn(Pawn.WHITE_COLOR, Pawn.WHITE_REPRESENTATION), 1);
+        verifyAddPawn(new Pawn(Pawn.BLACK_COLOR, Pawn.BLACK_REPRESENTATION), 2);
+        verifyAddPawn(new Pawn(Pawn.WHITE_COLOR, Pawn.WHITE_REPRESENTATION), 3);
     }
 
     private void verifyAddPawn(Pawn pawn, int boardSize) {
