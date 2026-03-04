@@ -22,7 +22,7 @@ public class Board {
                     pawn = new Pawn(Pawn.BLACK_COLOR, Pawn.BLACK_REPRESENTATION);
                     blackPawns.add(pawn);
                 }
-                board.add(pawn);
+                add(pawn);
             }
         }
     }
@@ -53,5 +53,19 @@ public class Board {
 
     public String getBlackPawnsResult() {
         return getPawnsResult(blackPawns);
+    }
+
+    public String print() {
+        StringBuilder sb = new StringBuilder();
+        for (int row = 0; row < 8; row++) {
+            for (int col = 0; col < 8; col++) {
+                Pawn pawn = board.get(row * 8 + col);
+                char representation = pawn == null ? EMPTY_SQUARE : pawn.getRepresentation();
+                sb.append(representation);
+            }
+            sb.append('\n');
+        }
+        sb.deleteCharAt(sb.length() - 1);
+        return sb.toString();
     }
 }
