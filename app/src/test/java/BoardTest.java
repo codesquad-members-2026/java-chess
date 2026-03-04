@@ -1,4 +1,5 @@
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static utils.StringUtils.appendNewLine;
 
 import chess.Board;
 import org.junit.jupiter.api.BeforeEach;
@@ -18,43 +19,20 @@ public class BoardTest {
 
     @Test
     public void create() throws Exception {
-        int size = board.size();
-        verifyAddPawn(Piece.createWhitePawn(), size + 1);
-        verifyAddPawn(Piece.createBlackPawn(), size + 2);
-        verifyAddPawn(Piece.createWhitePawn(), size + 3);
-    }
-
-    private void verifyAddPawn(Piece pawn, int boardSize) {
-        board.add(pawn);
-        assertEquals(boardSize, board.size());
-        assertEquals(pawn, board.findPawn(boardSize - 1));
+        assertEquals(32, board.pieceCount());
+        String blankRank = appendNewLine("........");
+        assertEquals(
+                appendNewLine("♖♘♗♕♔♗♘♖") +
+                        appendNewLine("♙♙♙♙♙♙♙♙") +
+                        blankRank + blankRank + blankRank + blankRank +
+                        appendNewLine("♟♟♟♟♟♟♟♟") +
+                        appendNewLine("♜♞♝♛♚♝♞♜"),
+                board.showBoard());
     }
 
     @Test
     @DisplayName("체스판에 폰 이외의 객체 추가")
     public void addNonPawn() {
         //board.add(Integer.valueOf(7)); 컴파일 에러
-    }
-
-    @Test
-    public void initialize() throws Exception {
-        assertEquals("♙♙♙♙♙♙♙♙", board.getWhitePawnsResult());
-        assertEquals("♟♟♟♟♟♟♟♟", board.getBlackPawnsResult());
-    }
-
-    @Test
-    public void print() {
-        String expected = """
-                ........
-                ♙♙♙♙♙♙♙♙
-                ........
-                ........
-                ........
-                ........
-                ♟♟♟♟♟♟♟♟
-                ........""";
-        String actual = board.print();
-        assertEquals(expected, actual);
-        System.out.println(actual);
     }
 }

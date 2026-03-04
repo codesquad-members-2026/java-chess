@@ -17,7 +17,6 @@ public class Game {
                 case START_COMMAND ->{
                     board = new Board();
                     board.initialize();
-                    System.out.println(board.print());
                 }
                 case QUIT_COMMAND -> {
                     return;
