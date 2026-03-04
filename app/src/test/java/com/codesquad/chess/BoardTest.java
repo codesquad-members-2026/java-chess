@@ -22,5 +22,8 @@ public class BoardTest {
         board.add(black);
         assertEquals(2, board.size());
         assertEquals(black, board.findPawn(1));
+
+        // Pawn 이외의 다른 객체 추가시 오류 발생
+        // board.add(new Integer(7));
     }
 }
