@@ -1,108 +1,121 @@
 package chess.pieces;
 
+import static chess.pieces.Piece.Color.*;
+import static chess.pieces.Piece.Type.*;
+
 public class Piece {
-    public static final String PAWN = "pawn";
-    public static final String KNIGHT = "knight";
-    public static final String BISHOP = "bishop";
-    public static final String ROOK = "rook";
-    public static final String QUEEN = "queen";
-    public static final String KING = "king";
+    public enum Color {
+        WHITE, BLACK, NOCOLOR;
+    }
 
-    public static final String WHITE_COLOR = "white";
-    public static final String BLACK_COLOR = "black";
+    public enum Type {
+        PAWN('♙'),
+        ROOK('♖'),
+        KNIGHT('♘'),
+        BISHOP('♗'),
+        QUEEN('♕'),
+        KING('♔'),
+        NO_PIECE('.');
 
-    public static final char WHITE_PAWN_REPRESENTATION = '♙';
-    public static final char BLACK_PAWN_REPRESENTATION = '♟';
+        private static final int BLACK_OFFSET = '♟' - '♙';;
+        private char representation;
 
-    public static final char WHITE_ROOK_REPRESENTATION = '♖';
-    public static final char BLACK_ROOK_REPRESENTATION = '♜';
+        Type(char representation) {
+            this.representation = representation;
+        }
 
-    public static final char WHITE_KNIGHT_REPRESENTATION = '♘';
-    public static final char BLACK_KNIGHT_REPRESENTATION = '♞';
+        char getWhiteRepresentation() {
+            return representation;
+        }
 
-    public static final char WHITE_BISHOP_REPRESENTATION = '♗';
-    public static final char BLACK_BISHOP_REPRESENTATION = '♝';
+        char getBlackRepresentation() {
+            return (char) (representation + BLACK_OFFSET);
+        }
+    }
 
-    public static final char WHITE_QUEEN_REPRESENTATION = '♕';
-    public static final char BLACK_QUEEN_REPRESENTATION = '♛';
-
-    public static final char WHITE_KING_REPRESENTATION = '♔';
-    public static final char BLACK_KING_REPRESENTATION = '♚';
-
-    private final String color;
-    private final String name;
-    private final char representation;
+    private final Color color;
+    private final Type type;
 
 
-    private Piece(String color, String name, char representation) {
+    private Piece(Color color, Type type) {
         this.color = color;
-        this.name = name;
-        this.representation = representation;
-
+        this.type = type;
     }
 
     public static Piece createWhitePawn() {
-        return new Piece(WHITE_COLOR, PAWN, WHITE_PAWN_REPRESENTATION);
+        return new Piece(WHITE, Type.PAWN);
     }
 
     public static Piece createBlackPawn() {
-        return new Piece(BLACK_COLOR, PAWN, BLACK_PAWN_REPRESENTATION);
+        return new Piece(BLACK, PAWN);
     }
 
     public static Piece createWhiteKnight() {
-        return new Piece(WHITE_COLOR, KNIGHT, WHITE_KNIGHT_REPRESENTATION);
+        return new Piece(WHITE, KNIGHT);
     }
 
     public static Piece createBlackKnight() {
-        return new Piece(BLACK_COLOR, KNIGHT, BLACK_KNIGHT_REPRESENTATION);
+        return new Piece(BLACK, KNIGHT);
     }
 
     public static Piece createWhiteRook() {
-        return new Piece(WHITE_COLOR, ROOK, WHITE_ROOK_REPRESENTATION);
+        return new Piece(WHITE, ROOK);
     }
 
     public static Piece createBlackRook() {
-        return new Piece(BLACK_COLOR, ROOK, BLACK_ROOK_REPRESENTATION);
+        return new Piece(BLACK, ROOK);
 
     }
 
     public static Piece createWhiteBishop() {
-        return new Piece(WHITE_COLOR, BISHOP, WHITE_BISHOP_REPRESENTATION);
+        return new Piece(WHITE, BISHOP);
 
     }
 
     public static Piece createBlackBishop() {
-        return new Piece(BLACK_COLOR, BISHOP, BLACK_BISHOP_REPRESENTATION);
+        return new Piece(BLACK, BISHOP);
     }
 
     public static Piece createWhiteQueen() {
-        return new Piece(WHITE_COLOR, QUEEN, WHITE_QUEEN_REPRESENTATION);
+        return new Piece(WHITE, QUEEN);
     }
 
     public static Piece createBlackQueen() {
-        return new Piece(BLACK_COLOR, QUEEN, BLACK_QUEEN_REPRESENTATION);
+        return new Piece(BLACK, QUEEN);
     }
 
     public static Piece createWhiteKing() {
-        return new Piece(WHITE_COLOR, KING, WHITE_KING_REPRESENTATION);
+        return new Piece(WHITE, KING);
     }
 
     public static Piece createBlackKing() {
-        return new Piece(BLACK_COLOR, KING, BLACK_KING_REPRESENTATION);
+        return new Piece(BLACK, KING);
     }
 
-    public String getColor() {
+    public static Piece createBlank() {
+        return new Piece(NOCOLOR, NO_PIECE);
+    }
+
+    public Color getColor() {
         return color;
     }
 
+    public Type getType() {
+        return type;
+    }
+
     public char getRepresentation() {
-        return representation;
+        if (color == BLACK) {
+            return type.getBlackRepresentation();
+        } else {
+            return type.getWhiteRepresentation();
+        }
     }
 
     public boolean isBlack() {
-        return color == BLACK_COLOR;
+        return color == Color.BLACK;
     }
     public boolean isWhite() {
-        return color == WHITE_COLOR;
+        return color == WHITE;
     }
 }
