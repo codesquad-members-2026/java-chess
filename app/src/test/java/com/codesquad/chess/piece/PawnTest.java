@@ -10,7 +10,7 @@ public class PawnTest {
 
     @Test
     @DisplayName("색이 없는 Pawn 생성자 테스트")
-    public void create_기본생성자() throws Exception{
+    public void create_기본생성자() {
         Pawn pawn = new Pawn();
         assertEquals(Pawn.WHITE_COLOR, pawn.getColor());
         assertEquals(Pawn.WHITE_REPRESENTATION, pawn.getRepresentation());
