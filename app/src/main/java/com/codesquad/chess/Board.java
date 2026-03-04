@@ -7,8 +7,6 @@ import java.util.List;
 
 public class Board {
     private List<Pawn> pawns;
-    private List<Pawn> whitePawnsResult;
-    private List<Pawn> blackPawnsResult;
 
     public static final int PAWN_NUM = 8;
     public static final int BOARD_LENGTH = 8;
@@ -18,8 +16,6 @@ public class Board {
 
     public Board(){
         pawns = new ArrayList<>();
-        whitePawnsResult = new ArrayList<>();
-        blackPawnsResult = new ArrayList<>();
     }
 
     public void add(Pawn pawn){
@@ -36,8 +32,8 @@ public class Board {
 
     public void initialize(){
         for(int i = 0; i < PAWN_NUM; i++){
-            whitePawnsResult.add(new Pawn(Pawn.WHITE_COLOR));
-            blackPawnsResult.add(new Pawn(Pawn.BLACK_COLOR));
+            pawns.add(new Pawn(Pawn.WHITE_COLOR));
+            pawns.add(new Pawn(Pawn.BLACK_COLOR));
         }
     }
 
@@ -63,8 +59,10 @@ public class Board {
     public String getWhitePawnsResult(){
         StringBuilder result = new StringBuilder();
 
-        for(Pawn p : whitePawnsResult){
-            result.append(p.getRepresentation());
+        for(Pawn p : pawns){
+            if(p.getColor().equals(Pawn.WHITE_COLOR)){
+                result.append(p.getRepresentation());
+            }
         }
 
         return result.toString();
@@ -73,8 +71,10 @@ public class Board {
     public String getBlackPawnsResult(){
         StringBuilder result = new StringBuilder();
 
-        for(Pawn p : blackPawnsResult){
-            result.append(p.getRepresentation());
+        for(Pawn p : pawns){
+            if(p.getColor().equals(Pawn.BLACK_COLOR)){
+                result.append(p.getRepresentation());
+            }
         }
 
         return result.toString();

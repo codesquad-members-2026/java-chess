@@ -9,7 +9,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 public class PawnTest {
 
     @Test
-    @DisplayName("색이 없는 Pawn 생성")
+    @DisplayName("색이 없는 Pawn 생성자 테스트")
     public void create_기본생성자() throws Exception{
         Pawn pawn = new Pawn();
         assertEquals(Pawn.WHITE_COLOR, pawn.getColor());
@@ -17,7 +17,7 @@ public class PawnTest {
     }
 
     @Test
-    @DisplayName("폰 생성 및 색깔 일치 체크")
+    @DisplayName("색만 있는 Pawn/색과 상징 모두 있는 Pawn 생성자 테스트")
     public void create_매개변수가있는생성자(){
         // 매개변수가 color만 있는 경우
         verifyPawn(Pawn.WHITE_COLOR);
