@@ -10,13 +10,14 @@ repositories {
 }
 
 dependencies {
-    testImplementation platform('org.junit:junit-bom:5.10.0')
-    testImplementation 'org.junit.jupiter:junit-jupiter'
+    // JUnit 4 사용
+    testImplementation 'junit:junit:4.13.2'
     testImplementation 'org.assertj:assertj-core:3.25.3'
 }
 
 test {
-    useJUnitPlatform()
+    
+    // useJUnitPlatform()
 }
 
 tasks.withType(JavaCompile) {
