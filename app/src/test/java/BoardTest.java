@@ -5,7 +5,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-import chess.pieces.Pawn;
+import chess.pieces.Piece;
 
 public class BoardTest {
     private Board board;
@@ -19,12 +19,12 @@ public class BoardTest {
     @Test
     public void create() throws Exception {
         int size = board.size();
-        verifyAddPawn(new Pawn(Pawn.WHITE_COLOR, Pawn.WHITE_REPRESENTATION), size + 1);
-        verifyAddPawn(new Pawn(Pawn.BLACK_COLOR, Pawn.BLACK_REPRESENTATION), size + 2);
-        verifyAddPawn(new Pawn(Pawn.WHITE_COLOR, Pawn.WHITE_REPRESENTATION), size + 3);
+        verifyAddPawn(Piece.createWhitePawn(), size + 1);
+        verifyAddPawn(Piece.createBlackPawn(), size + 2);
+        verifyAddPawn(Piece.createWhitePawn(), size + 3);
     }
 
-    private void verifyAddPawn(Pawn pawn, int boardSize) {
+    private void verifyAddPawn(Piece pawn, int boardSize) {
         board.add(pawn);
         assertEquals(boardSize, board.size());
         assertEquals(pawn, board.findPawn(boardSize - 1));
