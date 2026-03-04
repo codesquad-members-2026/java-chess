@@ -5,6 +5,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
+import static com.codesquad.chess.Board.BOARD_LENGTH;
 import static com.codesquad.chess.Board.PAWN_NUM;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -43,12 +44,17 @@ public class BoardTest {
         StringBuilder whiteReps = new StringBuilder();
         StringBuilder blackReps = new StringBuilder();
 
-        for(int i = 0; i < PAWN_NUM; i++){
-            whiteReps.append(Pawn.WHITE_REPRESENTATION);
-            blackReps.append(Pawn.BLACK_REPRESENTATION);
-        }
+        whiteReps.append(Pawn.WHITE_REPRESENTATION.repeat(BOARD_LENGTH));
+        blackReps.append(Pawn.BLACK_REPRESENTATION.repeat(BOARD_LENGTH));
 
         assertEquals(whiteReps.toString(), board.getWhitePawnsResult());
         assertEquals(blackReps.toString(), board.getBlackPawnsResult());
+    }
+
+    @Test
+    @DisplayName("추가된 각 색의 폰들을 콘솔에 출력")
+    public void print() {
+        board.initialize();
+        System.out.println(board.print());
     }
 }

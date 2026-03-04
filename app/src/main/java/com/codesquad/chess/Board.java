@@ -11,6 +11,10 @@ public class Board {
     private List<Pawn> blackPawnsResult;
 
     public static final int PAWN_NUM = 8;
+    public static final int BOARD_LENGTH = 8;
+    public static final int BLACK_PAWN_ROW = 1;
+    public static final int WHITE_PAWN_ROW = 6;
+    public static final String EMPTY_SPACE = "\u00B7";
 
     public Board(){
         pawns = new ArrayList<>();
@@ -37,8 +41,23 @@ public class Board {
         }
     }
 
-    public void print(){
+    public String print(){
+        StringBuilder result = new StringBuilder();
 
+        for(int i = 0; i < BOARD_LENGTH; i++){
+            if(i == WHITE_PAWN_ROW){
+                result.append((Pawn.WHITE_REPRESENTATION + " ").repeat(BOARD_LENGTH));
+            }
+            else if(i == BLACK_PAWN_ROW) {
+                result.append((Pawn.BLACK_REPRESENTATION + " ").repeat(BOARD_LENGTH));
+            } else{
+                result.append((EMPTY_SPACE + "  ").repeat(BOARD_LENGTH));
+            }
+
+            result.append("\n");
+        }
+
+        return result.toString();
     }
 
     public String getWhitePawnsResult(){

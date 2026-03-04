@@ -6,8 +6,8 @@ public class Pawn {
 
     public static final String WHITE_COLOR = "white";
     public static final String BLACK_COLOR = "black";
-    public static final String WHITE_REPRESENTATION = "U+2659";
-    public static final String BLACK_REPRESENTATION = "U+265F";
+    public static final String WHITE_REPRESENTATION = "\u2659";
+    public static final String BLACK_REPRESENTATION = "\u265F";
 
     public Pawn(){
         this.color = WHITE_COLOR;
