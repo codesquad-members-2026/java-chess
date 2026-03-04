@@ -19,15 +19,18 @@ public class PawnTest {
     @Test
     @DisplayName("폰 생성 및 색깔 일치 체크")
     public void create_매개변수가있는생성자(){
+        // 매개변수가 color만 있는 경우
         verifyPawn(Pawn.WHITE_COLOR);
         verifyPawn(Pawn.BLACK_COLOR);
+
+        // 매개변수가 color, rep인 경우
         verifyPawn(Pawn.WHITE_COLOR, Pawn.WHITE_REPRESENTATION);
         verifyPawn(Pawn.BLACK_COLOR, Pawn.BLACK_REPRESENTATION);
     }
 
     private void verifyPawn(final String color){
         Pawn pawn = new Pawn(color);
-        String rep = color.equals("white") ? Pawn.WHITE_REPRESENTATION : Pawn.BLACK_REPRESENTATION;
+        String rep = color.equals(Pawn.WHITE_COLOR) ? Pawn.WHITE_REPRESENTATION : Pawn.BLACK_REPRESENTATION;
         assertThat(pawn.getColor()).isEqualTo(color);
         assertThat(pawn.getRepresentation()).isEqualTo(rep);
     }
