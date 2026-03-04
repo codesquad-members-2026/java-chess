@@ -5,6 +5,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
+import static com.codesquad.chess.Board.PAWN_NUM;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class BoardTest {
@@ -32,5 +33,22 @@ public class BoardTest {
         board.add(pawn);
         assertEquals(expectedSize, board.size());
         assertEquals(pawn, board.findPawn(expectedIndex));
+    }
+
+    @Test
+    @DisplayName("보드판에 흰/검정색 Pawn 각 8개씩 추가")
+    public void initialize() throws Exception {
+        board.initialize();
+
+        StringBuilder whiteReps = new StringBuilder();
+        StringBuilder blackReps = new StringBuilder();
+
+        for(int i = 0; i < PAWN_NUM; i++){
+            whiteReps.append(Pawn.WHITE_REPRESENTATION);
+            blackReps.append(Pawn.BLACK_REPRESENTATION);
+        }
+
+        assertEquals(whiteReps.toString(), board.getWhitePawnsResult());
+        assertEquals(blackReps.toString(), board.getBlackPawnsResult());
     }
 }
