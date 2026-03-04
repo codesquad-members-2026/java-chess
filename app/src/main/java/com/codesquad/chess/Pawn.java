@@ -1,10 +1,12 @@
 package com.codesquad.chess;
 
+import static com.codesquad.chess.ChessConstant.*;
+
 public class Pawn {
-    private String color;
+    private final String color;
 
     public Pawn(){
-        this.color = "white";
+        this.color = WHITE;
     }
 
     public Pawn(String color){
