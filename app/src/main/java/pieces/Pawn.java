@@ -1,4 +1,4 @@
-package com.codesquad.chess;
+package pieces;
 
 public class Pawn {
     // 요구사항: 흰색("white")과 검은색("black")을 상수로 정의
