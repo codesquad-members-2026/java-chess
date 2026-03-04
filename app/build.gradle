@@ -1,6 +1,5 @@
 plugins {
     id 'java'
-    // 1. application 플러그인을 추가하여 실행 구조를 표준화합니다.
     id 'application'
 }
 
@@ -11,20 +10,26 @@ repositories {
     mavenCentral()
 }
 
-// 2. 메인 클래스를 명시적으로 지정합니다.
 application {
     mainClass = 'com.codesquad.chess.Main'
 }
 
 dependencies {
+
     testImplementation 'junit:junit:4.13.2'
     testImplementation 'org.assertj:assertj-core:3.25.3'
 }
 
-test {
-    // JUnit 4를 사용하기 위해 플랫폼 사용을 중단합니다.
-    // useJUnitPlatform()
+
+tasks.withType(JavaExec) {
+    standardInput = System.in
+    jvmArgs("-Dfile.encoding=UTF-8")
 }
+
+test {
+
+}
+
 
 tasks.withType(JavaCompile) {
     options.encoding = 'UTF-8'
@@ -38,11 +43,6 @@ java {
     toolchain {
         languageVersion = JavaLanguageVersion.of(21)
     }
-}
-
-// 3. 기존의 runGame 태스크도 유지하되, 입력을 받을 수 있도록 보강합니다.
-tasks.named('run', JavaExec) {
-    standardInput = System.in
 }
 
 tasks.register('runGame', JavaExec) {
