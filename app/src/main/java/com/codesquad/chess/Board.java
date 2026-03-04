@@ -48,4 +48,20 @@ public class Board {
         }
         return sb.toString();
     }
+
+    public String showBoard() {
+        StringBuilder sb = new StringBuilder();
+        String blankLine = "........";
+
+        sb.append(blankLine).append("\n");
+        sb.append(getBlackPawnsResult()).append("\n");
+        sb.append(blankLine).append("\n");
+        sb.append(blankLine).append("\n");
+        sb.append(blankLine).append("\n");
+        sb.append(blankLine).append("\n");
+        sb.append(getWhitePawnsResult()).append("\n");
+        sb.append(blankLine).append("\n");
+
+        return sb.toString();
+    }
 }
