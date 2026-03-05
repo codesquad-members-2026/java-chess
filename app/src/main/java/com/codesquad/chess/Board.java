@@ -26,6 +26,7 @@ public class Board {
     }
 
     public void initialize(){
+        // 검은색 기물 추가
         pieces.add(Piece.createBlackRook());
         pieces.add(Piece.createBlackKnight());
         pieces.add(Piece.createBlackBishop());
@@ -34,10 +35,10 @@ public class Board {
         pieces.add(Piece.createBlackBishop());
         pieces.add(Piece.createBlackKnight());
         pieces.add(Piece.createBlackRook());
-
         IntStream.range(0, PAWN_NUM).forEach(i -> {pieces.add(Piece.createBlackPawn());});
+        
+        // 하얀색 기물 추가
         IntStream.range(0, PAWN_NUM).forEach(i -> {pieces.add(Piece.createWhitePawn());});
-
         pieces.add(Piece.createWhiteRook());
         pieces.add(Piece.createWhiteKnight());
         pieces.add(Piece.createWhiteBishop());
@@ -55,6 +56,7 @@ public class Board {
         for(int i = 0; i < 4; i++){
             StringBuilder line = new StringBuilder();
 
+            // 기물이 없는 중간 지대 추가
             if(i == 2){
                 int boardHalfLen = BOARD_LENGTH / 2;
                 result.append(blankRank.repeat(boardHalfLen));

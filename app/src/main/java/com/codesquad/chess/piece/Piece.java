@@ -1,5 +1,7 @@
 package com.codesquad.chess.piece;
 
+import java.util.Objects;
+
 import static com.codesquad.chess.ChessConstant.*;
 
 public class Piece {
@@ -77,16 +79,23 @@ public class Piece {
 
     @Override
     public String toString() {
-        return super.toString();
+        return "[기물 종류]: " + getRepresentation() + ", [기물 색깔]: " + getColor();
     }
 
     @Override
     public boolean equals(Object obj) {
-        return super.equals(obj);
+        if(this == obj)
+            return true;
+
+        if(obj == null || obj.getClass() != this.getClass())
+            return false;
+
+        Piece other = (Piece) obj;
+        return this.getColor().equals(other.getColor()) && this.getRepresentation().equals(other.getRepresentation());
     }
 
     @Override
     public int hashCode() {
-        return super.hashCode();
+        return Objects.hash(color, representation);
     }
 }
