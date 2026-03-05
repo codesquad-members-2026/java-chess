@@ -80,4 +80,12 @@ public class Rank {
         }
         return count;
     }
+
+    public Piece get(int file) {
+        return rank.get(file);
+    }
+
+    public void set(Piece piece, int file) {
+        rank.set(file, piece);
+    }
 }

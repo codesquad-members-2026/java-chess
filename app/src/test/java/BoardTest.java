@@ -16,20 +16,21 @@ public class BoardTest {
     @BeforeEach
     public void init() {
         board = new Board();
-        board.initialize();
     }
 
     @Test
     public void create() throws Exception {
+        board.initialize();
+
         assertEquals(32, board.pieceCount());
         String blankRank = appendNewLine("........");
         assertEquals(
-                appendNewLine("♜♞♝♛♚♝♞♜") +
-                        appendNewLine("♟♟♟♟♟♟♟♟") +
-                        blankRank + blankRank + blankRank + blankRank +
+                appendNewLine("♖♘♗♕♔♗♘♖")+
                         appendNewLine("♙♙♙♙♙♙♙♙") +
-                        appendNewLine("♖♘♗♕♔♗♘♖"),
-                board.showBoard());
+                        blankRank + blankRank + blankRank + blankRank +
+                        appendNewLine("♟♟♟♟♟♟♟♟") +
+                        appendNewLine("♜♞♝♛♚♝♞♜") ,
+                        board.showBoard());
     }
 
     @Test
@@ -41,10 +42,35 @@ public class BoardTest {
     @Test
     @DisplayName("기물과 색에 해당하는 기물의 개수를 반환")
     public void count() {
+        board.initialize();
+
         assertEquals(8, board.countPieces(Color.WHITE, Type.PAWN));
         assertEquals(8, board.countPieces(Color.BLACK, Type.PAWN));
         assertEquals(32, board.countPieces(Color.NOCOLOR, Type.NO_PIECE));
         assertEquals(1, board.countPieces(Color.BLACK, Type.KING));
         assertEquals(1, board.countPieces(Color.BLACK, Type.QUEEN));
+    }
+
+    @Test
+    @DisplayName("체스판 좌표로 기물 반환")
+    public void findPiece() throws Exception {
+        board.initialize();
+
+        assertEquals(Piece.createBlackRook(), board.findPiece("a8"));
+        assertEquals(Piece.createBlackRook(), board.findPiece("h8"));
+        assertEquals(Piece.createWhiteRook(), board.findPiece("a1"));
+        assertEquals(Piece.createWhiteRook(), board.findPiece("h1"));
+    }
+
+    @Test
+    public void move() throws Exception {
+        board.initializeEmpty();
+
+        String position = "b5";
+        Piece piece = Piece.createBlackRook();
+        board.move(position, piece);
+
+        assertEquals(piece, board.findPiece(position));
+        System.out.println(board.showBoard());
     }
 }

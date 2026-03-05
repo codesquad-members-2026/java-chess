@@ -3,6 +3,8 @@ package chess.pieces;
 import static chess.pieces.Piece.Color.*;
 import static chess.pieces.Piece.Type.*;
 
+import java.util.Objects;
+
 public class Piece {
     public enum Color {
         WHITE, BLACK, NOCOLOR;
@@ -127,5 +129,19 @@ public class Piece {
 
     public boolean isMatch(Color color, Type type) {
         return this.color == color && this.type == type;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        Piece piece = (Piece) o;
+        return isMatch(piece.color, piece.type);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(color, type);
     }
 }
