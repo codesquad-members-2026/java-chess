@@ -32,8 +32,8 @@ public class Board {
 
     public void initialize(){
         for(int i = 0; i < PAWN_NUM; i++){
-            pieces.add(new Piece(PAWN));
-            pieces.add(new Piece(PAWN));
+            pieces.add(Piece.createWhitePawn());
+            pieces.add(Piece.createBlackPawn());
         }
     }
 

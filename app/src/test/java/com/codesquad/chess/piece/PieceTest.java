@@ -9,35 +9,36 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class PieceTest {
 
-//    @Test
-//    @DisplayName("색이 없는 Pawn 생성자 테스트")
-//    public void create_기본생성자() {
-//        Piece piece = new Piece();
-//        assertEquals(Piece.WHITE_COLOR, piece.getColor());
-//        assertEquals(Piece.WHITE_REPRESENTATION, piece.getRepresentation());
-//    }
-
     @Test
-    @DisplayName("이름만 있는 Pawn/이름과 색깔 모두 있는 Pawn 생성자 테스트")
-    public void create_매개변수가있는생성자(){
-        // 매개변수가 name만 있는 경우
-        verifyPawn(PAWN);
-        verifyPawn(PAWN);
+    @DisplayName("Piece 객체 생성 테스트")
+    public void create_piece(){
+        // 폰
+        verifyPiece(Piece.createWhitePawn(), WHITE_COLOR, WHITE_CHESS_PAWN);
+        verifyPiece(Piece.createBlackPawn(), BLACK_COLOR, BLACK_CHESS_PAWN);
+        
+        // 킹
+        verifyPiece(Piece.createWhiteKing(), WHITE_COLOR, WHITE_CHESS_KING);
+        verifyPiece(Piece.createBlackKing(), BLACK_COLOR, BLACK_CHESS_KING);
+        
+        // 퀸
+        verifyPiece(Piece.createWhiteQueen(), WHITE_COLOR, WHITE_CHESS_QUEEN);
+        verifyPiece(Piece.createBlackQueen(), BLACK_COLOR, BLACK_CHESS_QUEEN);
 
-        // 매개변수가 color, name인 경우
-        verifyPawn(WHITE_COLOR, PAWN);
-        verifyPawn(BLACK_COLOR, PAWN);
+        // 룩
+        verifyPiece(Piece.createWhiteRook(), WHITE_COLOR, WHITE_CHESS_ROOK);
+        verifyPiece(Piece.createBlackRook(), BLACK_COLOR, BLACK_CHESS_ROOK);
+
+        // 비숍
+        verifyPiece(Piece.createWhiteBishop(), WHITE_COLOR, WHITE_CHESS_BISHOP);
+        verifyPiece(Piece.createBlackBishop(), BLACK_COLOR, BLACK_CHESS_BISHOP);
+
+        // 나이트
+        verifyPiece(Piece.createWhiteKnight(), WHITE_COLOR, WHITE_CHESS_KNIGHT);
+        verifyPiece(Piece.createBlackKnight(), BLACK_COLOR, BLACK_CHESS_KNIGHT);
     }
 
-    private void verifyPawn(final String name){
-        Piece piece = new Piece(name);
-        assertThat(piece.getColor()).isEqualTo(WHITE_COLOR);
-        assertThat(piece.getName()).isEqualTo(name);
-    }
-
-    private void verifyPawn(final String color, final String name){
-        Piece piece = new Piece(color, name);
-        assertThat(piece.getColor()).isEqualTo(color);
-        assertThat(piece.getName()).isEqualTo(name);
+    private void verifyPiece(final Piece piece, final String color, final String representation){
+        assertEquals(color, piece.getColor());
+        assertEquals(representation, piece.getRepresentation());
     }
 }

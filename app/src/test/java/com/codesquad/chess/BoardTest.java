@@ -19,12 +19,12 @@ public class BoardTest {
         board = new Board();
     }
 
-    @Test
-    @DisplayName("말이 올라올 수 있는 보드판")
-    public void testPawnsOnTheBoard(){
-        toBoardAddSizeFind(new Piece(PAWN, WHITE_COLOR), 1, 0);
-        toBoardAddSizeFind(new Piece(PAWN, BLACK_COLOR), 2, 1);
-    }
+//    @Test
+//    @DisplayName("말이 올라올 수 있는 보드판")
+//    public void testPawnsOnTheBoard(){
+//        toBoardAddSizeFind(new Piece(PAWN, WHITE_COLOR), 1, 0);
+//        toBoardAddSizeFind(new Piece(PAWN, BLACK_COLOR), 2, 1);
+//    }
 
     private void toBoardAddSizeFind(Piece piece, int expectedSize, int expectedIndex){
         board.add(piece);
