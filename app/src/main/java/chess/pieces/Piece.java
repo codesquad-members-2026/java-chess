@@ -11,19 +11,22 @@ public class Piece {
     }
 
     public enum Type {
-        PAWN('♙'),
-        ROOK('♖'),
-        KNIGHT('♘'),
-        BISHOP('♗'),
-        QUEEN('♕'),
-        KING('♔'),
-        NO_PIECE('.');
+        PAWN('♙', 1.0),
+        ROOK('♖', 5.0),
+        KNIGHT('♘', 2.5),
+        BISHOP('♗', 3.0),
+        QUEEN('♕', 9.0),
+        KING('♔', 0.0),
+        NO_PIECE('.', 0.0);
 
-        private static final int BLACK_OFFSET = '♟' - '♙';;
+        private static final int BLACK_OFFSET = '♟' - '♙';
+
         private char representation;
+        private double defaultPoint;
 
-        Type(char representation) {
+        Type(char representation, double defaultPoint) {
             this.representation = representation;
+            this.defaultPoint = defaultPoint;
         }
 
         char getWhiteRepresentation() {
@@ -32,6 +35,10 @@ public class Piece {
 
         char getBlackRepresentation() {
             return (char) (representation + BLACK_OFFSET);
+        }
+
+        public double getDefaultPoint() {
+            return defaultPoint;
         }
     }
 
@@ -123,6 +130,7 @@ public class Piece {
     public boolean isBlack() {
         return color == Color.BLACK;
     }
+
     public boolean isWhite() {
         return color == WHITE;
     }
