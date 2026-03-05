@@ -2,6 +2,8 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static utils.StringUtils.appendNewLine;
 
 import chess.Board;
+import chess.pieces.Piece.Color;
+import chess.pieces.Piece.Type;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -34,5 +36,15 @@ public class BoardTest {
     @DisplayName("체스판에 폰 이외의 객체 추가")
     public void addNonPawn() {
         //board.add(Integer.valueOf(7)); 컴파일 에러
+    }
+
+    @Test
+    @DisplayName("기물과 색에 해당하는 기물의 개수를 반환")
+    public void count() {
+        assertEquals(8, board.countPieces(Color.WHITE, Type.PAWN));
+        assertEquals(8, board.countPieces(Color.BLACK, Type.PAWN));
+        assertEquals(32, board.countPieces(Color.NOCOLOR, Type.NO_PIECE));
+        assertEquals(1, board.countPieces(Color.BLACK, Type.KING));
+        assertEquals(1, board.countPieces(Color.BLACK, Type.QUEEN));
     }
 }

@@ -124,4 +124,8 @@ public class Piece {
     public boolean isWhite() {
         return color == WHITE;
     }
+
+    public boolean isMatch(Color color, Type type) {
+        return this.color == color && this.type == type;
+    }
 }

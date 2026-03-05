@@ -1,6 +1,8 @@
 package chess;
 
 import chess.pieces.Piece;
+import chess.pieces.Piece.Color;
+import chess.pieces.Piece.Type;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -67,5 +69,15 @@ public class Rank {
             sb.append(piece.getRepresentation());
         }
         return sb.toString();
+    }
+
+    public int countPieces(Color color, Type type) {
+        int count = 0;
+        for (Piece piece : rank) {
+            if (piece.isMatch(color, type)) {
+                count++;
+            }
+        }
+        return count;
     }
 }

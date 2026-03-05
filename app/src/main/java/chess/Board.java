@@ -2,6 +2,8 @@ package chess;
 
 import static utils.StringUtils.appendNewLine;
 
+import chess.pieces.Piece.Color;
+import chess.pieces.Piece.Type;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -33,9 +35,6 @@ public class Board {
         return pieceCount;
     }
 
-
-
-
     public String showBoard() {
         StringBuilder sb = new StringBuilder();
         for (int rankNum = 0; rankNum < SIZE; rankNum++) {
@@ -43,5 +42,13 @@ public class Board {
             sb.append(appendNewLine(rank.showRank()));
         }
         return sb.toString();
+    }
+
+    public int countPieces(Color color, Type type) {
+        int count = 0;
+        for (Rank rank : board) {
+            count += rank.countPieces(color, type);
+        }
+        return count;
     }
 }
