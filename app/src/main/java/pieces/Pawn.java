@@ -1,21 +1,30 @@
 package pieces;
 
 public class Pawn {
-    // 요구사항: 흰색("white")과 검은색("black")을 상수로 정의
     public static final String WHITE_COLOR = "white";
     public static final String BLACK_COLOR = "black";
 
-    private final String color;
+    public static final char WHITE_REPRESENTATION = 'p';
+    public static final char BLACK_REPRESENTATION = 'P';
+
+    private String color;
+    private char representation;
+
 
     public Pawn() {
-        this.color = WHITE_COLOR;
+        this(WHITE_COLOR, WHITE_REPRESENTATION);
     }
 
-    public Pawn(String color) {
+    public Pawn(String color, char representation) {
         this.color = color;
+        this.representation = representation;
     }
 
     public String getColor() {
         return color;
+    }
+
+    public char getRepresentation() {
+        return representation;
     }
 }

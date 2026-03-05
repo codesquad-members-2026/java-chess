@@ -1,5 +1,6 @@
 plugins {
     id 'java'
+    id 'application'
 }
 
 group = 'org.example'
@@ -9,15 +10,21 @@ repositories {
     mavenCentral()
 }
 
+application {
+    mainClass = 'com.codesquad.chess.Main'
+}
+
 dependencies {
-    // JUnit 4 사용
     testImplementation 'junit:junit:4.13.2'
     testImplementation 'org.assertj:assertj-core:3.25.3'
 }
 
-test {
-    
-    // useJUnitPlatform()
+// 모든 JavaExec 타입 태스크(run, runGame 등)에 공통 적용
+tasks.withType(JavaExec) {
+    standardInput = System.in
+    jvmArgs("-Dfile.encoding=UTF-8")
+    // 중요: 캐시 문제 방지를 위해 입력이 필요한 태스크임을 명시
+    outputs.upToDateWhen { false }
 }
 
 tasks.withType(JavaCompile) {
@@ -26,4 +33,19 @@ tasks.withType(JavaCompile) {
 
 tasks.withType(Test) {
     systemProperty "file.encoding", "UTF-8"
+}
+
+java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(21)
+    }
+}
+
+// 원재님이 만드신 실행 전용 태스크
+tasks.register('runGame', JavaExec) {
+    group = 'application'
+    description = '체스 게임 실행'
+    mainClass = 'com.codesquad.chess.Main'
+    classpath = sourceSets.main.runtimeClasspath
+    standardInput = System.in
 }

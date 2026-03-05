@@ -11,20 +11,28 @@ public class BoardTest {
     private Board board;
 
     @Before
-    public void setsup() {
+    public void setup() {
         board = new Board();
     }
+
     @Test
-    public void create() throws Exception {
+    public void initialize() throws Exception {
 
-        Pawn white = new Pawn(Pawn.WHITE_COLOR);
-        board.add(white);
-        assertEquals(1, board.size());
-        assertEquals(white, board.findPawn(0));
+        board.initialize();
+        assertEquals(16, board.size());
+    }
 
-        Pawn black = new Pawn(Pawn.BLACK_COLOR);
-        board.add(black);
-        assertEquals(2, board.size());
-        assertEquals(black, board.findPawn(1));
+    @Test
+    public void initialize_result() {
+        board.initialize();
+
+        assertEquals("pppppppp", board.getWhitePawnsResult());
+        assertEquals("PPPPPPPP", board.getBlackPawnsResult());
+    }
+
+    @Test
+    public void print() {
+        board.initialize();
+        System.out.println(board.showBoard());
     }
 }
