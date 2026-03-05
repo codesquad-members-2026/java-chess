@@ -3,7 +3,7 @@ package pieces;
 public class Pawn {
     public static final String WHITE_COLOR = "white";
     public static final String BLACK_COLOR = "black";
-    // 3단계 추가: 출력용 문자 상수
+
     public static final char WHITE_REPRESENTATION = 'p';
     public static final char BLACK_REPRESENTATION = 'P';
 

@@ -1,5 +1,4 @@
 package com.codesquad.chess;
-
 import java.util.ArrayList;
 import java.util.List;
 import pieces.Pawn;
@@ -34,11 +33,11 @@ public class Board {
         return sb.toString();
     }
 
-    private String getWhitePawnsResult() {
+    String getWhitePawnsResult() {
         return getPawnsResult(whitePawns);
     }
 
-    private String getBlackPawnsResult() {
+    String getBlackPawnsResult() {
         return getPawnsResult(blackPawns);
     }
 
@@ -48,5 +47,10 @@ public class Board {
             sb.append(pawn.getRepresentation());
         }
         return sb.toString();
+    }
+
+    public int size() {
+        // 흰색 폰 8개 + 검은색 폰 8개 = 총 16개가 나오도록 합쳐줍니다.
+        return whitePawns.size() + blackPawns.size();
     }
 }
