@@ -2,7 +2,7 @@ package com.codesquad.chess;
 
 import java.util.Scanner;
 
-public class Main { // 클래스 이름은 대문자 Main으로 꼭 맞춰주세요!
+public class Main {
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
         Board board = new Board();
