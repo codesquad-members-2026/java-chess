@@ -1,6 +1,13 @@
 package com.codesquad.chess;
 
 public class ChessConstant {
+    public static final String KING = "king";
+    public static final String QUEEN = "queen";
+    public static final String ROOK = "rook";
+    public static final String BISHOP = "bishop";
+    public static final String KNIGHT = "knight";
+    public static final String PAWN = "pawn";
+
     public static final String WHITE_CHESS_KING = "\u2654";
     public static final String WHITE_CHESS_QUEEN = "\u2655";
     public static final String WHITE_CHESS_ROOK = "\u2656";
@@ -14,4 +21,7 @@ public class ChessConstant {
     public static final String BLACK_CHESS_BISHOP = "\u265D";
     public static final String BLACK_CHESS_KNIGHT = "\u265E";
     public static final String BLACK_CHESS_PAWN = "\u265F";
+
+    public static final String WHITE_COLOR = "white";
+    public static final String BLACK_COLOR = "black";
 }

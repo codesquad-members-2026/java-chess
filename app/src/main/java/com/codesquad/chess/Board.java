@@ -1,12 +1,12 @@
 package com.codesquad.chess;
 
-import com.codesquad.chess.piece.Pawn;
+import com.codesquad.chess.piece.Piece;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class Board {
-    private List<Pawn> pawns;
+    private List<Piece> pieces;
 
     public static final int PAWN_NUM = 8;
     public static final int BOARD_LENGTH = 8;
@@ -15,25 +15,25 @@ public class Board {
     public static final String EMPTY_SPACE = "\u00B7";
 
     public Board(){
-        pawns = new ArrayList<>();
+        pieces = new ArrayList<>();
     }
 
-    public void add(Pawn pawn){
-        pawns.add(pawn);
+    public void add(Piece piece){
+        pieces.add(piece);
     }
 
     public int size(){
-        return pawns.size();
+        return pieces.size();
     }
 
-    public Pawn findPawn(int index){
-        return pawns.get(index);
+    public Piece findPawn(int index){
+        return pieces.get(index);
     }
 
     public void initialize(){
         for(int i = 0; i < PAWN_NUM; i++){
-            pawns.add(new Pawn(Pawn.WHITE_COLOR));
-            pawns.add(new Pawn(Pawn.BLACK_COLOR));
+            pieces.add(new Piece(Piece.WHITE_COLOR));
+            pieces.add(new Piece(Piece.BLACK_COLOR));
         }
     }
 
@@ -42,10 +42,10 @@ public class Board {
 
         for(int i = 0; i < BOARD_LENGTH; i++){
             if(i == WHITE_PAWN_ROW){
-                result.append((Pawn.WHITE_REPRESENTATION + " ").repeat(BOARD_LENGTH));
+                result.append((Piece.WHITE_REPRESENTATION + " ").repeat(BOARD_LENGTH));
             }
             else if(i == BLACK_PAWN_ROW) {
-                result.append((Pawn.BLACK_REPRESENTATION + " ").repeat(BOARD_LENGTH));
+                result.append((Piece.BLACK_REPRESENTATION + " ").repeat(BOARD_LENGTH));
             } else{
                 result.append((EMPTY_SPACE + "  ").repeat(BOARD_LENGTH));
             }
@@ -59,8 +59,8 @@ public class Board {
     public String getWhitePawnsResult(){
         StringBuilder result = new StringBuilder();
 
-        for(Pawn p : pawns){
-            if(p.getColor().equals(Pawn.WHITE_COLOR)){
+        for(Piece p : pieces){
+            if(p.getColor().equals(Piece.WHITE_COLOR)){
                 result.append(p.getRepresentation());
             }
         }
@@ -71,8 +71,8 @@ public class Board {
     public String getBlackPawnsResult(){
         StringBuilder result = new StringBuilder();
 
-        for(Pawn p : pawns){
-            if(p.getColor().equals(Pawn.BLACK_COLOR)){
+        for(Piece p : pieces){
+            if(p.getColor().equals(Piece.BLACK_COLOR)){
                 result.append(p.getRepresentation());
             }
         }

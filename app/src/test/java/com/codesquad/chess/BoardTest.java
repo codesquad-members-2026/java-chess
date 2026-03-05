@@ -1,6 +1,6 @@
 package com.codesquad.chess;
 
-import com.codesquad.chess.piece.Pawn;
+import com.codesquad.chess.piece.Piece;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -21,17 +21,14 @@ public class BoardTest {
     @Test
     @DisplayName("말이 올라올 수 있는 보드판")
     public void testPawnsOnTheBoard(){
-        toBoardAddSizeFind(new Pawn(Pawn.WHITE_COLOR), 1, 0);
-        toBoardAddSizeFind(new Pawn(Pawn.BLACK_COLOR), 2, 1);
-
-        // Pawn 이외의 다른 객체 추가시 오류 발생
-        // board.add(new Integer(7));
+        toBoardAddSizeFind(new Piece(Piece.WHITE_COLOR), 1, 0);
+        toBoardAddSizeFind(new Piece(Piece.BLACK_COLOR), 2, 1);
     }
 
-    private void toBoardAddSizeFind(Pawn pawn, int expectedSize, int expectedIndex){
-        board.add(pawn);
+    private void toBoardAddSizeFind(Piece piece, int expectedSize, int expectedIndex){
+        board.add(piece);
         assertEquals(expectedSize, board.size());
-        assertEquals(pawn, board.findPawn(expectedIndex));
+        assertEquals(piece, board.findPawn(expectedIndex));
     }
 
     @Test
@@ -41,8 +38,8 @@ public class BoardTest {
 
         StringBuilder whiteReps = new StringBuilder();
         StringBuilder blackReps = new StringBuilder();
-        whiteReps.append(Pawn.WHITE_REPRESENTATION.repeat(BOARD_LENGTH));
-        blackReps.append(Pawn.BLACK_REPRESENTATION.repeat(BOARD_LENGTH));
+        whiteReps.append(Piece.WHITE_REPRESENTATION.repeat(BOARD_LENGTH));
+        blackReps.append(Piece.BLACK_REPRESENTATION.repeat(BOARD_LENGTH));
 
         assertEquals(whiteReps.toString(), board.getWhitePawnsResult());
         assertEquals(blackReps.toString(), board.getBlackPawnsResult());
