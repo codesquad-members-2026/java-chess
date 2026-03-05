@@ -1,67 +1,51 @@
 package com.codesquad.chess;
 
-import pieces.Pawn;
+import pieces.Piece;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class Board {
 
-    private List<Pawn> whitePawns = new ArrayList<>();
-    private List<Pawn> blackPawns = new ArrayList<>();
+    private List<Piece> whitePieces = new ArrayList<>();
+    private List<Piece> blackPieces = new ArrayList<>();
 
-    public void addWhite(Pawn pawn) {
-        whitePawns.add(pawn);
-    }
+    public void add(Piece piece) {
+        if (piece.isWhite()) {
+            whitePieces.add(piece);
+            return;
+        }
 
-    public void addBlack(Pawn pawn) {
-        blackPawns.add(pawn);
+        if (piece.isBlack()) {
+            blackPieces.add(piece);
+        }
     }
 
     public int size() {
-        return whitePawns.size() + blackPawns.size();
-    }
-
-    public Pawn findPawn(int index) {
-        return whitePawns.get(index);
+        return whitePieces.size() + blackPieces.size();
     }
 
     public void initialize() {
-        for(int i = 0; i < 8; i++) {
-            addWhite(new Pawn(Pawn.WHITE_COLOR, Pawn.WHITE_REPRESENTATION));
-            addBlack(new Pawn(Pawn.BLACK_COLOR, Pawn.BLACK_REPRESENTATION));
+        for (int i = 0; i < 8; i++) {
+            add(Piece.createWhitePawn());
+            add(Piece.createBlackPawn());
         }
     }
 
-    public String getWhitePawnsResult() {
-        return getPawnsResult(whitePawns);
+    public String getWhitePiecesResult() {
+        return getPiecesResult(whitePieces);
     }
 
-    public String getBlackPawnsResult() {
-        return getPawnsResult(blackPawns);
+    public String getBlackPiecesResult() {
+        return getPiecesResult(blackPieces);
     }
 
-    private String getPawnsResult(List<Pawn> pawns) {
+    private String getPiecesResult(List<Piece> pieces) {
         StringBuilder sb = new StringBuilder();
-        for(Pawn pawn : pawns) {
-            sb.append(pawn.getRepresentation());
+        for (Piece piece : pieces) {
+            sb.append(piece.getRepresentation());
         }
         return sb.toString();
     }
 
-    public String showBoard() {
-        StringBuilder sb = new StringBuilder();
-        String blankLine = "........";
-
-        sb.append(blankLine).append("\n");
-        sb.append(getBlackPawnsResult()).append("\n");
-        sb.append(blankLine).append("\n");
-        sb.append(blankLine).append("\n");
-        sb.append(blankLine).append("\n");
-        sb.append(blankLine).append("\n");
-        sb.append(getWhitePawnsResult()).append("\n");
-        sb.append(blankLine).append("\n");
-
-        return sb.toString();
-    }
 }
