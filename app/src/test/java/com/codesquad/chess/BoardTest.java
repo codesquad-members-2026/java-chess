@@ -6,6 +6,7 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import static com.codesquad.chess.Board.BOARD_LENGTH;
+import static com.codesquad.chess.ChessConstant.*;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class BoardTest {
@@ -21,8 +22,8 @@ public class BoardTest {
     @Test
     @DisplayName("말이 올라올 수 있는 보드판")
     public void testPawnsOnTheBoard(){
-        toBoardAddSizeFind(new Piece(Piece.WHITE_COLOR), 1, 0);
-        toBoardAddSizeFind(new Piece(Piece.BLACK_COLOR), 2, 1);
+        toBoardAddSizeFind(new Piece(PAWN, WHITE_COLOR), 1, 0);
+        toBoardAddSizeFind(new Piece(PAWN, BLACK_COLOR), 2, 1);
     }
 
     private void toBoardAddSizeFind(Piece piece, int expectedSize, int expectedIndex){
@@ -38,8 +39,8 @@ public class BoardTest {
 
         StringBuilder whiteReps = new StringBuilder();
         StringBuilder blackReps = new StringBuilder();
-        whiteReps.append(Piece.WHITE_REPRESENTATION.repeat(BOARD_LENGTH));
-        blackReps.append(Piece.BLACK_REPRESENTATION.repeat(BOARD_LENGTH));
+        whiteReps.append(WHITE_CHESS_PAWN.repeat(BOARD_LENGTH));
+        blackReps.append(BLACK_CHESS_PAWN.repeat(BOARD_LENGTH));
 
         assertEquals(whiteReps.toString(), board.getWhitePawnsResult());
         assertEquals(blackReps.toString(), board.getBlackPawnsResult());

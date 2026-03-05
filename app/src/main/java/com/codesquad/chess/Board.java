@@ -1,9 +1,9 @@
 package com.codesquad.chess;
 
 import com.codesquad.chess.piece.Piece;
-
 import java.util.ArrayList;
 import java.util.List;
+import static com.codesquad.chess.ChessConstant.*;
 
 public class Board {
     private List<Piece> pieces;
@@ -32,8 +32,8 @@ public class Board {
 
     public void initialize(){
         for(int i = 0; i < PAWN_NUM; i++){
-            pieces.add(new Piece(Piece.WHITE_COLOR));
-            pieces.add(new Piece(Piece.BLACK_COLOR));
+            pieces.add(new Piece(PAWN));
+            pieces.add(new Piece(PAWN));
         }
     }
 
@@ -42,10 +42,10 @@ public class Board {
 
         for(int i = 0; i < BOARD_LENGTH; i++){
             if(i == WHITE_PAWN_ROW){
-                result.append((Piece.WHITE_REPRESENTATION + " ").repeat(BOARD_LENGTH));
+                result.append((WHITE_CHESS_PAWN + " ").repeat(BOARD_LENGTH));
             }
             else if(i == BLACK_PAWN_ROW) {
-                result.append((Piece.BLACK_REPRESENTATION + " ").repeat(BOARD_LENGTH));
+                result.append((BLACK_CHESS_PAWN + " ").repeat(BOARD_LENGTH));
             } else{
                 result.append((EMPTY_SPACE + "  ").repeat(BOARD_LENGTH));
             }
@@ -60,8 +60,8 @@ public class Board {
         StringBuilder result = new StringBuilder();
 
         for(Piece p : pieces){
-            if(p.getColor().equals(Piece.WHITE_COLOR)){
-                result.append(p.getRepresentation());
+            if(p.getColor().equals(WHITE_COLOR)){
+                result.append(WHITE_CHESS_PAWN);
             }
         }
 
@@ -72,8 +72,8 @@ public class Board {
         StringBuilder result = new StringBuilder();
 
         for(Piece p : pieces){
-            if(p.getColor().equals(Piece.BLACK_COLOR)){
-                result.append(p.getRepresentation());
+            if(p.getColor().equals(BLACK_COLOR)){
+                result.append(BLACK_CHESS_PAWN);
             }
         }
 
