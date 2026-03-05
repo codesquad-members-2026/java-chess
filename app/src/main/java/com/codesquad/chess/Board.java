@@ -25,6 +25,7 @@ public class Board {
         String newLine = System.getProperty("line.separator");
 
         sb.append(blankLine).append(newLine);
+        sb.append(getBlackPawnsResult()).append(newLine);
         sb.append(blankLine).append(newLine).append(blankLine).append(newLine);
         sb.append(blankLine).append(newLine).append(blankLine).append(newLine);
         sb.append(getWhitePawnsResult()).append(newLine);
