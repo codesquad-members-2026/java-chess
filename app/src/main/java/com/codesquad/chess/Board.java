@@ -5,15 +5,12 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.IntStream;
 
-import static com.codesquad.chess.ChessConstant.*;
 import static com.codesquad.chess.utils.StringUtils.appendNewLine;
 
 public class Board {
     private List<Piece> pieces;
 
     public static final int PAWN_NUM = 8;
-    public static final int KING_QUEEN_NUM = 1;
-    public static final int REST_OBJECT_NUM = 2;
     public static final int BOARD_LENGTH = 8;
 
     public Board(){
@@ -59,7 +56,8 @@ public class Board {
             StringBuilder line = new StringBuilder();
 
             if(i == 2){
-                result.append(blankRank.repeat(4));
+                int boardHalfLen = BOARD_LENGTH / 2;
+                result.append(blankRank.repeat(boardHalfLen));
             }
 
             for(int j = i * BOARD_LENGTH; j < (i + 1) * BOARD_LENGTH; j++){

@@ -1,12 +1,9 @@
 package com.codesquad.chess;
 
-import com.codesquad.chess.piece.Piece;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-import static com.codesquad.chess.Board.BOARD_LENGTH;
-import static com.codesquad.chess.ChessConstant.*;
 import static com.codesquad.chess.utils.StringUtils.appendNewLine;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
