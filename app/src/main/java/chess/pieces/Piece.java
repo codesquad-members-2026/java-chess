@@ -3,19 +3,20 @@ package chess.pieces;
 import static chess.pieces.Piece.Color.*;
 import static chess.pieces.Piece.Type.*;
 
+import java.util.Comparator;
 import java.util.Objects;
 
-public class Piece {
+public class Piece implements Comparable<Piece>{
     public enum Color {
         WHITE, BLACK, NOCOLOR;
     }
 
     public enum Type {
-        PAWN('♙', 1.0),
-        ROOK('♖', 5.0),
-        KNIGHT('♘', 2.5),
-        BISHOP('♗', 3.0),
         QUEEN('♕', 9.0),
+        ROOK('♖', 5.0),
+        BISHOP('♗', 3.0),
+        KNIGHT('♘', 2.5),
+        PAWN('♙', 1.0),
         KING('♔', 0.0),
         NO_PIECE('.', 0.0);
 
@@ -151,5 +152,12 @@ public class Piece {
     @Override
     public int hashCode() {
         return Objects.hash(color, type);
+    }
+
+    @Override
+    public int compareTo(Piece o) {
+        return Comparator.comparing(Piece::getColor)
+                .thenComparing(Piece::getType)
+                .compare(this, o);
     }
 }
