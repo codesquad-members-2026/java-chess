@@ -1,6 +1,30 @@
 package com.codesquad.chess.pieces;
 
 public class Piece {
+
+    public enum Color {
+        WHITE, BLACK, NOCOLOR;
+    }
+
+    public enum Type {
+        PAWN('p'), ROOK('r'), KNIGHT('n'), BISHOP('b'), QUEEN('q'), KING('k'), NO_PIECE('.');
+
+        private char representation;
+
+        Type(char representation) {
+            this.representation = representation;
+        }
+
+        public char getRepresentation(Color color) {
+            if (color == Color.BLACK) {
+                return Character.toUpperCase(representation);
+            }
+            return representation;
+        }
+
+    }
+
+
     public static final String WHITE_COLOR = "white";
     public static final String BLACK_COLOR = "black";
 
