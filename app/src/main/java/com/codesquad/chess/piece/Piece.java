@@ -6,7 +6,7 @@ import static com.codesquad.chess.utils.ChessConstant.*;
 
 public class Piece {
     private final String color;
-    private final String representation;
+    private final char representation;
 
     public enum Color{
         WHITE("white"),
@@ -27,7 +27,7 @@ public class Piece {
     public enum Type{
         PAWN('p'),
         ROOK('r'),
-        KNIGHT('k'),
+        KNIGHT('n'),
         BISHOP('b'),
         QUEEN('q'),
         KING('k'),
@@ -48,65 +48,78 @@ public class Piece {
         }
     }
 
-    private Piece(String color, String representation) {
+    private Piece(String color, char representation) {
         this.color = color;
         this.representation = representation;
     }
 
     public static Piece createWhitePawn(){
-        return new Piece(WHITE_COLOR, WHITE_CHESS_PAWN);
+        return new Piece(Color.WHITE.getColor(), Type.PAWN.getWhiteRepresentation());
     }
 
     public static Piece createBlackPawn(){
-        return new Piece(BLACK_COLOR, BLACK_CHESS_PAWN);
+        return new Piece(Color.BLACK.getColor(), Type.PAWN.getBlackRepresentation());
     }
 
     public static Piece createWhiteKing(){
-        return new Piece(WHITE_COLOR, WHITE_CHESS_KING);
+        return new Piece(Color.WHITE.getColor(), Type.KING.getWhiteRepresentation());
     }
 
     public static Piece createBlackKing(){
-        return new Piece(BLACK_COLOR, BLACK_CHESS_KING);
+        return new Piece(Color.BLACK.getColor(), Type.KING.getBlackRepresentation());
     }
 
     public static Piece createWhiteQueen(){
-        return new Piece(WHITE_COLOR, WHITE_CHESS_QUEEN);
+        return new Piece(Color.WHITE.getColor(), Type.QUEEN.getWhiteRepresentation());
     }
 
     public static Piece createBlackQueen(){
-        return new Piece(BLACK_COLOR, BLACK_CHESS_QUEEN);
+        return new Piece(Color.BLACK.getColor(), Type.QUEEN.getBlackRepresentation());
     }
 
     public static Piece createWhiteRook(){
-        return new Piece(WHITE_COLOR, WHITE_CHESS_ROOK);
+        return new Piece(Color.WHITE.getColor(), Type.ROOK.getWhiteRepresentation());
     }
 
     public static Piece createBlackRook(){
-        return new Piece(BLACK_COLOR, BLACK_CHESS_ROOK);
+        return new Piece(Color.BLACK.getColor(), Type.ROOK.getBlackRepresentation());
     }
 
     public static Piece createWhiteKnight(){
-        return new Piece(WHITE_COLOR, WHITE_CHESS_KNIGHT);
+        return new Piece(Color.WHITE.getColor(), Type.KNIGHT.getWhiteRepresentation());
     }
 
     public static Piece createBlackKnight(){
-        return new Piece(BLACK_COLOR, BLACK_CHESS_KNIGHT);
+        return new Piece(Color.BLACK.getColor(), Type.KNIGHT.getBlackRepresentation());
     }
 
     public static Piece createWhiteBishop(){
-        return new Piece(WHITE_COLOR, WHITE_CHESS_BISHOP);
+        return new Piece(Color.WHITE.getColor(), Type.BISHOP.getWhiteRepresentation());
     }
 
     public static Piece createBlackBishop(){
-        return new Piece(BLACK_COLOR, BLACK_CHESS_BISHOP);
+        return new Piece(Color.BLACK.getColor(), Type.BISHOP.getBlackRepresentation());
+    }
+
+    public static Piece createBlank(){
+        return new Piece(Color.NOCOLOR.getColor(), Type.NO_PIECE.representation);
     }
 
     public String getColor() {
         return color;
     }
 
-    public String getRepresentation() {
+    public char getRepresentation() {
         return representation;
+    }
+
+    public Type getType(){
+        for(Type t : Type.values()){
+            if(t.representation == Character.toLowerCase(representation))
+                return t;
+        }
+
+        return null;
     }
 
     public boolean isWhite() {
@@ -131,7 +144,8 @@ public class Piece {
             return false;
 
         Piece other = (Piece) obj;
-        return this.getColor().equals(other.getColor()) && this.getRepresentation().equals(other.getRepresentation());
+        return this.getColor().equals(other.getColor()) &&
+                this.getRepresentation() == other.getRepresentation();
     }
 
     @Override

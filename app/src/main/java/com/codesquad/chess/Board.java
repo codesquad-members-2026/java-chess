@@ -63,7 +63,7 @@ public class Board {
             }
 
             for(int j = i * BOARD_LENGTH; j < (i + 1) * BOARD_LENGTH; j++){
-                line.append(pieces.get(j).getRepresentation());
+                line.append(pieces.get(j).getType());
             }
 
             result.append(appendNewLine(line.toString()));
