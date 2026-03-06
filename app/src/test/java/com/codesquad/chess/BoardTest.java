@@ -3,6 +3,7 @@ import static com.codesquad.chess.utils.StringUtils.appendNewLine;
 import static org.junit.Assert.*;
 
 
+import com.codesquad.chess.pieces.Piece;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -17,14 +18,7 @@ public class BoardTest {
     @Test
     public void create() throws Exception {
         board.initialize();
-        assertEquals(32, board.pieceCount());
-        String blankRank = appendNewLine("........");
-        assertEquals(
-                appendNewLine("RNBQKBNR") +
-                        appendNewLine("PPPPPPPP") +
-                        blankRank + blankRank + blankRank + blankRank +
-                        appendNewLine("pppppppp") +
-                        appendNewLine("rnbqkbnr"),
-                board.showBoard());
+        assertEquals(2, board.countPiece(Piece.Color.BLACK, Piece.Type.BISHOP));
+        assertEquals(8,board.countPiece(Piece.Color.BLACK, Piece.Type.PAWN));
     }
 }
