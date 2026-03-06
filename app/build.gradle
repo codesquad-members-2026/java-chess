@@ -19,11 +19,19 @@ dependencies {
     testImplementation 'org.assertj:assertj-core:3.25.3'
 }
 
+<<<<<<< HEAD
 // 모든 JavaExec 타입 태스크(run, runGame 등)에 공통 적용
 tasks.withType(JavaExec) {
     standardInput = System.in
     jvmArgs("-Dfile.encoding=UTF-8")
     // 중요: 캐시 문제 방지를 위해 입력이 필요한 태스크임을 명시
+=======
+
+tasks.withType(JavaExec) {
+    standardInput = System.in
+    jvmArgs("-Dfile.encoding=UTF-8")
+
+>>>>>>> d370769 (오류수정)
     outputs.upToDateWhen { false }
 }
 
