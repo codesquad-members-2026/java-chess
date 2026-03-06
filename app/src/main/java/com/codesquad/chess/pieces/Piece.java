@@ -70,6 +70,7 @@ public class Piece {
     public boolean isBlack() { return this.color == Color.BLACK; }
 
     public Type getType() { return type; }
+    public Color getColor() {return color;}
 
     public char getRepresentation() {
         if (isBlack()) {
