@@ -6,60 +6,83 @@ import java.util.List;
 
 
 public class Board {
-    private List<Piece> whitePieces = new ArrayList<>();
-    private List<Piece> blackPieces = new ArrayList<>();
+
+    private List<List<Piece>> board = new ArrayList<>();
 
     public void initialize() {
+        for (int i = 0; i < 8; i++) {
+            board.add(new ArrayList<Piece>());
+        }
 
-        addBlackSpecialPieces();
-        for (int i = 0; i < 8; i++) blackPieces.add(Piece.createBlackPawn());
-
-        for (int i = 0; i < 8; i++) whitePieces.add(Piece.createWhitePawn());
-        addWhiteSpecialPieces();
+        setupBlackPieces();
+        setupWhitePieces();
+        setupBlankPieces();
     }
 
-    private void addBlackSpecialPieces() {
-        blackPieces.add(Piece.createBlackRook());
-        blackPieces.add(Piece.createBlackKnight());
-        blackPieces.add(Piece.createBlackBishop());
-        blackPieces.add(Piece.createBlackQueen());
-        blackPieces.add(Piece.createBlackKing());
-        blackPieces.add(Piece.createBlackBishop());
-        blackPieces.add(Piece.createBlackKnight());
-        blackPieces.add(Piece.createBlackRook());
+    private void setupBlackPieces() {
+        List<Piece> rank0 = board.get(0);
+        rank0.add(Piece.createBlackRook());
+        rank0.add(Piece.createBlackKnight());
+        rank0.add(Piece.createBlackBishop());
+        rank0.add(Piece.createBlackQueen());
+        rank0.add(Piece.createBlackKing());
+        rank0.add(Piece.createBlackBishop());
+        rank0.add(Piece.createBlackKnight());
+        rank0.add(Piece.createBlackRook());
+
+        List<Piece> rank1 = board.get(1);
+        for(int i = 0; i < 8; i ++) {
+            rank1.add(Piece.createBlackPawn());
+        }
     }
 
-    private void addWhiteSpecialPieces() {
-        whitePieces.add(Piece.createWhiteRook());
-        whitePieces.add(Piece.createWhiteKnight());
-        whitePieces.add(Piece.createWhiteBishop());
-        whitePieces.add(Piece.createWhiteQueen());
-        whitePieces.add(Piece.createWhiteKing());
-        whitePieces.add(Piece.createWhiteBishop());
-        whitePieces.add(Piece.createWhiteKnight());
-        whitePieces.add(Piece.createWhiteRook());
+    private void setupWhitePieces() {
+        List<Piece> rank7 = board.get(7);
+        rank7.add(Piece.createWhiteRook());
+        rank7.add(Piece.createWhiteKnight());
+        rank7.add(Piece.createWhiteBishop());
+        rank7.add(Piece.createWhiteQueen());
+        rank7.add(Piece.createWhiteKnight());
+        rank7.add(Piece.createWhiteBishop());
+        rank7.add(Piece.createWhiteKnight());
+        rank7.add(Piece.createWhiteRook());
+
+        List<Piece> rank8 = board.get(6);
+        for(int i = 0 ; i < 8; i++) {
+            rank8.add(Piece.createWhitePawn());
+        }
+    }
+
+    private void setupBlankPieces() {
+        for (int row = 2; row < 6; row++) {
+            List<Piece> rank = board.get(row);
+            for(int i = 0; i < 8; i++) {
+                rank.add(Piece.createBlank());
+            }
+        }
     }
 
     public int pieceCount() {
-        return whitePieces.size() + blackPieces.size();
+        int count = 0;
+        for (List<Piece> rank : board) {
+            for(Piece piece : rank) {
+                if(piece.getType() != Piece.Type.NO_PIECE) {
+                    count++;
+                }
+            }
+        }
+        return count;
     }
-
     public String showBoard() {
         StringBuilder sb = new StringBuilder();
-        String blankRank = StringUtils.appendNewLine("........");
 
-        sb.append(StringUtils.appendNewLine(getPieceRepresentation(blackPieces.subList(0, 8))));
-        sb.append(StringUtils.appendNewLine(getPieceRepresentation(blackPieces.subList(8, 16))));
-        sb.append(blankRank).append(blankRank).append(blankRank).append(blankRank);
-        sb.append(StringUtils.appendNewLine(getPieceRepresentation(whitePieces.subList(0, 8))));
-        sb.append(StringUtils.appendNewLine(getPieceRepresentation(whitePieces.subList(8, 16))));
+        for(List<Piece> rank : board) {
+            for(Piece piece : rank) {
+                sb.append(piece.getRepresentation());
+            }
 
-        return sb.toString();
-    }
-
-    private String getPieceRepresentation(List<Piece> pieces) {
-        StringBuilder sb = new StringBuilder();
-        for (Piece piece : pieces) sb.append(piece.getRepresentation());
+            sb.append(StringUtils.NEWLINE);
+        }
         return sb.toString();
     }
 }
