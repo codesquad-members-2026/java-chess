@@ -1,4 +1,4 @@
-package com.codesquad.chess;
+package com.codesquad.chess.utils;
 
 public class ChessConstant {
     public static final String KING = "king";

@@ -2,11 +2,51 @@ package com.codesquad.chess.piece;
 
 import java.util.Objects;
 
-import static com.codesquad.chess.ChessConstant.*;
+import static com.codesquad.chess.utils.ChessConstant.*;
 
 public class Piece {
     private final String color;
     private final String representation;
+
+    public enum Color{
+        WHITE("white"),
+        BLACK("black"),
+        NOCOLOR("no");
+
+        private String color;
+
+        Color(String color) {
+            this.color = color;
+        }
+
+        public String getColor() {
+            return color;
+        }
+    }
+
+    public enum Type{
+        PAWN('p'),
+        ROOK('r'),
+        KNIGHT('k'),
+        BISHOP('b'),
+        QUEEN('q'),
+        KING('k'),
+        NO_PIECE('.');
+
+        private char representation;
+
+        Type(char representation){
+            this.representation = representation;
+        }
+
+        public char getWhiteRepresentation(){
+            return representation;
+        }
+
+        public char getBlackRepresentation(){
+            return Character.toUpperCase(representation);
+        }
+    }
 
     private Piece(String color, String representation) {
         this.color = color;
