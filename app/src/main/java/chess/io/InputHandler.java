@@ -1,6 +1,6 @@
 package chess.io;
 
-import chess.Board;
+import chess.Game;
 import java.util.Scanner;
 import java.util.StringTokenizer;
 
@@ -8,17 +8,13 @@ public class InputHandler {
     private static final String QUIT_COMMAND = "quit";
     private static final String MOVE_COMMAND = "move";
 
-    private Board board;
+    private Game game;
     private ChessView view;
 
-    public InputHandler() {
-        board = new Board();
-        board.initialize();
-
-        view = new ChessView(board);
-    }
-
     public void run() {
+        game = new Game();
+        view = new ChessView(game.getBoard());
+
         Scanner scanner = new Scanner(System.in);
 
         while (true) {
@@ -31,7 +27,7 @@ public class InputHandler {
                 case MOVE_COMMAND -> {
                     String from = tokenizer.nextToken();
                     String to = tokenizer.nextToken();
-                    board.move(from, to);
+                    game.move(from, to);
 
                     view.showBoard();
                 }
