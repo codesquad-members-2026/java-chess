@@ -1,80 +1,72 @@
 package com.codesquad.chess;
 
-import com.codesquad.chess.piece.Pawn;
-
+import com.codesquad.chess.piece.Piece;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.IntStream;
+
+import static com.codesquad.chess.utils.StringUtils.appendNewLine;
 
 public class Board {
-    private List<Pawn> pawns;
+    private List<Piece> pieces;
 
     public static final int PAWN_NUM = 8;
     public static final int BOARD_LENGTH = 8;
-    public static final int BLACK_PAWN_ROW = 1;
-    public static final int WHITE_PAWN_ROW = 6;
-    public static final String EMPTY_SPACE = "\u00B7";
 
     public Board(){
-        pawns = new ArrayList<>();
+        pieces = new ArrayList<>();
     }
 
-    public void add(Pawn pawn){
-        pawns.add(pawn);
+    public void add(Piece piece){
+        pieces.add(piece);
     }
 
-    public int size(){
-        return pawns.size();
-    }
-
-    public Pawn findPawn(int index){
-        return pawns.get(index);
+    public int pieceCount(){
+        return pieces.size();
     }
 
     public void initialize(){
-        for(int i = 0; i < PAWN_NUM; i++){
-            pawns.add(new Pawn(Pawn.WHITE_COLOR));
-            pawns.add(new Pawn(Pawn.BLACK_COLOR));
-        }
+        // 검은색 기물 추가
+        pieces.add(Piece.createBlackRook());
+        pieces.add(Piece.createBlackKnight());
+        pieces.add(Piece.createBlackBishop());
+        pieces.add(Piece.createBlackQueen());
+        pieces.add(Piece.createBlackKing());
+        pieces.add(Piece.createBlackBishop());
+        pieces.add(Piece.createBlackKnight());
+        pieces.add(Piece.createBlackRook());
+        IntStream.range(0, PAWN_NUM).forEach(i -> {pieces.add(Piece.createBlackPawn());});
+        
+        // 하얀색 기물 추가
+        IntStream.range(0, PAWN_NUM).forEach(i -> {pieces.add(Piece.createWhitePawn());});
+        pieces.add(Piece.createWhiteRook());
+        pieces.add(Piece.createWhiteKnight());
+        pieces.add(Piece.createWhiteBishop());
+        pieces.add(Piece.createWhiteQueen());
+        pieces.add(Piece.createWhiteKing());
+        pieces.add(Piece.createWhiteBishop());
+        pieces.add(Piece.createWhiteKnight());
+        pieces.add(Piece.createWhiteRook());
     }
 
-    public String print(){
+    public String showBoard(){
         StringBuilder result = new StringBuilder();
+        String blankRank = appendNewLine("........");
 
-        for(int i = 0; i < BOARD_LENGTH; i++){
-            if(i == WHITE_PAWN_ROW){
-                result.append((Pawn.WHITE_REPRESENTATION + " ").repeat(BOARD_LENGTH));
+        for(int i = 0; i < 4; i++){
+            StringBuilder line = new StringBuilder();
+
+            // 기물이 없는 중간 지대 추가
+            if(i == 2){
+                int boardHalfLen = BOARD_LENGTH / 2;
+                result.append(blankRank.repeat(boardHalfLen));
             }
-            else if(i == BLACK_PAWN_ROW) {
-                result.append((Pawn.BLACK_REPRESENTATION + " ").repeat(BOARD_LENGTH));
-            } else{
-                result.append((EMPTY_SPACE + "  ").repeat(BOARD_LENGTH));
+
+            for(int j = i * BOARD_LENGTH; j < (i + 1) * BOARD_LENGTH; j++){
+                line.append(pieces.get(j).getRepresentation());
             }
 
-            result.append("\n");
-        }
-
-        return result.toString();
-    }
-
-    public String getWhitePawnsResult(){
-        StringBuilder result = new StringBuilder();
-
-        for(Pawn p : pawns){
-            if(p.getColor().equals(Pawn.WHITE_COLOR)){
-                result.append(p.getRepresentation());
-            }
-        }
-
-        return result.toString();
-    }
-
-    public String getBlackPawnsResult(){
-        StringBuilder result = new StringBuilder();
-
-        for(Pawn p : pawns){
-            if(p.getColor().equals(Pawn.BLACK_COLOR)){
-                result.append(p.getRepresentation());
-            }
+            result.append(appendNewLine(line.toString()));
         }
 
         return result.toString();
