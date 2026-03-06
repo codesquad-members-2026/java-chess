@@ -15,65 +15,90 @@ public class Piece {
             this.representation = representation;
         }
 
-        public char getRepresentation(Color color) {
-            if (color == Color.BLACK) {
-                return Character.toUpperCase(representation);
-            }
+        public char getWhiteRepresentation() {
             return representation;
+        }
+
+        public char getBlackRepresentaiton() {
+            return Character.toUpperCase(representation);
         }
 
     }
 
+    private final Color color;
+    private final Type type;
 
-    public static final String WHITE_COLOR = "white";
-    public static final String BLACK_COLOR = "black";
-
-    // 기물별 대표 문자 (상수)
-    public static final char WHITE_PAWN = 'p';
-    public static final char BLACK_PAWN = 'P';
-    public static final char WHITE_KNIGHT = 'n';
-    public static final char BLACK_KNIGHT = 'N';
-    public static final char WHITE_ROOK = 'r';
-    public static final char BLACK_ROOK = 'R';
-    public static final char WHITE_BISHOP = 'b';
-    public static final char BLACK_BISHOP = 'B';
-    public static final char WHITE_QUEEN = 'q';
-    public static final char BLACK_QUEEN = 'Q';
-    public static final char WHITE_KING = 'k';
-    public static final char BLACK_KING = 'K';
-
-    private final String color;
-    private final char representation;
-
-    private Piece(String color, char representation) {
+    private Piece(Color color, Type type) {
         this.color = color;
-        this.representation = representation;
+        this.type = type;
     }
 
-    public static Piece createWhitePawn() { return new Piece(WHITE_COLOR, WHITE_PAWN); }
-    public static Piece createBlackPawn() { return new Piece(BLACK_COLOR, BLACK_PAWN); }
-    public static Piece createWhiteKnight() { return new Piece(WHITE_COLOR, WHITE_KNIGHT); }
-    public static Piece createBlackKnight() { return new Piece(BLACK_COLOR, BLACK_KNIGHT); }
-    public static Piece createWhiteRook() { return new Piece(WHITE_COLOR, WHITE_ROOK); }
-    public static Piece createBlackRook() { return new Piece(BLACK_COLOR, BLACK_ROOK); }
-    public static Piece createWhiteBishop() { return new Piece(WHITE_COLOR, WHITE_BISHOP); }
-    public static Piece createBlackBishop() { return new Piece(BLACK_COLOR, BLACK_BISHOP); }
-    public static Piece createWhiteQueen() { return new Piece(WHITE_COLOR, WHITE_QUEEN); }
-    public static Piece createBlackQueen() { return new Piece(BLACK_COLOR, BLACK_QUEEN); }
-    public static Piece createWhiteKing() { return new Piece(WHITE_COLOR, WHITE_KING); }
-    public static Piece createBlackKing() { return new Piece(BLACK_COLOR, BLACK_KING); }
 
-    public boolean isWhite() {
-        return WHITE_COLOR.equals(this.color);
-    }
-    public boolean isBlack() {
-        return BLACK_COLOR.equals(this.color);
+    //흰 말
+    public static Piece createWhitePawn() {
+        return new Piece(Color.WHITE, Type.PAWN);
     }
 
-    public String getColor() {
-        return color;
+    public static Piece createWhiteKnight() {
+        return new Piece(Color.WHITE, Type.KNIGHT);
     }
+
+    public static Piece createWhiteRook() {
+        return new Piece(Color.WHITE, Type.ROOK);
+    }
+
+    public static Piece createWhiteBishop() {
+        return new Piece(Color.WHITE, Type.BISHOP);
+    }
+
+    public static Piece createWhiteQueen() {
+        return new Piece(Color.WHITE, Type.QUEEN);
+    }
+
+    public static Piece createWhiteKing() {
+        return new Piece(Color.WHITE, Type.KING);
+    }
+
+    //검은 말
+    public static Piece createBlackPawn() {
+        return new Piece(Color.BLACK, Type.PAWN);
+    }
+
+    public static Piece createBlackKnight() {
+        return new Piece(Color.BLACK, Type.KNIGHT);
+    }
+
+    public static Piece createBlackRook() {
+        return new Piece(Color.BLACK, Type.ROOK);
+    }
+
+    public static Piece createBlackBishop() {
+        return new Piece(Color.BLACK, Type.BISHOP);
+    }
+
+    public static Piece createBlackQueen() {
+        return new Piece(Color.BLACK, Type.QUEEN);
+    }
+
+    public static Piece createBlackKing() {
+        return new Piece(Color.BLACK, Type.KING);
+    }
+
+    // 빈 공간
+    public static Piece createBlank() {
+        return new Piece(Color.NOCOLOR, Type.NO_PIECE);
+    }
+
+
+    public boolean isWhite() { return this.color == Color.WHITE; }
+    public boolean isBlack() { return this.color == Color.BLACK; }
+
+    public Type getType() { return type; }
+
     public char getRepresentation() {
-        return representation;
+        if (isBlack()) {
+            return type.getBlackRepresentaiton();
+        }
+        return type.getWhiteRepresentation();
     }
 }
