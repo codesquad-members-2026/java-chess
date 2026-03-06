@@ -41,7 +41,6 @@ java {
     }
 }
 
-// 원재님이 만드신 실행 전용 태스크
 tasks.register('runGame', JavaExec) {
     group = 'application'
     description = '체스 게임 실행'
