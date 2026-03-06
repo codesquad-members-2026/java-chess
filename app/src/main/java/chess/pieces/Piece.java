@@ -28,12 +28,12 @@ public interface Piece {
             this.defaultPoint = defaultPoint;
         }
 
-        char getWhiteRepresentation() {
-            return representation;
-        }
-
-        char getBlackRepresentation() {
-            return (char) (representation + BLACK_OFFSET);
+        public char getRepresentation(Color color) {
+            if (color == Color.BLACK) {
+                return (char) (representation + BLACK_OFFSET);
+            } else {
+                return representation;
+            }
         }
 
         public double getDefaultPoint() {
@@ -49,12 +49,12 @@ public interface Piece {
             case ROOK -> new Rook(color, position);
             case BISHOP -> new Bishop(color,position);
             case KNIGHT -> new Knight(color, position);
-            case NO_PIECE -> null;
+            case NO_PIECE -> Blank.getBlank();
         };
     }
 
     Color getColor();
     Type getType();
-    void move();
+    void move(Position position);
     List<Direction> getDirections();
 }

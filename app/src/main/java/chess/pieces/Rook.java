@@ -16,11 +16,11 @@ public class Rook implements Piece {
 
     @Override
     public Type getType() {
-        return null;
+        return Type.ROOK;
     }
 
     @Override
-    public void move() {
+    public void move(Position position) {
 
     }
 

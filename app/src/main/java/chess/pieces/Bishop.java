@@ -15,11 +15,11 @@ public class Bishop implements Piece {
 
     @Override
     public Type getType() {
-        return null;
+        return Type.BISHOP;
     }
 
     @Override
-    public void move() {
+    public void move(Position position) {
 
     }
 

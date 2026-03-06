@@ -5,6 +5,7 @@ import static utils.StringUtils.appendNewLine;
 
 import chess.Board;
 import chess.Rank;
+import chess.pieces.Piece;
 
 public class ChessView {
     private final Board board;
@@ -30,7 +31,8 @@ public class ChessView {
     private String showRank(Rank rank) {
         StringBuilder sb = new StringBuilder();
         for (int fileNum = 0; fileNum < SIZE; fileNum++) {
-            sb.append(rank.get(fileNum).getRepresentation());
+            Piece piece = rank.get(fileNum);
+            sb.append(piece.getType().getRepresentation(piece.getColor()));
         }
         return sb.toString();
     }

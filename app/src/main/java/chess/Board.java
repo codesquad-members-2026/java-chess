@@ -1,5 +1,6 @@
 package chess;
 
+import chess.pieces.Blank;
 import chess.pieces.Piece.Color;
 import chess.pieces.Piece.Type;
 import java.util.ArrayList;
@@ -59,7 +60,7 @@ public class Board {
         Rank sourceRank = board.get(sourcePosition.rank);
         Piece sourcePiece = sourceRank.get(sourcePosition.file);
 
-        sourceRank.set(Piece.createBlank(sourcePosition), sourcePosition.file);
+        sourceRank.set(Blank.getBlank(), sourcePosition.file);
 
         Position targetPosition = Position.from(targetStr);
         Rank targetRank = board.get(targetPosition.rank);

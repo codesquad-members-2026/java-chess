@@ -1,6 +1,8 @@
 package chess;
 
 import static chess.pieces.Piece.Type.*;
+
+import chess.pieces.Blank;
 import chess.pieces.Piece;
 import chess.pieces.Piece.Color;
 import chess.pieces.Piece.Type;
@@ -8,8 +10,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Rank {
+    private static final List<Type> MAJOR_PIECES = List.of(ROOK, KNIGHT, BISHOP, QUEEN, KING, BISHOP, KNIGHT, ROOK);
     private List<Piece> rank;
-    private static final List<Type> type = List.of(ROOK, KNIGHT, BISHOP, QUEEN, KING, BISHOP, KING, ROOK);
 
     private Rank(List<Piece> rank) {
         this.rank = rank;
@@ -19,7 +21,7 @@ public class Rank {
         List<Piece> rank = new ArrayList<>();
         for (int file = 0; file < 8; file++) {
             Position position = new Position(rankNum, file);
-            rank.add(Piece.create(type.get(file), color, position));
+            rank.add(Piece.create(MAJOR_PIECES.get(file), color, position));
         }
         return new Rank(rank);
     }
@@ -27,7 +29,7 @@ public class Rank {
     public static Rank emptyRank(int rankNum) {
         List<Piece> rank = new ArrayList<>();
         for (int fileNum = 0; fileNum < Board.SIZE; fileNum++) {
-            rank.add(null);
+            rank.add(Blank.getBlank());
         }
         return new Rank(rank);
     }

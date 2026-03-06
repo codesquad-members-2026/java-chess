@@ -24,7 +24,7 @@ public class King implements Piece{
     }
 
     @Override
-    public void move() {
+    public void move(Position position) {
         //이동 로직
     }
 

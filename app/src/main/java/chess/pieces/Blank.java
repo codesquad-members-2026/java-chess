@@ -4,18 +4,23 @@ import chess.Direction;
 import chess.Position;
 import java.util.List;
 
-public class Knight implements Piece {
-    public Knight(Color color, Position position) {
+public class Blank implements Piece {
+    public static Blank blank = new Blank();
+
+    private Blank() {
     }
 
+    public static Blank getBlank() {
+        return blank;
+    }
     @Override
     public Color getColor() {
-        return null;
+        return Color.NOCOLOR;
     }
 
     @Override
     public Type getType() {
-        return Type.KNIGHT;
+        return Type.NO_PIECE;
     }
 
     @Override
@@ -25,6 +30,6 @@ public class Knight implements Piece {
 
     @Override
     public List<Direction> getDirections() {
-        return List.of();
+        return null;
     }
 }
