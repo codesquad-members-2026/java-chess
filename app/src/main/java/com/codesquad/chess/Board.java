@@ -64,10 +64,10 @@ public class Board {
         }
     }
 
-    public int pieceCount() {
+    public int countPiece(Piece.Color color, Piece.Type type) {
         int count = 0;
         for (Rank rank : ranks) {
-            count += rank.getPieceCount();
+            count += rank.getPieceCount(color, type);
         }
         return count;
     }

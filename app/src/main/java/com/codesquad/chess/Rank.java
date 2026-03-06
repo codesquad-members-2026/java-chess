@@ -20,13 +20,12 @@ public class Rank {
         return sb.toString();
     }
 
-    public int getPieceCount() {
+    public int getPieceCount(Piece.Color color, Piece.Type type) {
         int count = 0;
         for (Piece piece : pieces) {
-            if (piece.getType() != Piece.Type.NO_PIECE) {
+            if(piece.getColor() == color && piece.getType() == type)
                 count++;
             }
-        }
         return count;
     }
 }
