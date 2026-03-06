@@ -56,7 +56,6 @@ public class Piece {
     private static Piece createWhite(Type type){
         return new Piece(Color.WHITE.getColor(), type.getWhiteRepresentation());
     }
-
     private static Piece createBlack(Type type){
         return new Piece(Color.BLACK.getColor(), type.getBlackRepresentation());
     }
@@ -64,47 +63,37 @@ public class Piece {
     public static Piece createWhitePawn(){
         return createWhite(Type.PAWN);
     }
-
-    public static Piece createBlackPawn(){
-        return createBlack(Type.PAWN);
-    }
-
     public static Piece createWhiteKing(){
         return createWhite(Type.KING);
     }
-
-    public static Piece createBlackKing(){
-        return createBlack(Type.KING);
-    }
-
     public static Piece createWhiteQueen(){
         return createWhite(Type.QUEEN);
     }
-
-    public static Piece createBlackQueen(){
-        return createBlack(Type.QUEEN);
-    }
-
     public static Piece createWhiteRook(){
         return createWhite(Type.ROOK);
     }
-
-    public static Piece createBlackRook(){
-        return createBlack(Type.ROOK);
-    }
-
     public static Piece createWhiteKnight(){
         return createWhite(Type.KNIGHT);
     }
-
-    public static Piece createBlackKnight(){
-        return createBlack(Type.KNIGHT);
-    }
-
     public static Piece createWhiteBishop(){
         return createWhite(Type.BISHOP);
     }
 
+    public static Piece createBlackPawn(){
+        return createBlack(Type.PAWN);
+    }
+    public static Piece createBlackKing(){
+        return createBlack(Type.KING);
+    }
+    public static Piece createBlackQueen(){
+        return createBlack(Type.QUEEN);
+    }
+    public static Piece createBlackRook(){
+        return createBlack(Type.ROOK);
+    }
+    public static Piece createBlackKnight(){
+        return createBlack(Type.KNIGHT);
+    }
     public static Piece createBlackBishop(){
         return createBlack(Type.BISHOP);
     }
@@ -116,11 +105,9 @@ public class Piece {
     public String getColor() {
         return color;
     }
-
     public char getRepresentation() {
         return representation;
     }
-
     public Type getType(){
         for(Type t : Type.values()){
             if(t.representation == Character.toLowerCase(representation))
@@ -129,11 +116,9 @@ public class Piece {
 
         return Type.NO_PIECE;
     }
-
     public boolean isWhite() {
         return color.equals(WHITE_COLOR);
     }
-
     public boolean isBlack() {
         return color.equals(BLACK_COLOR);
     }
@@ -142,7 +127,6 @@ public class Piece {
     public String toString() {
         return "[기물 종류]: " + getRepresentation() + ", [기물 색깔]: " + getColor();
     }
-
     @Override
     public boolean equals(Object obj) {
         if(this == obj)
@@ -155,7 +139,6 @@ public class Piece {
         return this.getColor().equals(other.getColor()) &&
                 this.getRepresentation() == other.getRepresentation();
     }
-
     @Override
     public int hashCode() {
         return Objects.hash(color, representation);

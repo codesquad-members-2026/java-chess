@@ -20,15 +20,17 @@ public class BoardTest {
     @DisplayName("전체 기물의 상태를 볼 수 있는 체스판 구현 및 테스트")
     public void create_초기체스판구현(){
         board.initialize();
-        assertEquals(32, board.pieceCount());
+        assertEquals(64, board.pieceCount());
 
         String blankRank = appendNewLine("........");
         assertEquals(
-                appendNewLine("♜♞♝♛♚♝♞♜") +
-                appendNewLine("♟♟♟♟♟♟♟♟") +
+                appendNewLine("RNBQKBNR") +
+                appendNewLine("PPPPPPPP") +
                 blankRank + blankRank + blankRank + blankRank +
-                appendNewLine("♙♙♙♙♙♙♙♙") +
-                appendNewLine("♖♘♗♕♔♗♘♖"),
+                appendNewLine("pppppppp") +
+                appendNewLine("rnbqkbnr"),
                 board.showBoard());
     }
+
+
 }
