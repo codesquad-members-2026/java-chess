@@ -7,81 +7,75 @@ import java.util.List;
 
 public class Board {
 
-    private List<List<Piece>> board = new ArrayList<>();
+    private List<Rank> ranks = new ArrayList<>();
 
     public void initialize() {
         for (int i = 0; i < 8; i++) {
-            board.add(new ArrayList<Piece>());
+            ranks.add(new Rank());
+        }
+        setupBlackPieces(ranks.get(0));
+        setupBlackPawns(ranks.get(1));
+
+        for(int i = 2; i < 6; i++) {
+            setupBlanckRank(ranks.get(i));
         }
 
-        setupBlackPieces();
-        setupWhitePieces();
-        setupBlankPieces();
+        setupWhitePieces(ranks.get(6));
+        setupWhitePawns(ranks.get(7));
     }
 
-    private void setupBlackPieces() {
-        List<Piece> rank0 = board.get(0);
-        rank0.add(Piece.createBlackRook());
-        rank0.add(Piece.createBlackKnight());
-        rank0.add(Piece.createBlackBishop());
-        rank0.add(Piece.createBlackQueen());
-        rank0.add(Piece.createBlackKing());
-        rank0.add(Piece.createBlackBishop());
-        rank0.add(Piece.createBlackKnight());
-        rank0.add(Piece.createBlackRook());
-
-        List<Piece> rank1 = board.get(1);
-        for(int i = 0; i < 8; i ++) {
-            rank1.add(Piece.createBlackPawn());
-        }
+    private void setupBlackPieces(Rank rank) {
+        rank.addPiece(Piece.createBlackRook());
+        rank.addPiece(Piece.createBlackKnight());
+        rank.addPiece(Piece.createBlackBishop());
+        rank.addPiece(Piece.createBlackQueen());
+        rank.addPiece(Piece.createBlackKing());
+        rank.addPiece(Piece.createBlackBishop());
+        rank.addPiece(Piece.createBlackKnight());
+        rank.addPiece(Piece.createBlackRook());
     }
 
-    private void setupWhitePieces() {
-        List<Piece> rank7 = board.get(7);
-        rank7.add(Piece.createWhiteRook());
-        rank7.add(Piece.createWhiteKnight());
-        rank7.add(Piece.createWhiteBishop());
-        rank7.add(Piece.createWhiteQueen());
-        rank7.add(Piece.createWhiteKnight());
-        rank7.add(Piece.createWhiteBishop());
-        rank7.add(Piece.createWhiteKnight());
-        rank7.add(Piece.createWhiteRook());
-
-        List<Piece> rank8 = board.get(6);
-        for(int i = 0 ; i < 8; i++) {
-            rank8.add(Piece.createWhitePawn());
+    private void setupBlackPawns(Rank rank) {
+        for (int i = 0; i < 8; i++) {
+            rank.addPiece(Piece.createBlackPawn());
         }
     }
 
-    private void setupBlankPieces() {
-        for (int row = 2; row < 6; row++) {
-            List<Piece> rank = board.get(row);
-            for(int i = 0; i < 8; i++) {
-                rank.add(Piece.createBlank());
-            }
+    private void setupWhitePieces(Rank rank) {
+        rank.addPiece(Piece.createWhiteRook());
+        rank.addPiece(Piece.createWhiteKnight());
+        rank.addPiece(Piece.createWhiteBishop());
+        rank.addPiece(Piece.createWhiteQueen());
+        rank.addPiece(Piece.createWhiteKing());
+        rank.addPiece(Piece.createWhiteBishop());
+        rank.addPiece(Piece.createWhiteKnight());
+        rank.addPiece(Piece.createWhiteRook());
+    }
+
+    private void setupWhitePawns(Rank rank) {
+        for (int i = 0; i < 8; i++) {
+            rank.addPiece(Piece.createWhitePawn());
+        }
+    }
+
+    private void setupBlanckRank(Rank rank) {
+        for (int i = 0; i < 8; i++) {
+            rank.addPiece(Piece.createBlank());
         }
     }
 
     public int pieceCount() {
         int count = 0;
-        for (List<Piece> rank : board) {
-            for(Piece piece : rank) {
-                if(piece.getType() != Piece.Type.NO_PIECE) {
-                    count++;
-                }
-            }
+        for (Rank rank : ranks) {
+            count += rank.getPieceCount();
         }
         return count;
     }
+
     public String showBoard() {
         StringBuilder sb = new StringBuilder();
-
-        for(List<Piece> rank : board) {
-            for(Piece piece : rank) {
-                sb.append(piece.getRepresentation());
-            }
-
-            sb.append(StringUtils.NEWLINE);
+        for (Rank rank : ranks) {
+            sb.append(rank.getRankRepresentation()).append(StringUtils.NEWLINE);
         }
         return sb.toString();
     }
