@@ -1,5 +1,6 @@
 package com.Chess;
 
+import com.pieces.Color;
 import com.pieces.Piece;
 import org.junit.jupiter.api.*;
 import static org.assertj.core.api.Assertions.*;
@@ -9,17 +10,20 @@ import static com.utils.StringUtils.appendNewLine;
 
 public class BoardTest {
     private Board board;
+    private ChessGame game;
 
     @BeforeEach
     public void setup() {
         board = new Board();
+        game = new ChessGame();
+        game.setChessBoard(board);
     }
 
     @Test
     public void create() throws Exception {
         board.initialize();
         String blankRank = appendNewLine("........");
-        assertThat(board.showBoard()).isEqualTo(appendNewLine("RNBQKBNR") +
+        assertThat(ChessView.showBoard(board)).isEqualTo(appendNewLine("RNBQKBNR") +
                 appendNewLine("PPPPPPPP") +
                 blankRank + blankRank + blankRank + blankRank +
                 appendNewLine("pppppppp") +
@@ -40,13 +44,14 @@ public class BoardTest {
 
     @Test
     public void move() throws Exception {
-        board.initializeEmpty();
+        board.initialize();
 
-        String position = "b5";
-        Piece piece = Piece.createBlackRook();
-        board.move(position, piece);
-        assertThat(board.findPiece(position)).isEqualTo(piece);
-        System.out.println(board.showBoard());
+        String sourcePosition = "b2";
+        String targetPosition = "b3";
+        board.move(sourcePosition, targetPosition);
+        assertThat(board.findPiece(sourcePosition)).isEqualTo(Piece.createBlank());
+        assertThat(board.findPiece(targetPosition)).isEqualTo(Piece.createWhitePawn());
+
     }
 
     @Test
@@ -63,10 +68,8 @@ public class BoardTest {
         addPiece("e1", Piece.createWhiteRook());
         addPiece("f1", Piece.createWhiteKing());
 
-        assertThat(board.calculatePoint(Piece.Color.BLACK)).isEqualTo(15.0);
-        assertThat(board.calculatePoint(Piece.Color.WHITE)).isEqualTo(7.0);
-
-        System.out.println(board.showBoard());
+        assertThat(game.calculatePoint(Color.BLACK)).isEqualTo(15.0);
+        assertThat(game.calculatePoint(Color.WHITE)).isEqualTo(7.0);
     }
 
     private void addPiece(String position, Piece piece) {
