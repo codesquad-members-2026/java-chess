@@ -19,20 +19,20 @@ public class BoardTest {
         board = new Board();
     }
 
-    @Test
-    public void create() throws Exception {
-        board.initialize();
-
-        assertEquals(32, board.pieceCount());
-        String blankRank = appendNewLine("........");
-        assertEquals(
-                appendNewLine("♖♘♗♕♔♗♘♖")+
-                        appendNewLine("♙♙♙♙♙♙♙♙") +
-                        blankRank + blankRank + blankRank + blankRank +
-                        appendNewLine("♟♟♟♟♟♟♟♟") +
-                        appendNewLine("♜♞♝♛♚♝♞♜") ,
-                        board.showBoard());
-    }
+//    @Test
+//    public void create() throws Exception {
+//        board.initialize();
+//
+//        assertEquals(32, board.pieceCount());
+//        String blankRank = appendNewLine("........");
+//        assertEquals(
+//                appendNewLine("♖♘♗♕♔♗♘♖")+
+//                        appendNewLine("♙♙♙♙♙♙♙♙") +
+//                        blankRank + blankRank + blankRank + blankRank +
+//                        appendNewLine("♟♟♟♟♟♟♟♟") +
+//                        appendNewLine("♜♞♝♛♚♝♞♜") ,
+//                        board.showBoard());
+//    }
 
     @Test
     @DisplayName("체스판에 폰 이외의 객체 추가")

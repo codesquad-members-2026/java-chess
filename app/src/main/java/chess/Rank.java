@@ -63,12 +63,8 @@ public class Rank {
         return new Rank(rank);
     }
 
-    public String showRank() {
-        StringBuilder sb = new StringBuilder();
-        for (Piece piece : rank) {
-            sb.append(piece.getRepresentation());
-        }
-        return sb.toString();
+    public Piece getPiece(int file) {
+        return rank.get(file);
     }
 
     public int countPieces(Color color, Type type) {
