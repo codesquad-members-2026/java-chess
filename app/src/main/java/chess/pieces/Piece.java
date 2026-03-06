@@ -1,18 +1,15 @@
 package chess.pieces;
 
-import static chess.pieces.Piece.Color.*;
-import static chess.pieces.Piece.Type.*;
-
+import chess.Direction;
 import chess.Position;
-import java.util.Comparator;
-import java.util.Objects;
+import java.util.List;
 
-public class Piece implements Comparable<Piece>{
-    public enum Color {
+public interface Piece {
+    enum Color {
         WHITE, BLACK, NOCOLOR;
     }
 
-    public enum Type {
+    enum Type {
         QUEEN('♕', 9.0),
         ROOK('♖', 5.0),
         BISHOP('♗', 3.0),
@@ -44,128 +41,20 @@ public class Piece implements Comparable<Piece>{
         }
     }
 
-    private final Color color;
-    private final Type type;
-    private Position position;
-
-
-    private Piece(Color color, Type type, Position position) {
-        this.color = color;
-        this.type = type;
-        this.position = position;
+    static Piece create(Type type, Color color, Position position) {
+        return switch (type) {
+            case KING -> new King(color, position);
+            case QUEEN -> new Queen(color,position);
+            case PAWN -> new Pawn(color, position);
+            case ROOK -> new Rook(color, position);
+            case BISHOP -> new Bishop(color,position);
+            case KNIGHT -> new Knight(color, position);
+            case NO_PIECE -> null;
+        };
     }
 
-    private static Piece createWhite(Type type,Position position) {
-        return new Piece(WHITE, type, position);
-    }
-
-    private static Piece createBlack(Type type,Position position) {
-        return new Piece(BLACK, type, position);
-    }
-
-    public static Piece createWhitePawn(Position position) {
-        return createWhite(PAWN, position);
-    }
-
-    public static Piece createBlackPawn(Position position) {
-        return createBlack(PAWN, position);
-    }
-
-    public static Piece createWhiteKnight(Position position) {
-        return createWhite(KNIGHT, position);
-    }
-
-    public static Piece createBlackKnight(Position position) {
-        return createBlack(KNIGHT, position);
-    }
-
-    public static Piece createWhiteRook(Position position) {
-        return createWhite(ROOK, position);
-    }
-
-    public static Piece createBlackRook(Position position) {
-        return createBlack(ROOK, position);
-    }
-
-    public static Piece createWhiteBishop(Position position) {
-        return createWhite(BISHOP, position);
-    }
-
-    public static Piece createBlackBishop(Position position) {
-        return createBlack(BISHOP, position);
-    }
-
-    public static Piece createWhiteQueen(Position position) {
-        return createWhite(QUEEN,position);
-    }
-
-    public static Piece createBlackQueen(Position position) {
-        return createBlack(QUEEN,position);
-    }
-
-    public static Piece createWhiteKing(Position position) {
-        return createWhite(KING,position);
-    }
-
-    public static Piece createBlackKing(Position position) {
-        return createBlack(KING,position);
-    }
-
-    public static Piece createBlank(Position position) {
-        return new Piece(NOCOLOR, NO_PIECE, position);
-    }
-
-    public Color getColor() {
-        return color;
-    }
-
-    public Type getType() {
-        return type;
-    }
-
-    public char getRepresentation() {
-        if (color == BLACK) {
-            return type.getBlackRepresentation();
-        } else {
-            return type.getWhiteRepresentation();
-        }
-    }
-
-    public boolean isBlack() {
-        return color == Color.BLACK;
-    }
-
-    public boolean isWhite() {
-        return color == WHITE;
-    }
-
-    public boolean isMatch(Color color, Type type) {
-        return this.color == color && this.type == type;
-    }
-
-    public void move(Position position) {
-        this.position = position;
-    }
-
-
-    @Override
-    public boolean equals(Object o) {
-        if (o == null || getClass() != o.getClass()) {
-            return false;
-        }
-        Piece piece = (Piece) o;
-        return isMatch(piece.color, piece.type) && position.equals(piece.position);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(color, type, position);
-    }
-
-    @Override
-    public int compareTo(Piece o) {
-        return Comparator.comparing(Piece::getColor)
-                .thenComparing(Piece::getType)
-                .compare(this, o);
-    }
+    Color getColor();
+    Type getType();
+    void move();
+    List<Direction> getDirections();
 }

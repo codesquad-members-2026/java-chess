@@ -15,13 +15,13 @@ public class Board {
     private int pieceCount = 0;
 
     public void initialize() {
-        board.add(Rank.fillWithWhiteMajorPieces(0));
-        board.add(Rank.fillWithWhitePawns(1));
+        board.add(Rank.fillWithMajorPieces(Color.WHITE, 0));
+        board.add(Rank.fillWithPawns(Color.WHITE, 1));
         for (int i = 2; i < 6; i++) {
             board.add(Rank.emptyRank(i));
         }
-        board.add(Rank.fillWithBlackPawns(6));
-        board.add(Rank.fillWithBlackMajorPieces(7));
+        board.add(Rank.fillWithPawns(Color.BLACK, 6));
+        board.add(Rank.fillWithMajorPieces(Color.BLACK, 7));
 
         pieceCount = 32;
     }
@@ -41,13 +41,13 @@ public class Board {
         return board.get(rank);
     }
 
-    public int countPieces(Color color, Type type) {
-        int count = 0;
-        for (Rank rank : board) {
-            count += rank.countPieces(color, type);
-        }
-        return count;
-    }
+//    public int countPieces(Color color, Type type) {
+//        int count = 0;
+//        for (Rank rank : board) {
+//            count += rank.countPieces(color, type);
+//        }
+//        return count;
+//    }
 
     public Piece findPiece(String positionInput) {
         Position position = Position.from(positionInput);
