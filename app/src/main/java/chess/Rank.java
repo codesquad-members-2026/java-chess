@@ -13,52 +13,52 @@ public class Rank {
         this.rank = rank;
     }
 
-    public static Rank fillWithWhiteMajorPieces() {
+    public static Rank fillWithWhiteMajorPieces(int rankNum) {
         List<Piece> rank = new ArrayList<>();
-        rank.add(Piece.createWhiteRook());
-        rank.add(Piece.createWhiteKnight());
-        rank.add(Piece.createWhiteBishop());
-        rank.add(Piece.createWhiteQueen());
-        rank.add(Piece.createWhiteKing());
-        rank.add(Piece.createWhiteBishop());
-        rank.add(Piece.createWhiteKnight());
-        rank.add(Piece.createWhiteRook());
+        rank.add(Piece.createWhiteRook(new Position(rankNum, 0)));
+        rank.add(Piece.createWhiteKnight(new Position(rankNum, 1)));
+        rank.add(Piece.createWhiteBishop(new Position(rankNum, 2)));
+        rank.add(Piece.createWhiteQueen(new Position(rankNum, 3)));
+        rank.add(Piece.createWhiteKing(new Position(rankNum, 4)));
+        rank.add(Piece.createWhiteBishop(new Position(rankNum, 5)));
+        rank.add(Piece.createWhiteKnight(new Position(rankNum, 6)));
+        rank.add(Piece.createWhiteRook(new Position(rankNum, 7)));
         return new Rank(rank);
     }
 
-    public static Rank fillWithBlackMajorPieces() {
+    public static Rank fillWithBlackMajorPieces(int rankNum) {
         List<Piece> rank = new ArrayList<>();
-        rank.add(Piece.createBlackRook());
-        rank.add(Piece.createBlackKnight());
-        rank.add(Piece.createBlackBishop());
-        rank.add(Piece.createBlackQueen());
-        rank.add(Piece.createBlackKing());
-        rank.add(Piece.createBlackBishop());
-        rank.add(Piece.createBlackKnight());
-        rank.add(Piece.createBlackRook());
+        rank.add(Piece.createBlackRook(new Position(rankNum, 0)));
+        rank.add(Piece.createBlackKnight(new Position(rankNum, 1)));
+        rank.add(Piece.createBlackBishop(new Position(rankNum, 2)));
+        rank.add(Piece.createBlackQueen(new Position(rankNum, 3)));
+        rank.add(Piece.createBlackKing(new Position(rankNum, 4)));
+        rank.add(Piece.createBlackBishop(new Position(rankNum, 5)));
+        rank.add(Piece.createBlackKnight(new Position(rankNum, 6)));
+        rank.add(Piece.createBlackRook(new Position(rankNum, 7)));
         return new Rank(rank);
     }
 
-    public static Rank emptyRank() {
+    public static Rank emptyRank(int rankNum) {
         List<Piece> rank = new ArrayList<>();
-        for (int i = 0; i < Board.SIZE; i++) {
-            rank.add(Piece.createBlank());
+        for (int fileNum = 0; fileNum < Board.SIZE; fileNum++) {
+            rank.add(Piece.createBlank(new Position(rankNum, fileNum)));
         }
         return new Rank(rank);
     }
 
-    public static Rank fillWithWhitePawns() {
+    public static Rank fillWithWhitePawns(int rankNum) {
         List<Piece> rank = new ArrayList<>();
-        for (int i = 0; i < Board.SIZE; i++) {
-            rank.add(Piece.createWhitePawn());
+        for (int fileNum = 0; fileNum < Board.SIZE; fileNum++) {
+            rank.add(Piece.createWhitePawn(new Position(rankNum, fileNum)));
         }
         return new Rank(rank);
     }
 
-    public static Rank fillWithBlackPawns() {
+    public static Rank fillWithBlackPawns(int rankNum) {
         List<Piece> rank = new ArrayList<>();
-        for (int i = 0; i < Board.SIZE; i++) {
-            rank.add(Piece.createBlackPawn());
+        for (int fileNum = 0; fileNum < Board.SIZE; fileNum++) {
+            rank.add(Piece.createBlackPawn(new Position(rankNum, fileNum)));
         }
         return new Rank(rank);
     }

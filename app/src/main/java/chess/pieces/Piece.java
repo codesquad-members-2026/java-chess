@@ -3,6 +3,7 @@ package chess.pieces;
 import static chess.pieces.Piece.Color.*;
 import static chess.pieces.Piece.Type.*;
 
+import chess.Position;
 import java.util.Comparator;
 import java.util.Objects;
 
@@ -45,71 +46,73 @@ public class Piece implements Comparable<Piece>{
 
     private final Color color;
     private final Type type;
+    private Position position;
 
 
-    private Piece(Color color, Type type) {
+    private Piece(Color color, Type type, Position position) {
         this.color = color;
         this.type = type;
+        this.position = position;
     }
 
-    private static Piece createWhite(Type type) {
-        return new Piece(WHITE, type);
+    private static Piece createWhite(Type type,Position position) {
+        return new Piece(WHITE, type, position);
     }
 
-    private static Piece createBlack(Type type) {
-        return new Piece(BLACK, type);
+    private static Piece createBlack(Type type,Position position) {
+        return new Piece(BLACK, type, position);
     }
 
-    public static Piece createWhitePawn() {
-        return createWhite(PAWN);
+    public static Piece createWhitePawn(Position position) {
+        return createWhite(PAWN, position);
     }
 
-    public static Piece createBlackPawn() {
-        return createBlack(PAWN);
+    public static Piece createBlackPawn(Position position) {
+        return createBlack(PAWN, position);
     }
 
-    public static Piece createWhiteKnight() {
-        return createWhite(KNIGHT);
+    public static Piece createWhiteKnight(Position position) {
+        return createWhite(KNIGHT, position);
     }
 
-    public static Piece createBlackKnight() {
-        return createBlack(KNIGHT);
+    public static Piece createBlackKnight(Position position) {
+        return createBlack(KNIGHT, position);
     }
 
-    public static Piece createWhiteRook() {
-        return createWhite(ROOK);
+    public static Piece createWhiteRook(Position position) {
+        return createWhite(ROOK, position);
     }
 
-    public static Piece createBlackRook() {
-        return createBlack(ROOK);
+    public static Piece createBlackRook(Position position) {
+        return createBlack(ROOK, position);
     }
 
-    public static Piece createWhiteBishop() {
-        return createWhite(BISHOP);
+    public static Piece createWhiteBishop(Position position) {
+        return createWhite(BISHOP, position);
     }
 
-    public static Piece createBlackBishop() {
-        return createBlack(BISHOP);
+    public static Piece createBlackBishop(Position position) {
+        return createBlack(BISHOP, position);
     }
 
-    public static Piece createWhiteQueen() {
-        return createWhite(QUEEN);
+    public static Piece createWhiteQueen(Position position) {
+        return createWhite(QUEEN,position);
     }
 
-    public static Piece createBlackQueen() {
-        return createBlack(QUEEN);
+    public static Piece createBlackQueen(Position position) {
+        return createBlack(QUEEN,position);
     }
 
-    public static Piece createWhiteKing() {
-        return createWhite(KING);
+    public static Piece createWhiteKing(Position position) {
+        return createWhite(KING,position);
     }
 
-    public static Piece createBlackKing() {
-        return createBlack(KING);
+    public static Piece createBlackKing(Position position) {
+        return createBlack(KING,position);
     }
 
-    public static Piece createBlank() {
-        return new Piece(NOCOLOR, NO_PIECE);
+    public static Piece createBlank(Position position) {
+        return new Piece(NOCOLOR, NO_PIECE, position);
     }
 
     public Color getColor() {
@@ -140,18 +143,23 @@ public class Piece implements Comparable<Piece>{
         return this.color == color && this.type == type;
     }
 
+    public void move(Position position) {
+        this.position = position;
+    }
+
+
     @Override
     public boolean equals(Object o) {
         if (o == null || getClass() != o.getClass()) {
             return false;
         }
         Piece piece = (Piece) o;
-        return isMatch(piece.color, piece.type);
+        return isMatch(piece.color, piece.type) && position.equals(piece.position);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(color, type);
+        return Objects.hash(color, type, position);
     }
 
     @Override

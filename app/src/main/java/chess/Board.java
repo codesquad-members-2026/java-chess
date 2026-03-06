@@ -17,20 +17,20 @@ public class Board {
     private int pieceCount = 0;
 
     public void initialize() {
-        board.add(Rank.fillWithWhiteMajorPieces());
-        board.add(Rank.fillWithWhitePawns());
-        for (int i = 0; i < 4; i++) {
-            board.add(Rank.emptyRank());
+        board.add(Rank.fillWithWhiteMajorPieces(0));
+        board.add(Rank.fillWithWhitePawns(1));
+        for (int i = 2; i < 6; i++) {
+            board.add(Rank.emptyRank(i));
         }
-        board.add(Rank.fillWithBlackPawns());
-        board.add(Rank.fillWithBlackMajorPieces());
+        board.add(Rank.fillWithBlackPawns(6));
+        board.add(Rank.fillWithBlackMajorPieces(7));
 
         pieceCount = 32;
     }
 
     public void initializeEmpty() {
         for (int i = 0; i < SIZE; i++) {
-            board.add(Rank.emptyRank());
+            board.add(Rank.emptyRank(i));
         }
     }
 
@@ -41,7 +41,7 @@ public class Board {
 
     public String showBoard() {
         StringBuilder sb = new StringBuilder();
-        for (int rankNum = 0; rankNum < SIZE; rankNum++) {
+        for (int rankNum = SIZE - 1; rankNum >= 0; rankNum--) {
             Rank rank = board.get(rankNum);
             sb.append(appendNewLine(rank.showRank()));
         }
@@ -61,9 +61,18 @@ public class Board {
         return board.get(position.rank).get(position.file);
     }
 
-    public void move(String positionInput, Piece piece) {
-        Position position = Position.from(positionInput);
-        board.get(position.rank).set(piece, position.file);
+    public void move(String sourceStr, String targetStr) {
+        Position sourcePosition = Position.from(sourceStr);
+        Rank sourceRank = board.get(sourcePosition.rank);
+        Piece sourcePiece = sourceRank.get(sourcePosition.file);
+
+        sourceRank.set(Piece.createBlank(sourcePosition), sourcePosition.file);
+
+        Position targetPosition = Position.from(targetStr);
+        Rank targetRank = board.get(targetPosition.rank);
+        //Piece targetPiece = targetRank.get(targetPosition.file);
+        targetRank.set(sourcePiece, targetPosition.file);
+        sourcePiece.move(targetPosition);
     }
 
     public double calculatePoint(Color color) {
