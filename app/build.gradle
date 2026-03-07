@@ -18,7 +18,7 @@ repositories {
 dependencies {
     // Use JUnit Jupiter for testing.
     testImplementation libs.junit.jupiter
-
+    testImplementation libs.assertj
     testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
 
     // This dependency is used by the application.
@@ -28,16 +28,17 @@ dependencies {
 // Apply a specific Java toolchain to ease working on different environments.
 java {
     toolchain {
-        languageVersion = JavaLanguageVersion.of(25)
+        languageVersion = JavaLanguageVersion.of(21)
     }
 }
 
 application {
-    // Define the main class for the application.
-    mainClass = 'com.example.App'
+    // Define the main class for the application.s
+    mainClass = 'com.Chess.GameEngine'
 }
 
 tasks.named('test') {
     // Use JUnit Platform for unit tests.
     useJUnitPlatform()
 }
+run{ standardInput = System.in }
