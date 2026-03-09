@@ -16,9 +16,13 @@ public class BoardTest {
     }
 
     @Test
-    public void create() throws Exception {
+    public void findPiece() throws Exception {
         board.initialize();
-        assertEquals(2, board.countPiece(Piece.Color.BLACK, Piece.Type.BISHOP));
-        assertEquals(8,board.countPiece(Piece.Color.BLACK, Piece.Type.PAWN));
+
+        assertEquals(Piece.createBlackRook(), board.findPiece("a8"));
+        assertEquals(Piece.createBlackRook(), board.findPiece("h8"));
+        assertEquals(Piece.createWhiteRook(), board.findPiece("a1"));
+        assertEquals(Piece.createWhiteRook(), board.findPiece("h1"));
     }
+
 }

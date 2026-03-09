@@ -20,8 +20,8 @@ public class Board {
             setupBlanckRank(ranks.get(i));
         }
 
-        setupWhitePieces(ranks.get(6));
-        setupWhitePawns(ranks.get(7));
+        setupWhitePawns(ranks.get(6));
+        setupWhitePieces(ranks.get(7));
     }
 
     private void setupBlackPieces(Rank rank) {
@@ -78,5 +78,12 @@ public class Board {
             sb.append(rank.getRankRepresentation()).append(StringUtils.NEWLINE);
         }
         return sb.toString();
+    }
+
+    public Piece findPiece(String positonStr) {
+        Position position = new Position(positonStr);
+
+        Rank rank = ranks.get(position.getY());
+        return rank.getPiece(position.getX());
     }
 }

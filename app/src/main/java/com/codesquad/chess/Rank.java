@@ -28,4 +28,8 @@ public class Rank {
             }
         return count;
     }
+
+    public Piece getPiece(int xPos) {
+        return pieces.get(xPos);
+    }
 }

@@ -7,7 +7,7 @@ public class Position {
 
     public Position(String position) {
         this.x = position.charAt(0) - 'a';
-        this.y = y - Character.getNumericValue(position.charAt(1));
+        this.y = 8 - Character.getNumericValue(position.charAt(1));
     }
 
     public int getX() {return x;}

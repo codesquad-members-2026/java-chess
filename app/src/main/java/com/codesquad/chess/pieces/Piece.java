@@ -1,5 +1,7 @@
 package com.codesquad.chess.pieces;
 
+import java.util.Objects;
+
 public class Piece {
 
     public enum Color {
@@ -7,7 +9,8 @@ public class Piece {
     }
 
     public enum Type {
-        PAWN('p'), ROOK('r'), KNIGHT('n'), BISHOP('b'), QUEEN('q'), KING('k'), NO_PIECE('.');
+        PAWN('p'), ROOK('r'), KNIGHT('n'), BISHOP('b'),
+        QUEEN('q'), KING('k'), NO_PIECE('.');
 
         private char representation;
 
@@ -71,6 +74,19 @@ public class Piece {
 
     public Type getType() { return type; }
     public Color getColor() {return color;}
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Piece piece = (Piece) o;
+        return color == piece.color && type == piece.type;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(color, type);
+    }
 
     public char getRepresentation() {
         if (isBlack()) {
