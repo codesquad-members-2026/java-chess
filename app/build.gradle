@@ -10,6 +10,7 @@ repositories {
     mavenCentral()
 }
 
+// 실행 메인 클래스 설정
 application {
     mainClass = 'com.codesquad.chess.Main'
 }
@@ -21,7 +22,7 @@ java {
 }
 
 dependencies {
-    // JUnit 4 기반 테스트 코드를 위해 jupiter 대신 이걸 유지합니다.
+    // JUnit 4 기반 테스트 코드를 위해 이걸 유지합니다. (충돌난 Jupiter 설정은 과감히 삭제)
     testImplementation 'junit:junit:4.13.2'
     testImplementation 'org.assertj:assertj-core:3.27.7'
 }
@@ -38,13 +39,10 @@ tasks.withType(JavaExec).configureEach {
 }
 
 test {
-    // JUnit 4를 사용하므로 useJUnitPlatform()은 삭제하거나 주석 처리해야 합니다.
-    // useJUnitPlatform()
-
+    // JUnit 4를 사용하므로 useJUnitPlatform()은 사용하지 않습니다.
     systemProperty "file.encoding", "UTF-8"
     systemProperty "sun.jnu.encoding", "UTF-8"
 
-    // 테스트 실패 시에도 로그를 상세히 보려면 추가
     testLogging {
         events "passed", "skipped", "failed"
     }
