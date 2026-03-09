@@ -6,9 +6,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import chess.Board;
 import chess.Game;
-import chess.io.InputHandler;
-import chess.pieces.Piece.Color;
-import chess.pieces.Piece.Type;
+import chess.ChessManager;
 import java.io.ByteArrayInputStream;
 import org.junit.jupiter.api.Test;
 
@@ -67,14 +65,13 @@ class PieceTest {
         System.setIn(new ByteArrayInputStream(input.getBytes()));
 
 
-        InputHandler inputHandler = new InputHandler();
-        inputHandler.run();
+        ChessManager chessManager = new ChessManager();
+        chessManager.run();
 
-        Game game = inputHandler.game;
+        Game game = chessManager.game;
         Board board = game.getBoard();
 
         Piece piece = board.getRank(0).get(4);
-        System.out.println(piece.getValidMoves(board));
     }
 
 }

@@ -3,7 +3,6 @@ package chess.pieces;
 
 import chess.Board;
 import chess.Position;
-import java.util.List;
 import java.util.Set;
 
 public class Blank extends Piece {
@@ -18,7 +17,7 @@ public class Blank extends Piece {
     }
 
     @Override
-    public Set<Position> getValidMoves(Board board) {
+    public Set<Position> getValidMoves(Position from, Board board) {
         return Set.of();
     }
 }

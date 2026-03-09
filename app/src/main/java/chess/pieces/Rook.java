@@ -1,18 +1,47 @@
 package chess.pieces;
 
 import chess.Board;
+import chess.Direction;
 import chess.Position;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
 public class Rook extends Piece {
+    private static final List<Direction> directions = Direction.linearDirection();
+
     protected Rook(Type type, Color color) {
         super(type, color);
     }
 
     @Override
-    public Set<Position> getValidMoves(Board board) {
-        return Set.of();
+    public Set<Position> getValidMoves(Position from, Board board) {
+        Set<Position> validMoves = new HashSet<>();
+
+        for (Direction direction : directions) {
+            for (int dist = 1; dist <= Board.SIZE; dist++) {
+                int newRank = from.rank + direction.getRankDelta() * dist;
+                int newFile = from.file + direction.getFileDelta() * dist;
+
+                if (newRank < 0 || newRank >= Board.SIZE || newFile < 0 || newFile >= Board.SIZE) {
+                    break;
+                }
+
+                Position to = new Position(newRank, newFile);
+                Piece piece = board.findPiece(to);
+
+                if (piece.getColor() == this.color) { // 아군
+                    break;
+                }
+
+                validMoves.add(new Position(newRank, newFile));
+
+                if (piece.getType() != Type.NO_PIECE) { // 진행 불가
+                    break;
+                }
+            }
+        }
+        return validMoves;
     }
 
 }

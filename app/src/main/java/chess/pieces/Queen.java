@@ -15,19 +15,20 @@ public class Queen extends Piece {
     }
 
     @Override
-    public Set<Position> getValidMoves(Board board) {
+    public Set<Position> getValidMoves(Position from, Board board) {
         Set<Position> validMoves = new HashSet<>();
 
         for (Direction direction : directions) {
             for (int dist = 1; dist <= Board.SIZE; dist++) {
-                int newRank = position.rank + direction.getRankDelta() * dist;
-                int newFile = position.file + direction.getFileDelta() * dist;
+                int newRank = from.rank + direction.getRankDelta() * dist;
+                int newFile = from.file + direction.getFileDelta() * dist;
 
                 if (newRank < 0 || newRank >= Board.SIZE || newFile < 0 || newFile >= Board.SIZE) {
                     break;
                 }
 
-                Piece piece = board.getRank(newRank).get(newFile);
+                Position to = new Position(newRank, newFile);
+                Piece piece = board.findPiece(to);
 
                 if (piece.getColor() == this.color) { // 아군
                     break;

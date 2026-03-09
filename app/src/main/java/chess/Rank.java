@@ -18,16 +18,15 @@ public class Rank {
         this.rank = rank;
     }
 
-    public static Rank fillWithMajorPieces(Color color, int rankNum) {
+    public static Rank fillWithMajorPieces(Color color) {
         List<Piece> rank = new ArrayList<>();
         for (int file = 0; file < 8; file++) {
-            Position position = new Position(rankNum, file);
-            rank.add(Piece.create(MAJOR_PIECES.get(file), color, position));
+            rank.add(Piece.create(MAJOR_PIECES.get(file), color));
         }
         return new Rank(rank);
     }
 
-    public static Rank emptyRank(int rankNum) {
+    public static Rank emptyRank() {
         List<Piece> rank = new ArrayList<>();
         for (int fileNum = 0; fileNum < Board.SIZE; fileNum++) {
             rank.add(Blank.getBlank());
@@ -35,11 +34,10 @@ public class Rank {
         return new Rank(rank);
     }
 
-    public static Rank fillWithPawns(Color color, int rankNum) {
+    public static Rank fillWithPawns(Color color) {
         List<Piece> rank = new ArrayList<>();
         for (int file = 0; file < 8; file++) {
-            Position position = new Position(rankNum, file);
-            rank.add(Piece.create(PAWN, color, position));
+            rank.add(Piece.create(PAWN, color));
         }
         return new Rank(rank);
     }

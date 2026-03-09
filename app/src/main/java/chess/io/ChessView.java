@@ -8,14 +8,14 @@ import chess.Rank;
 import chess.pieces.Piece;
 
 public class ChessView {
-    private final Board board;
-
-    public ChessView(Board board) {
-        this.board = board;
-    }
+    private Board board;
 
     public void showMessage(String message) {
         System.out.println(message);
+    }
+
+    public void setBoard(Board board) {
+        this.board = board;
     }
 
 

@@ -14,19 +14,19 @@ public class King extends Piece{
         super(type, color);
     }
     @Override
-    public Set<Position> getValidMoves(Board board) {
+    public Set<Position> getValidMoves(Position from, Board board) {
         Set<Position> validMoves = new HashSet<>();
 
-
         for (Direction direction : directions) {
-            int newRank = position.rank + direction.getRankDelta();
-            int newFile = position.file + direction.getFileDelta();
+            int newRank = from.rank + direction.getRankDelta();
+            int newFile = from.file + direction.getFileDelta();
 
             if (newRank < 0 || newRank >= Board.SIZE || newFile < 0 || newFile >= Board.SIZE) {
                 continue;
             }
 
-            Piece piece = board.getRank(newRank).get(newFile);
+            Position to = new Position(newRank, newFile);
+            Piece piece = board.findPiece(to);
             if (piece.getColor() == this.color) {
                 continue;
             }

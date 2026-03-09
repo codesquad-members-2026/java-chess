@@ -2,6 +2,7 @@ package chess;
 
 import chess.pieces.Blank;
 import chess.pieces.Color;
+import chess.pieces.Pawn;
 import chess.pieces.Type;
 import java.util.ArrayList;
 import java.util.List;
@@ -16,20 +17,20 @@ public class Board {
     private int pieceCount = 0;
 
     public void initialize() {
-        board.add(Rank.fillWithMajorPieces(Color.WHITE, 0));
-        board.add(Rank.fillWithPawns(Color.WHITE, 1));
-        for (int i = 2; i < 6; i++) {
-            board.add(Rank.emptyRank(i));
+        board.add(Rank.fillWithMajorPieces(Color.WHITE));
+        board.add(Rank.fillWithPawns(Color.WHITE));
+        for (int i = 0; i < 4; i++) {
+            board.add(Rank.emptyRank());
         }
-        board.add(Rank.fillWithPawns(Color.BLACK, 6));
-        board.add(Rank.fillWithMajorPieces(Color.BLACK, 7));
+        board.add(Rank.fillWithPawns(Color.BLACK));
+        board.add(Rank.fillWithMajorPieces(Color.BLACK));
 
         pieceCount = 32;
     }
 
     public void initializeEmpty() {
         for (int i = 0; i < SIZE; i++) {
-            board.add(Rank.emptyRank(i));
+            board.add(Rank.emptyRank());
         }
     }
 
@@ -58,6 +59,11 @@ public class Board {
     public void move(Piece piece, Position from, Position to) {
         board.get(from.rank).set(Blank.getBlank(), from.file);
         board.get(to.rank).set(piece, to.file);
+
+        if (piece instanceof Pawn pawn) {
+            pawn.moved();
+            // 프로모션 코드 작성하기
+        }
     }
 
     public double calculatePoint(Color color) {

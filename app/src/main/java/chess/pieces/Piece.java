@@ -5,7 +5,7 @@ import chess.Position;
 import java.util.Set;
 
 public abstract class Piece {
-    public static Piece create(Type type, Color color, Position position) {
+    public static Piece create(Type type, Color color) {
         return switch (type) {
             case KING -> new King(type, color);
             case QUEEN -> new Queen(type, color);
@@ -33,5 +33,5 @@ public abstract class Piece {
         return type;
     }
 
-    public abstract Set<Position> getValidMoves(Board board);
+    public abstract Set<Position> getValidMoves(Position from, Board board);
 }
