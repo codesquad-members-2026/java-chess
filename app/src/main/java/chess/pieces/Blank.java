@@ -1,35 +1,23 @@
 package chess.pieces;
 
-import chess.Direction;
+
+import chess.Board;
 import chess.Position;
 import java.util.List;
 
-public class Blank implements Piece {
+public class Blank extends Piece {
     public static Blank blank = new Blank();
 
     private Blank() {
+        super(Type.NO_PIECE, Color.NOCOLOR, null);
     }
 
     public static Blank getBlank() {
         return blank;
     }
-    @Override
-    public Color getColor() {
-        return Color.NOCOLOR;
-    }
 
     @Override
-    public Type getType() {
-        return Type.NO_PIECE;
-    }
-
-    @Override
-    public void move(Position position) {
-
-    }
-
-    @Override
-    public List<Direction> getDirections() {
-        return null;
+    public List<Position> getValidMoves(Board board) {
+        throw new IllegalStateException();
     }
 }

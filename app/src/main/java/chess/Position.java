@@ -30,4 +30,9 @@ public class Position {
     public int hashCode() {
         return Objects.hash(rank, file);
     }
+
+    @Override
+    public String toString() {
+        return String.format("%c%d", file + 'a', rank + 1);
+    }
 }

@@ -1,15 +1,16 @@
 package chess.pieces;
 
+import chess.Board;
 import chess.Direction;
 import chess.Position;
 import java.util.List;
 
-public interface Piece {
-    enum Color {
+public abstract class Piece {
+    public enum Color {
         WHITE, BLACK, NOCOLOR;
     }
 
-    enum Type {
+    public enum Type {
         QUEEN('♕', 9.0),
         ROOK('♖', 5.0),
         BISHOP('♗', 3.0),
@@ -41,20 +42,39 @@ public interface Piece {
         }
     }
 
-    static Piece create(Type type, Color color, Position position) {
+    public static Piece create(Type type, Color color, Position position) {
         return switch (type) {
-            case KING -> new King(color, position);
-            case QUEEN -> new Queen(color,position);
-            case PAWN -> new Pawn(color, position);
-            case ROOK -> new Rook(color, position);
-            case BISHOP -> new Bishop(color,position);
-            case KNIGHT -> new Knight(color, position);
+            case KING -> new King(type, color, position);
+            case QUEEN -> new Queen(type, color,position);
+            case PAWN -> new Pawn(type, color, position);
+            case ROOK -> new Rook(type, color, position);
+            case BISHOP -> new Bishop(type, color,position);
+            case KNIGHT -> new Knight(type, color, position);
             case NO_PIECE -> Blank.getBlank();
         };
     }
 
-    Color getColor();
-    Type getType();
-    void move(Position position);
-    List<Direction> getDirections();
+    protected Type type;
+    protected final Color color;
+    protected Position position;
+
+    protected Piece(Type type, Color color, Position position) {
+        this.type = type;
+        this.color = color;
+        this.position = position;
+    }
+
+    public Color getColor() {
+        return color;
+    }
+
+    public Type getType() {
+        return type;
+    }
+
+    public abstract List<Position> getValidMoves(Board board);
+
+    public void move(Position position) {
+        this.position = position;
+    }
 }

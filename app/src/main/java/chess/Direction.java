@@ -30,11 +30,11 @@ public enum Direction {
         this.rankDelta = rankDelta;
     }
 
-    public int getXDegree() {
+    public int getFileDelta() {
         return fileDelta;
     }
 
-    public int getYDegree() {
+    public int getRankDelta() {
         return rankDelta;
     }
 

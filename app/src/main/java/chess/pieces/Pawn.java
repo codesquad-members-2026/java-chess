@@ -1,30 +1,15 @@
 package chess.pieces;
 
-import chess.Direction;
+import chess.Board;
 import chess.Position;
 import java.util.List;
 
-public class Pawn implements Piece {
-    public Pawn(Color color, Position position) {
+public class Pawn extends Piece {
+    protected Pawn(Type type, Color color, Position position) {
+        super(type, color, position);
     }
-
     @Override
-    public Color getColor() {
-        return null;
-    }
-
-    @Override
-    public Type getType() {
-        return Type.PAWN;
-    }
-
-    @Override
-    public void move(Position position) {
-
-    }
-
-    @Override
-    public List<Direction> getDirections() {
+    public List<Position> getValidMoves(Board board) {
         return List.of();
     }
 }

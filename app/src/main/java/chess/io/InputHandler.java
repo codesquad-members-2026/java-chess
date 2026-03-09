@@ -8,7 +8,7 @@ public class InputHandler {
     private static final String QUIT_COMMAND = "quit";
     private static final String MOVE_COMMAND = "move";
 
-    private Game game;
+    public Game game;
     private ChessView view;
 
     public void run() {

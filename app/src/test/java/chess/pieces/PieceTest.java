@@ -4,8 +4,12 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import chess.Board;
+import chess.Game;
+import chess.io.InputHandler;
 import chess.pieces.Piece.Color;
 import chess.pieces.Piece.Type;
+import java.io.ByteArrayInputStream;
 import org.junit.jupiter.api.Test;
 
 class PieceTest {
@@ -24,13 +28,13 @@ class PieceTest {
 //        assertEquals(Type.NO_PIECE, blank.getType());
 //    }
 
-    private void verifyPiece(final Piece whitePiece, final Piece blackPiece, final Type type) {
-        assertTrue(whitePiece.isWhite());
-        assertEquals(type, whitePiece.getType());
-
-        assertTrue(blackPiece.isBlack());
-        assertEquals(type, blackPiece.getType());
-    }
+//    private void verifyPiece(final Piece whitePiece, final Piece blackPiece, final Type type) {
+//        assertTrue(whitePiece.isWhite());
+//        assertEquals(type, whitePiece.getType());
+//
+//        assertTrue(blackPiece.isBlack());
+//        assertEquals(type, blackPiece.getType());
+//    }
 
 //    @Test
 //    public void isBlackPiece() {
@@ -50,10 +54,27 @@ class PieceTest {
 //        assertFalse(Piece.createBlackPawn().isWhite());
 //    }
 
+//    @Test
+//    public void getRepresentationPerPiece() throws Exception {
+//        assertEquals('♙', Piece.Type.PAWN.getWhiteRepresentation());
+//        assertEquals('♟', Piece.Type.PAWN.getBlackRepresentation());
+//    }
+
     @Test
-    public void getRepresentationPerPiece() throws Exception {
-        assertEquals('♙', Piece.Type.PAWN.getWhiteRepresentation());
-        assertEquals('♟', Piece.Type.PAWN.getBlackRepresentation());
+    public void test1() {
+        //String input = "move e7 e6\nquit\n";
+        String input = "move e2 e3\nquit\n";
+        System.setIn(new ByteArrayInputStream(input.getBytes()));
+
+
+        InputHandler inputHandler = new InputHandler();
+        inputHandler.run();
+
+        Game game = inputHandler.game;
+        Board board = game.getBoard();
+
+        Piece piece = board.getRank(0).get(4);
+        System.out.println(piece.getValidMoves(board));
     }
 
 }

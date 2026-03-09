@@ -1,35 +1,36 @@
 package chess.pieces;
 
+import chess.Board;
 import chess.Direction;
 import chess.Position;
+import java.util.ArrayList;
 import java.util.List;
 
-public class King implements Piece{
-    private final Color color;
-    private final Position position;
+public class King extends Piece{
+    private static final List<Direction> directions = Direction.everyDirection();
 
-    public King(Color color, Position position) {
-        this.color = color;
-        this.position = position;
+    protected King(Type type, Color color, Position position) {
+        super(type, color, position);
     }
-
     @Override
-    public Color getColor() {
-        return color;
-    }
+    public List<Position> getValidMoves(Board board) {
+        List<Position> validMoves = new ArrayList<>();
 
-    @Override
-    public Type getType() {
-        return Type.KING;
-    }
+        for (Direction direction : directions) {
+            int newRank = position.rank + direction.getRankDelta();
+            int newFile = position.file + direction.getFileDelta();
 
-    @Override
-    public void move(Position position) {
-        //이동 로직
-    }
+            if (newRank < 0 || newRank >= Board.SIZE || newFile < 0 || newFile >= Board.SIZE) {
+                continue;
+            }
 
-    @Override
-    public List<Direction> getDirections() {
-        return Direction.everyDirection();
+            Piece piece = board.getRank(newRank).get(newFile);
+            if (piece.getColor() == this.color) {
+                continue;
+            }
+
+            validMoves.add(new Position(newRank, newFile));
+        }
+        return validMoves;
     }
 }
