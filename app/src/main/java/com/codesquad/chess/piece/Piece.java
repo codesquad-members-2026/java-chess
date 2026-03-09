@@ -2,26 +2,12 @@ package com.codesquad.chess.piece;
 
 import java.util.Objects;
 
-import static com.codesquad.chess.utils.ChessConstant.*;
-
 public class Piece {
-    private final String color;
+    private final Color color;
     private final char representation;
 
     public enum Color{
-        WHITE("white"),
-        BLACK("black"),
-        NOCOLOR("no");
-
-        private String color;
-
-        Color(String color) {
-            this.color = color;
-        }
-
-        public String getColor() {
-            return color;
-        }
+        WHITE, BLACK, NOCOLOR;
     }
 
     public enum Type{
@@ -48,16 +34,20 @@ public class Piece {
         }
     }
 
-    private Piece(String color, char representation) {
+    private Piece(Color color, char representation) {
         this.color = color;
         this.representation = representation;
     }
 
     private static Piece createWhite(Type type){
-        return new Piece(Color.WHITE.getColor(), type.getWhiteRepresentation());
+        return new Piece(Color.WHITE, type.getWhiteRepresentation());
     }
     private static Piece createBlack(Type type){
-        return new Piece(Color.BLACK.getColor(), type.getBlackRepresentation());
+        return new Piece(Color.BLACK, type.getBlackRepresentation());
+    }
+
+    private static Piece createBlank(Type type){
+        return new Piece(Color.NOCOLOR, type.getWhiteRepresentation());
     }
 
     public static Piece createWhitePawn(){
@@ -102,7 +92,7 @@ public class Piece {
         return createWhite(Type.NO_PIECE);
     }
 
-    public String getColor() {
+    public Color getColor() {
         return color;
     }
     public char getRepresentation() {
@@ -117,10 +107,10 @@ public class Piece {
         return Type.NO_PIECE;
     }
     public boolean isWhite() {
-        return color.equals(WHITE_COLOR);
+        return color.equals(Color.WHITE);
     }
     public boolean isBlack() {
-        return color.equals(BLACK_COLOR);
+        return color.equals(Color.BLACK);
     }
 
     @Override
