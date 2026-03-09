@@ -2,6 +2,7 @@ package com.codesquad.chess;
 
 import com.codesquad.chess.piece.Piece;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.stream.IntStream;
 
@@ -17,13 +18,7 @@ public class Board {
     }
 
     public int pieceCount(){
-        int sum = 0;
-
-        for(Rank r : ranks){
-            sum += r.size();
-        }
-
-        return sum;
+        return ranks.stream().mapToInt(Rank::size).sum();
     }
 
     public void initialize(){
@@ -32,7 +27,7 @@ public class Board {
         // 검은색 기물 추가
         addBlackPieces();
         // 빈칸 4줄 추가
-        addFourRowBlanks();
+        AddFourRowBlanks();
         // 하얀색 기물 추가
         addWhitePieces();
     }
@@ -60,7 +55,7 @@ public class Board {
         this.ranks.add(rank);
     }
 
-    private void addFourRowBlanks(){
+    private void AddFourRowBlanks(){
         // 중간 빈칸 추가
         final int BOARD_LEN_HALF = BOARD_LENGTH / 2;
         for(int i = 0; i < BOARD_LEN_HALF; i++){
@@ -100,5 +95,11 @@ public class Board {
         IntStream.range(0, ranks.size()).forEach(i -> result.append(appendNewLine(ranks.get(i).toString())));
 
         return result.toString();
+    }
+
+    public int checkPieceNum(Piece piece, String inputBoard){
+        char representation = piece.getRepresentation();
+        List<String> splitsList = Arrays.asList(inputBoard.split("\n"));
+        return Math.toIntExact(splitsList.stream().mapToLong(s -> s.chars().filter(c -> representation == c).count()).sum());
     }
 }

@@ -95,12 +95,14 @@ public class Piece {
         return representation;
     }
     public Type getType(){
+        Type type = Type.NO_PIECE;
+
         for(Type t : Type.values()){
             if(t.representation == Character.toLowerCase(representation))
-                return t;
+                type = t;
         }
 
-        return Type.NO_PIECE;
+        return type;
     }
     public boolean isWhite() {
         return color.equals(Color.WHITE);
