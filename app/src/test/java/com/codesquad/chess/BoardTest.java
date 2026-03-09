@@ -16,13 +16,35 @@ public class BoardTest {
     }
 
     @Test
-    public void findPiece() throws Exception {
-        board.initialize();
+    public void calculatePoint() throws Exception {
 
-        assertEquals(Piece.createBlackRook(), board.findPiece("a8"));
-        assertEquals(Piece.createBlackRook(), board.findPiece("h8"));
-        assertEquals(Piece.createWhiteRook(), board.findPiece("a1"));
-        assertEquals(Piece.createWhiteRook(), board.findPiece("h1"));
+        board.initializeEmpty();
+
+        addPiece("b6", Piece.createBlackPawn());
+        addPiece("e6", Piece.createBlackQueen());
+        addPiece("b8", Piece.createBlackKing());
+        addPiece("c8", Piece.createBlackRook());
+
+        addPiece("f2", Piece.createWhitePawn());
+        addPiece("g2", Piece.createWhitePawn());
+        addPiece("e1", Piece.createWhiteRook());
+        addPiece("f1", Piece.createWhiteKing());
+
+
+        assertEquals(15.0, board.calculatePoint(Piece.Color.BLACK), 0.01);
+        assertEquals(7.0, board.calculatePoint(Piece.Color.WHITE), 0.01);
+
+
+        System.out.println(board.showBoard());
+        System.out.println("Black Score: " + board.calculatePoint(Piece.Color.BLACK));
+        System.out.println("White Score: " + board.calculatePoint(Piece.Color.WHITE));
     }
+
+
+    private void addPiece(String position, Piece piece) {
+        board.move(position, piece);
+    }
+
+
 
 }

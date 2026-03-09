@@ -8,9 +8,10 @@ import java.util.List;
 public class Board {
 
     private List<Rank> ranks = new ArrayList<>();
+    public static final int SIZE = 8;
 
     public void initialize() {
-        for (int i = 0; i < 8; i++) {
+        for (int i = 0; i < SIZE; i++) {
             ranks.add(new Rank());
         }
         setupBlackPieces(ranks.get(0));
@@ -36,7 +37,7 @@ public class Board {
     }
 
     private void setupBlackPawns(Rank rank) {
-        for (int i = 0; i < 8; i++) {
+        for (int i = 0; i < SIZE; i++) {
             rank.addPiece(Piece.createBlackPawn());
         }
     }
@@ -53,13 +54,13 @@ public class Board {
     }
 
     private void setupWhitePawns(Rank rank) {
-        for (int i = 0; i < 8; i++) {
+        for (int i = 0; i < SIZE; i++) {
             rank.addPiece(Piece.createWhitePawn());
         }
     }
 
     private void setupBlanckRank(Rank rank) {
-        for (int i = 0; i < 8; i++) {
+        for (int i = 0; i < SIZE; i++) {
             rank.addPiece(Piece.createBlank());
         }
     }
@@ -85,5 +86,53 @@ public class Board {
 
         Rank rank = ranks.get(position.getY());
         return rank.getPiece(position.getX());
+    }
+
+    public void initializeEmpty() {
+        ranks.clear();
+
+        for(int i = 0; i < SIZE; i++) {
+            Rank rank = new Rank();
+
+            for(int j = 0; j < SIZE; j++) {
+                rank.addPiece(Piece.createBlank());
+            }
+            ranks.add(rank);
+        }
+    }
+
+    public void move(String positionStr, Piece piece) {
+        Position position = new Position(positionStr);
+
+        Rank targetRank = ranks.get(position.getY());
+
+        targetRank.setPiece(position.getX(), piece);
+    }
+
+    public double calculatePoint(Piece.Color color) {
+        double totalPoint = 0;
+
+        for (Rank rank : ranks) {
+            for (int i = 0; i < SIZE; i++) {
+                Piece piece = rank.getPiece(i);
+                if (piece.getColor() == color) {
+                    totalPoint += piece.getPoint();
+                }
+            }
+        }
+        for (int x = 0; x < SIZE; x++) {
+            int pawnCount = 0;
+            for (int y = 0; y < SIZE; y++) {
+
+                Piece piece = ranks.get(y).getPiece(x);
+                if (piece.getColor() == color && piece.getType() == Piece.Type.PAWN) {
+                    pawnCount++;
+                }
+            }
+            if (pawnCount > 1) {
+                totalPoint -= (pawnCount * 0.5);
+            }
+        }
+        return totalPoint;
     }
 }
