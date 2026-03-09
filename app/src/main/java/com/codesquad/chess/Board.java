@@ -8,26 +8,40 @@ import java.util.stream.IntStream;
 import static com.codesquad.chess.utils.StringUtils.appendNewLine;
 
 public class Board {
-    private List<Rank> pieces;
+    private List<Rank> ranks;
 
-    public static final int PAWN_NUM = 8;
     public static final int BOARD_LENGTH = 8;
 
     public Board(){
-        pieces = new ArrayList<Rank>();
+        ranks = new ArrayList<>();
     }
 
     public int pieceCount(){
-        for(Rank r : pieces){
-            System.out.println(r.toString());
+        int sum = 0;
+
+        for(Rank r : ranks){
+            sum += r.size();
         }
 
-        return pieces.size() * pieces.get(0).size();
+        return sum;
     }
 
     public void initialize(){
-        ArrayList<Piece> rank = new ArrayList<>();
+        this.ranks = new ArrayList<>();
+
         // 검은색 기물 추가
+        addBlackPieces();
+        // 빈칸 4줄 추가
+        addFourRowBlanks();
+        // 하얀색 기물 추가
+        addWhitePieces();
+    }
+
+    private void addBlackPieces(){
+        Rank rank = new Rank();
+
+        // 검은색 기물 추가
+        // 폰 X
         rank.add(Piece.createBlackRook());
         rank.add(Piece.createBlackKnight());
         rank.add(Piece.createBlackBishop());
@@ -36,34 +50,39 @@ public class Board {
         rank.add(Piece.createBlackBishop());
         rank.add(Piece.createBlackKnight());
         rank.add(Piece.createBlackRook());
-        pieces.add(new Rank(rank));
-        rank = new ArrayList<>();
+        this.ranks.add(rank);
 
+        // 폰 O
+        rank = new Rank();
         for(int i = 0; i < BOARD_LENGTH; i++){
             rank.add(Piece.createBlackPawn());
         }
-        pieces.add(new Rank(rank));
+        this.ranks.add(rank);
+    }
 
-
+    private void addFourRowBlanks(){
         // 중간 빈칸 추가
-        for(int i = 0; i < BOARD_LENGTH / 2; i++){
-            rank = new ArrayList<>();
+        final int BOARD_LEN_HALF = BOARD_LENGTH / 2;
+        for(int i = 0; i < BOARD_LEN_HALF; i++){
+            Rank rank = new Rank();
 
             for(int j = 0; j < BOARD_LENGTH; j++){
                 rank.add(Piece.createBlank());
             }
 
-            pieces.add(new Rank(rank));
+            this.ranks.add(rank);
         }
+    }
 
+    private void addWhitePieces(){
         // 하얀색 기물 추가
-        rank = new ArrayList<>();
+        Rank rank = new Rank();
         for(int i = 0; i < BOARD_LENGTH; i++){
             rank.add(Piece.createWhitePawn());
         }
-        pieces.add(new Rank(rank));
+        this.ranks.add(rank);
 
-        rank = new ArrayList<>();
+        rank = new Rank();
         rank.add(Piece.createWhiteRook());
         rank.add(Piece.createWhiteKnight());
         rank.add(Piece.createWhiteBishop());
@@ -72,15 +91,13 @@ public class Board {
         rank.add(Piece.createWhiteBishop());
         rank.add(Piece.createWhiteKnight());
         rank.add(Piece.createWhiteRook());
-        pieces.add(new Rank(rank));
+        this.ranks.add(rank);
     }
 
     public String showBoard(){
         StringBuilder result = new StringBuilder();
 
-        for(int i = 0; i < BOARD_LENGTH; i++){
-            result.append(appendNewLine(pieces.get(i).toString()));
-        }
+        IntStream.range(0, ranks.size()).forEach(i -> result.append(appendNewLine(ranks.get(i).toString())));
 
         return result.toString();
     }

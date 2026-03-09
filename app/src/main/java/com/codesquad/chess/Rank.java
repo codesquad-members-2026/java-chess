@@ -4,6 +4,7 @@ import com.codesquad.chess.piece.Piece;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.IntStream;
 
 public class Rank {
     private List<Piece> rank;
@@ -12,8 +13,8 @@ public class Rank {
         rank = new ArrayList<>();
     }
 
-    public Rank(List<Piece> rank){
-        this.rank = rank;
+    public void add(Piece p){
+        rank.add(p);
     }
 
     public int size(){
@@ -24,9 +25,7 @@ public class Rank {
     public String toString() {
         StringBuilder result = new StringBuilder();
 
-        for(int i = 0; i < rank.size(); i++){
-            result.append(rank.get(i).getRepresentation());
-        }
+        IntStream.range(0, rank.size()).forEach(i -> result.append(rank.get(i).getRepresentation()));
 
         return result.toString();
     }

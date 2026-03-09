@@ -46,10 +46,6 @@ public class Piece {
         return new Piece(Color.BLACK, type.getBlackRepresentation());
     }
 
-    private static Piece createBlank(Type type){
-        return new Piece(Color.NOCOLOR, type.getWhiteRepresentation());
-    }
-
     public static Piece createWhitePawn(){
         return createWhite(Type.PAWN);
     }
@@ -89,7 +85,7 @@ public class Piece {
     }
 
     public static Piece createBlank(){
-        return createWhite(Type.NO_PIECE);
+        return new Piece(Color.NOCOLOR, Type.NO_PIECE.getWhiteRepresentation());
     }
 
     public Color getColor() {
