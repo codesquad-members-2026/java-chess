@@ -1,12 +1,15 @@
 package chess;
 
 import chess.pieces.Piece;
-import chess.pieces.Piece.Type;
+import chess.pieces.Piece.*;
+import chess.pieces.Color;
+import chess.pieces.Type;
 import java.util.Set;
 
 public class Game {
     // 검증이나 계산은 game이 board는 최종 작업만
     private final Board board;
+    private Color currentTurn = Color.WHITE;
 
     public Game() {
         board = new Board();
@@ -28,9 +31,18 @@ public class Game {
         }
 
         board.move(piece, from, to);
+        switchTurn();
     }
 
     public Board getBoard() {
         return board;
+    }
+
+    public void switchTurn() {
+        if (currentTurn == Color.WHITE) {
+            currentTurn = Color.BLACK;
+        } else {
+            currentTurn = Color.WHITE;
+        }
     }
 }

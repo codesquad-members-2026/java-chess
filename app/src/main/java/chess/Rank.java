@@ -1,11 +1,12 @@
 package chess;
 
-import static chess.pieces.Piece.Type.*;
+
+import static chess.pieces.Type.*;
 
 import chess.pieces.Blank;
 import chess.pieces.Piece;
-import chess.pieces.Piece.Color;
-import chess.pieces.Piece.Type;
+import chess.pieces.Color;
+import chess.pieces.Type;
 import java.util.ArrayList;
 import java.util.List;
 

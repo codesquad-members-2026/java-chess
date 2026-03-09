@@ -1,8 +1,8 @@
 package chess;
 
 import chess.pieces.Blank;
-import chess.pieces.Piece.Color;
-import chess.pieces.Piece.Type;
+import chess.pieces.Color;
+import chess.pieces.Type;
 import java.util.ArrayList;
 import java.util.List;
 
