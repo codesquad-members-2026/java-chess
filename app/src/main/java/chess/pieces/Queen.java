@@ -3,19 +3,20 @@ package chess.pieces;
 import chess.Board;
 import chess.Direction;
 import chess.Position;
-import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 public class Queen extends Piece {
     private static final List<Direction> directions = Direction.everyDirection();
 
-    protected Queen(Type type, Color color, Position position) {
-        super(type, color, position);
+    protected Queen(Type type, Color color) {
+        super(type, color);
     }
 
     @Override
-    public List<Position> getValidMoves(Board board) {
-        List<Position> validMoves = new ArrayList<>();
+    public Set<Position> getValidMoves(Board board) {
+        Set<Position> validMoves = new HashSet<>();
 
         for (Direction direction : directions) {
             for (int dist = 1; dist <= Board.SIZE; dist++) {

@@ -4,12 +4,13 @@ package chess.pieces;
 import chess.Board;
 import chess.Position;
 import java.util.List;
+import java.util.Set;
 
 public class Blank extends Piece {
     public static Blank blank = new Blank();
 
     private Blank() {
-        super(Type.NO_PIECE, Color.NOCOLOR, null);
+        super(Type.NO_PIECE, Color.NOCOLOR);
     }
 
     public static Blank getBlank() {
@@ -17,7 +18,7 @@ public class Blank extends Piece {
     }
 
     @Override
-    public List<Position> getValidMoves(Board board) {
-        throw new IllegalStateException();
+    public Set<Position> getValidMoves(Board board) {
+        return Set.of();
     }
 }

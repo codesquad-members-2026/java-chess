@@ -50,23 +50,14 @@ public class Board {
 //        return count;
 //    }
 
-    public Piece findPiece(String positionInput) {
-        Position position = Position.from(positionInput);
+    public Piece findPiece(Position position) {
         return board.get(position.rank).get(position.file);
     }
 
-    public void move(String sourceStr, String targetStr) {
-        Position sourcePosition = Position.from(sourceStr);
-        Rank sourceRank = board.get(sourcePosition.rank);
-        Piece sourcePiece = sourceRank.get(sourcePosition.file);
 
-        sourceRank.set(Blank.getBlank(), sourcePosition.file);
-
-        Position targetPosition = Position.from(targetStr);
-        Rank targetRank = board.get(targetPosition.rank);
-        //Piece targetPiece = targetRank.get(targetPosition.file);
-        targetRank.set(sourcePiece, targetPosition.file);
-        sourcePiece.move(targetPosition);
+    public void move(Piece piece, Position from, Position to) {
+        board.get(from.rank).set(Blank.getBlank(), from.file);
+        board.get(to.rank).set(piece, to.file);
     }
 
     public double calculatePoint(Color color) {

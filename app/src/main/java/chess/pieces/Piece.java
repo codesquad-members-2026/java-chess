@@ -1,9 +1,8 @@
 package chess.pieces;
 
 import chess.Board;
-import chess.Direction;
 import chess.Position;
-import java.util.List;
+import java.util.Set;
 
 public abstract class Piece {
     public enum Color {
@@ -21,8 +20,8 @@ public abstract class Piece {
 
         private static final int BLACK_OFFSET = '♟' - '♙';
 
-        private char representation;
-        private double defaultPoint;
+        private final char representation;
+        private final double defaultPoint;
 
         Type(char representation, double defaultPoint) {
             this.representation = representation;
@@ -44,24 +43,22 @@ public abstract class Piece {
 
     public static Piece create(Type type, Color color, Position position) {
         return switch (type) {
-            case KING -> new King(type, color, position);
-            case QUEEN -> new Queen(type, color,position);
-            case PAWN -> new Pawn(type, color, position);
-            case ROOK -> new Rook(type, color, position);
-            case BISHOP -> new Bishop(type, color,position);
-            case KNIGHT -> new Knight(type, color, position);
+            case KING -> new King(type, color);
+            case QUEEN -> new Queen(type, color);
+            case PAWN -> new Pawn(type, color);
+            case ROOK -> new Rook(type, color);
+            case BISHOP -> new Bishop(type, color);
+            case KNIGHT -> new Knight(type, color);
             case NO_PIECE -> Blank.getBlank();
         };
     }
 
     protected Type type;
     protected final Color color;
-    protected Position position;
 
-    protected Piece(Type type, Color color, Position position) {
+    protected Piece(Type type, Color color) {
         this.type = type;
         this.color = color;
-        this.position = position;
     }
 
     public Color getColor() {
@@ -72,9 +69,5 @@ public abstract class Piece {
         return type;
     }
 
-    public abstract List<Position> getValidMoves(Board board);
-
-    public void move(Position position) {
-        this.position = position;
-    }
+    public abstract Set<Position> getValidMoves(Board board);
 }
