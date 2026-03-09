@@ -116,23 +116,12 @@ public class Board {
     }
 
     public Piece findPiece(String position){
-        char x = position.charAt(0);
-        Rank targetRank = findRank(position);
-
-        return targetRank.get(x - 'a');
+        Position pos = Position.of(position);
+        return ranks.get(pos.getY()).get(pos.getX());
     }
 
     public void move(String position, Piece piece){
-        char x = position.charAt(0);
-        Rank targetRank = findRank(position);
-
-        targetRank.set(x - 'a', piece);
-    }
-
-    private Rank findRank(String position){
-        int y = Character.getNumericValue(position.charAt(1));
-        int size = ranks.size();
-
-        return ranks.get(size - y);
+        Position pos = Position.of(position);
+        ranks.get(pos.getY()).set(pos.getX(), piece);
     }
 }
