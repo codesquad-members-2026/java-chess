@@ -28,14 +28,14 @@ public class BoardTest {
 
         String blankRank = appendNewLine("........");
         assertEquals(
-                appendNewLine("RNBQKBNR  8 (rank 8)") +
+                appendNewLine("RNBQKBNR  8") +
                 appendNewLine("PPPPPPPP  7") +
                 appendNewLine("........  6") +
                 appendNewLine("........  5") +
                 appendNewLine("........  4") +
                 appendNewLine("........  3") +
                 appendNewLine("pppppppp  2") +
-                appendNewLine("rnbqkbnr  1 (rank 1)") +
+                appendNewLine("rnbqkbnr  1") +
                 appendNewLine("") +
                 appendNewLine("abcdefgh"),
                 board.showBoard());
@@ -104,5 +104,32 @@ public class BoardTest {
         assertEquals(Piece.createWhiteBishop(), board.findPiece("f1"));
         assertEquals(Piece.createWhiteKnight(), board.findPiece("g1"));
         assertEquals(Piece.createWhiteRook(), board.findPiece("h1"));
+    }
+
+    @Test
+    @DisplayName("임의의 기물을 빈 체스판 위에 추가")
+    public void addPieceOnEmptyBoard(){
+        board.initializeEmptyBoard();
+        String expectedBoard =
+                appendNewLine("........  8") +
+                appendNewLine("........  7") +
+                appendNewLine("........  6") +
+                appendNewLine("........  5") +
+                appendNewLine("........  4") +
+                appendNewLine("........  3") +
+                appendNewLine("........  2") +
+                appendNewLine("........  1") +
+                appendNewLine("") +
+                appendNewLine("abcdefgh");
+
+        assertEquals(expectedBoard, board.showBoard());
+
+
+        String position = "b5";
+        Piece piece = Piece.createBlackRook();
+        board.move(position, piece);
+
+        assertEquals(piece, board.findPiece(position));
+        System.out.println(board.showBoard());
     }
 }

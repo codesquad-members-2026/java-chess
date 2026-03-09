@@ -21,6 +21,10 @@ public class Rank {
         return rank.get(index);
     }
 
+    public Piece set(int index, Piece p){
+        return rank.set(index, p);
+    }
+
     public int size(){
         return rank.size();
     }

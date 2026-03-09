@@ -12,8 +12,6 @@ public class Board {
     private List<Rank> ranks;
 
     public static final int BOARD_LENGTH = 8;
-    public static final int FIRST_RANK_IDX = 7;
-    public static final int LAST_RANK_IDX = 0;
     public static final String FILE_STR = "abcdefgh";
 
     public Board(){
@@ -33,6 +31,11 @@ public class Board {
         AddFourRowBlanks();
         // 하얀색 기물 추가
         addWhitePieces();
+    }
+
+    public void initializeEmptyBoard(){
+        AddFourRowBlanks();
+        AddFourRowBlanks();
     }
 
     private void addBlackPieces(){
@@ -97,12 +100,6 @@ public class Board {
         int len = ranks.size();
 
         for(int i = 0; i < len; i++){
-            if(i == FIRST_RANK_IDX || i == LAST_RANK_IDX){
-                result.append(appendNewLine(ranks.get(i).toString() + "  " + (len - i) +
-                        " (rank " + (len - i) + ")"));
-                continue;
-            }
-
             result.append(appendNewLine(ranks.get(i).toString() + "  " + (len - i)));
         }
 
@@ -119,11 +116,23 @@ public class Board {
     }
 
     public Piece findPiece(String position){
-        char[] coordinate = position.toCharArray();
-        char x = coordinate[0];
-        int y = Character.getNumericValue(coordinate[1]);
+        char x = position.charAt(0);
+        Rank targetRank = findRank(position);
+
+        return targetRank.get(x - 'a');
+    }
+
+    public void move(String position, Piece piece){
+        char x = position.charAt(0);
+        Rank targetRank = findRank(position);
+
+        targetRank.set(x - 'a', piece);
+    }
+
+    private Rank findRank(String position){
+        int y = Character.getNumericValue(position.charAt(1));
         int size = ranks.size();
 
-        return ranks.get(size - y).get(x - 'a');
+        return ranks.get(size - y);
     }
 }
