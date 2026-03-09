@@ -12,6 +12,9 @@ public class Board {
     private List<Rank> ranks;
 
     public static final int BOARD_LENGTH = 8;
+    public static final int FIRST_RANK_IDX = 7;
+    public static final int LAST_RANK_IDX = 0;
+    public static final String FILE_STR = "abcdefgh";
 
     public Board(){
         ranks = new ArrayList<>();
@@ -91,8 +94,20 @@ public class Board {
 
     public String showBoard(){
         StringBuilder result = new StringBuilder();
+        int len = ranks.size();
 
-        IntStream.range(0, ranks.size()).forEach(i -> result.append(appendNewLine(ranks.get(i).toString())));
+        for(int i = 0; i < len; i++){
+            if(i == FIRST_RANK_IDX || i == LAST_RANK_IDX){
+                result.append(appendNewLine(ranks.get(i).toString() + "  " + (len - i) +
+                        " (rank " + (len - i) + ")"));
+                continue;
+            }
+
+            result.append(appendNewLine(ranks.get(i).toString() + "  " + (len - i)));
+        }
+
+        result.append(appendNewLine(""));
+        result.append(appendNewLine(FILE_STR));
 
         return result.toString();
     }
@@ -101,5 +116,14 @@ public class Board {
         char representation = piece.getRepresentation();
         List<String> splitsList = Arrays.asList(inputBoard.split("\n"));
         return Math.toIntExact(splitsList.stream().mapToLong(s -> s.chars().filter(c -> representation == c).count()).sum());
+    }
+
+    public Piece findPiece(String position){
+        char[] coordinate = position.toCharArray();
+        char x = coordinate[0];
+        int y = Character.getNumericValue(coordinate[1]);
+        int size = ranks.size();
+
+        return ranks.get(size - y).get(x - 'a');
     }
 }

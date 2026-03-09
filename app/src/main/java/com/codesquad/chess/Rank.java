@@ -17,6 +17,10 @@ public class Rank {
         rank.add(p);
     }
 
+    public Piece get(int index){
+        return rank.get(index);
+    }
+
     public int size(){
         return rank.size();
     }
