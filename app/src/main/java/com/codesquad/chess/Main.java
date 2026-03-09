@@ -7,6 +7,13 @@ public class Main {
         Scanner sc = new Scanner(System.in);
         Board board = new Board();
 
+<<<<<<< HEAD
+        System.out.println("Chess Game Start: [start] / Exit: [end]");
+
+        while (true) {
+            System.out.print("> ");
+            if (!sc.hasNextLine()) break;
+=======
         System.out.println("체스 게임을 시작하려면 start, 종료하려면 end를 입력하세요.");
 
         while (true) {
@@ -16,10 +23,22 @@ public class Main {
             if (!sc.hasNextLine()) {
                 break;
             }
+>>>>>>> upstream/Hana
 
             String command = sc.nextLine();
 
             if (command.equals("start")) {
+<<<<<<< HEAD
+                board.initialize();
+                System.out.println(board.showBoard());
+            } else if (command.equals("end")) {
+                System.out.println("End Game.");
+                break;
+            } else {
+                System.out.println("명령어를 다시 입력해주세요.");
+            }
+        }
+=======
                 board.initialize(); // 보드 초기화 (폰 16개 배치)
                 System.out.print(board.showBoard()); // 현재 보드 출력
                 continue;
@@ -33,6 +52,7 @@ public class Main {
             System.out.println("알 수 없는 명령어입니다. 'start' 또는 'end'를 입력해주세요.");
         }
 
+>>>>>>> upstream/Hana
         sc.close();
     }
 }
