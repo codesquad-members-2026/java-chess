@@ -1,13 +1,13 @@
 package com.codesquad.chess;
-import static org.junit.Assert.*;
 
+import com.codesquad.chess.pieces.Piece;
 import org.junit.Before;
 import org.junit.Test;
-import pieces.Pawn;
+
+import static org.junit.Assert.assertEquals;
 
 
 public class BoardTest {
-
     private Board board;
 
     @Before
@@ -16,23 +16,15 @@ public class BoardTest {
     }
 
     @Test
-    public void initialize() throws Exception {
-
-        board.initialize();
-        assertEquals(16, board.size());
-    }
-
-    @Test
-    public void initialize_result() {
+    public void move() throws Exception {
         board.initialize();
 
-        assertEquals("pppppppp", board.getWhitePawnsResult());
-        assertEquals("PPPPPPPP", board.getBlackPawnsResult());
-    }
+        String sourcePosition = "b2";
+        String targetPosition = "b3";
+        board.move(sourcePosition, targetPosition);
 
-    @Test
-    public void print() {
-        board.initialize();
-        System.out.println(board.showBoard());
+        assertEquals(Piece.createWhitePawn(), board.findPiece("b3"));
+
+        assertEquals(Piece.createWhitePawn(), board.findPiece(targetPosition));
     }
 }
