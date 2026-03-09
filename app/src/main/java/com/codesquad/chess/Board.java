@@ -4,8 +4,8 @@ import com.codesquad.chess.piece.Piece;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.stream.IntStream;
 
+import static com.codesquad.chess.piece.Piece.*;
 import static com.codesquad.chess.utils.StringUtils.appendNewLine;
 
 public class Board {
@@ -32,35 +32,32 @@ public class Board {
         // 하얀색 기물 추가
         addWhitePieces();
     }
-
     public void initializeEmptyBoard(){
         AddFourRowBlanks();
         AddFourRowBlanks();
     }
-
     private void addBlackPieces(){
         Rank rank = new Rank();
 
         // 검은색 기물 추가
         // 폰 X
-        rank.add(Piece.createBlackRook());
-        rank.add(Piece.createBlackKnight());
-        rank.add(Piece.createBlackBishop());
-        rank.add(Piece.createBlackQueen());
-        rank.add(Piece.createBlackKing());
-        rank.add(Piece.createBlackBishop());
-        rank.add(Piece.createBlackKnight());
-        rank.add(Piece.createBlackRook());
+        rank.add(createBlackRook());
+        rank.add(createBlackKnight());
+        rank.add(createBlackBishop());
+        rank.add(createBlackQueen());
+        rank.add(createBlackKing());
+        rank.add(createBlackBishop());
+        rank.add(createBlackKnight());
+        rank.add(createBlackRook());
         this.ranks.add(rank);
 
         // 폰 O
         rank = new Rank();
         for(int i = 0; i < BOARD_LENGTH; i++){
-            rank.add(Piece.createBlackPawn());
+            rank.add(createBlackPawn());
         }
         this.ranks.add(rank);
     }
-
     private void AddFourRowBlanks(){
         // 중간 빈칸 추가
         final int BOARD_LEN_HALF = BOARD_LENGTH / 2;
@@ -68,30 +65,29 @@ public class Board {
             Rank rank = new Rank();
 
             for(int j = 0; j < BOARD_LENGTH; j++){
-                rank.add(Piece.createBlank());
+                rank.add(createBlank());
             }
 
             this.ranks.add(rank);
         }
     }
-
     private void addWhitePieces(){
         // 하얀색 기물 추가
         Rank rank = new Rank();
         for(int i = 0; i < BOARD_LENGTH; i++){
-            rank.add(Piece.createWhitePawn());
+            rank.add(createWhitePawn());
         }
         this.ranks.add(rank);
 
         rank = new Rank();
-        rank.add(Piece.createWhiteRook());
-        rank.add(Piece.createWhiteKnight());
-        rank.add(Piece.createWhiteBishop());
-        rank.add(Piece.createWhiteQueen());
-        rank.add(Piece.createWhiteKing());
-        rank.add(Piece.createWhiteBishop());
-        rank.add(Piece.createWhiteKnight());
-        rank.add(Piece.createWhiteRook());
+        rank.add(createWhiteRook());
+        rank.add(createWhiteKnight());
+        rank.add(createWhiteBishop());
+        rank.add(createWhiteQueen());
+        rank.add(createWhiteKing());
+        rank.add(createWhiteBishop());
+        rank.add(createWhiteKnight());
+        rank.add(createWhiteRook());
         this.ranks.add(rank);
     }
 
@@ -123,5 +119,44 @@ public class Board {
     public void move(String position, Piece piece){
         Position pos = Position.of(position);
         ranks.get(pos.getY()).set(pos.getX(), piece);
+    }
+
+    public double calculatePoint(Color color){
+        int rankLen = ranks.size();
+        double sum = 0.0;
+
+        for(int i = 0; i < rankLen; i++){
+            int fileLen = ranks.get(i).size();
+            Rank rank = ranks.get(i);
+
+            for(int j = 0; j < fileLen; j++){
+                Piece piece = rank.get(j);
+
+                if(color == piece.getColor()){
+                    if(piece.getType() == Type.PAWN){
+                        sum += calculatePawnPoint(j, i, piece);
+                        continue;
+                    }
+
+                    sum += piece.getPoint();
+                }
+            }
+        }
+
+        return sum;
+    }
+
+    private double calculatePawnPoint(int fileIdx, int rankIdx, Piece pawn){
+        double pawnPoint = Type.PAWN.getPoint();
+
+        int rankLen = ranks.size();
+        for(int i = 0; i < rankLen && i != rankIdx; i++){
+            Piece piece = ranks.get(i).get(fileIdx);
+
+            if((pawn.getType() == piece.getType()) && (pawn.getColor() == piece.getColor()))
+                return pawnPoint / 2;
+        }
+
+        return pawnPoint;
     }
 }

@@ -5,24 +5,27 @@ import java.util.Objects;
 public class Piece {
     private final Color color;
     private final char representation;
+    private final double point;
 
     public enum Color{
         WHITE, BLACK, NOCOLOR;
     }
 
     public enum Type{
-        PAWN('p'),
-        ROOK('r'),
-        KNIGHT('n'),
-        BISHOP('b'),
-        QUEEN('q'),
-        KING('k'),
-        NO_PIECE('.');
+        PAWN('p', 1.0),
+        ROOK('r', 5.0),
+        KNIGHT('n', 2.5),
+        BISHOP('b', 3.0),
+        QUEEN('q', 9.0),
+        KING('k', 0.0),
+        NO_PIECE('.', 0.0);
 
         private char representation;
+        private double point;
 
-        Type(char representation){
+        Type(char representation, double point){
             this.representation = representation;
+            this.point = point;
         }
 
         public char getWhiteRepresentation(){
@@ -32,18 +35,21 @@ public class Piece {
         public char getBlackRepresentation(){
             return Character.toUpperCase(representation);
         }
+
+        public double getPoint(){return point;}
     }
 
-    private Piece(Color color, char representation) {
+    private Piece(Color color, char representation, double point) {
         this.color = color;
         this.representation = representation;
+        this.point = point;
     }
 
     private static Piece createWhite(Type type){
-        return new Piece(Color.WHITE, type.getWhiteRepresentation());
+        return new Piece(Color.WHITE, type.getWhiteRepresentation(), type.getPoint());
     }
     private static Piece createBlack(Type type){
-        return new Piece(Color.BLACK, type.getBlackRepresentation());
+        return new Piece(Color.BLACK, type.getBlackRepresentation(), type.getPoint());
     }
 
     public static Piece createWhitePawn(){
@@ -83,9 +89,8 @@ public class Piece {
     public static Piece createBlackBishop(){
         return createBlack(Type.BISHOP);
     }
-
     public static Piece createBlank(){
-        return new Piece(Color.NOCOLOR, Type.NO_PIECE.getWhiteRepresentation());
+        return new Piece(Color.NOCOLOR, Type.NO_PIECE.getWhiteRepresentation(), Type.NO_PIECE.getPoint());
     }
 
     public Color getColor() {
@@ -93,6 +98,9 @@ public class Piece {
     }
     public char getRepresentation() {
         return representation;
+    }
+    public double getPoint() {
+        return point;
     }
     public Type getType(){
         Type type = Type.NO_PIECE;
