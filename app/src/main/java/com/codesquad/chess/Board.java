@@ -1,4 +1,5 @@
 package com.codesquad.chess;
+<<<<<<< HEAD
 import com.codesquad.chess.pieces.Piece;
 import com.codesquad.chess.utils.StringUtils;
 import java.util.ArrayList;
@@ -71,16 +72,64 @@ public class Board {
             count += rank.getPieceCount(color, type);
         }
         return count;
+=======
+import java.util.ArrayList;
+import java.util.List;
+import pieces.Pawn;
+
+public class Board {
+
+    private List<Pawn> whitePawns = new ArrayList<>();
+    private List<Pawn> blackPawns = new ArrayList<>();
+
+    public void initialize() {
+        whitePawns.clear();
+        blackPawns.clear();
+
+        for (int i = 0; i < 8; i++) {
+            whitePawns.add(new Pawn(Pawn.WHITE_COLOR, Pawn.WHITE_REPRESENTATION));
+            blackPawns.add(new Pawn(Pawn.BLACK_COLOR, Pawn.BLACK_REPRESENTATION));
+        }
+>>>>>>> upstream/Hana
     }
 
     public String showBoard() {
         StringBuilder sb = new StringBuilder();
+<<<<<<< HEAD
         for (Rank rank : ranks) {
             sb.append(rank.getRankRepresentation()).append(StringUtils.NEWLINE);
+=======
+        String blankLine = "........";
+        String newLine = System.getProperty("line.separator");
+
+        sb.append(blankLine).append(newLine);
+        sb.append(getBlackPawnsResult()).append(newLine);
+        sb.append(blankLine).append(newLine).append(blankLine).append(newLine);
+        sb.append(blankLine).append(newLine).append(blankLine).append(newLine);
+        sb.append(getWhitePawnsResult()).append(newLine);
+        sb.append(blankLine).append(newLine);
+
+        return sb.toString();
+    }
+
+    String getWhitePawnsResult() {
+        return getPawnsResult(whitePawns);
+    }
+
+    String getBlackPawnsResult() {
+        return getPawnsResult(blackPawns);
+    }
+
+    private String getPawnsResult(List<Pawn> pawns) {
+        StringBuilder sb = new StringBuilder();
+        for (Pawn pawn : pawns) {
+            sb.append(pawn.getRepresentation());
+>>>>>>> upstream/Hana
         }
         return sb.toString();
     }
 
+<<<<<<< HEAD
     public Piece findPiece(String positonStr) {
         Position position = new Position(positonStr);
 
@@ -134,5 +183,10 @@ public class Board {
             }
         }
         return totalPoint;
+=======
+    public int size() {
+        // 흰색 폰 8개 + 검은색 폰 8개 = 총 16개가 나오도록 합쳐줍니다.
+        return whitePawns.size() + blackPawns.size();
+>>>>>>> upstream/Hana
     }
 }

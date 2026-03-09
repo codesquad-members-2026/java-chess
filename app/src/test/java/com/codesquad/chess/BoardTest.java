@@ -1,4 +1,5 @@
 package com.codesquad.chess;
+<<<<<<< HEAD
 import static com.codesquad.chess.utils.StringUtils.appendNewLine;
 import static org.junit.Assert.*;
 
@@ -8,6 +9,17 @@ import org.junit.Before;
 import org.junit.Test;
 
 public class BoardTest {
+=======
+import static org.junit.Assert.*;
+
+import org.junit.Before;
+import org.junit.Test;
+import pieces.Pawn;
+
+
+public class BoardTest {
+
+>>>>>>> upstream/Hana
     private Board board;
 
     @Before
@@ -16,6 +28,7 @@ public class BoardTest {
     }
 
     @Test
+<<<<<<< HEAD
     public void calculatePoint() throws Exception {
 
         board.initializeEmpty();
@@ -47,4 +60,25 @@ public class BoardTest {
 
 
 
+=======
+    public void initialize() throws Exception {
+
+        board.initialize();
+        assertEquals(16, board.size());
+    }
+
+    @Test
+    public void initialize_result() {
+        board.initialize();
+
+        assertEquals("pppppppp", board.getWhitePawnsResult());
+        assertEquals("PPPPPPPP", board.getBlackPawnsResult());
+    }
+
+    @Test
+    public void print() {
+        board.initialize();
+        System.out.println(board.showBoard());
+    }
+>>>>>>> upstream/Hana
 }
