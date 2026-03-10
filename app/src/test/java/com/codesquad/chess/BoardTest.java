@@ -5,12 +5,6 @@ import com.codesquad.chess.Position.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.List;
-
-import static com.codesquad.chess.piece.Piece.*;
 import static com.codesquad.chess.utils.StringUtils.appendNewLine;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -51,8 +45,8 @@ public class BoardTest {
         board.initialize();
 
         // --- 1. Black Pieces (Rank 8) ---
-        assertEquals(Piece.createBlackRook(Position.of("a8")), board.findPiece("a8"));
-        assertEquals(Piece.createBlackKnight(Position.of("b8")), board.findPiece("b8"));
+        assertEquals(Piece.createBlackRook(Position.of("a8")), board.findPiece(Position.of("a8")));
+        assertEquals(Piece.createBlackKnight(Position.of("b8")), board.findPiece(Position.of("b8")));
     }
 
     @Test
@@ -63,7 +57,7 @@ public class BoardTest {
         String sourcePosition = "b2";
         String targetPosition = "b3";
         board.move(sourcePosition, targetPosition);
-        assertEquals(Piece.createBlank(Position.of(sourcePosition)), board.findPiece(sourcePosition));
-        assertEquals(Piece.createWhitePawn(Position.of(targetPosition)), board.findPiece(targetPosition));
+        assertEquals(Piece.createBlank(Position.of(sourcePosition)), board.findPiece(Position.of(sourcePosition)));
+        assertEquals(Piece.createWhitePawn(Position.of(targetPosition)), board.findPiece(Position.of(targetPosition)));
     }
 }

@@ -38,4 +38,6 @@ public class PieceTest {
         assertEquals('p', Piece.Type.PAWN.getWhiteRepresentation());
         assertEquals('P', Piece.Type.PAWN.getBlackRepresentation());
     }
+
+
 }

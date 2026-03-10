@@ -98,15 +98,11 @@ public class Board {
     }
 
     // 기물 이동을 위한 메서드들
-    public Piece findPiece(String position){
-        Position pos = Position.of(position);
-        return ranks.get(pos.getY()).get(pos.getX());
-    }
     public Piece findPiece(Position pos){
         return ranks.get(pos.getY()).get(pos.getX());
     }
     public void move(String source, String target){
-        Piece originPiece = findPiece(source);
+        Piece originPiece = findPiece(Position.of(source));
         addPiece(source, Piece.createBlank(Position.of(source)));
 
         originPiece.changePosition(Position.of(target));
