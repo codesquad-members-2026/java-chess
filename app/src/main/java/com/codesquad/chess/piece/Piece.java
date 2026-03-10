@@ -65,7 +65,7 @@ public abstract class Piece {
         return new Knight(Color.WHITE, Type.KNIGHT.getWhiteRepresentation(), Type.KNIGHT.getPoint(), position);
     }
     public static Piece createWhiteBishop(Position position){
-        return new Bishop(Color.WHITE, Type.KING.getWhiteRepresentation(), Type.KING.getPoint(), position);
+        return new Bishop(Color.WHITE, Type.BISHOP.getWhiteRepresentation(), Type.BISHOP.getPoint(), position);
     }
 
     public static Piece createBlackPawn(Position position){
@@ -110,18 +110,11 @@ public abstract class Piece {
 
         return type;
     }
-
-    public boolean isWhite() {
-        return color.equals(Color.WHITE);
-    }
-    public boolean isBlack() {
-        return color.equals(Color.BLACK);
-    }
     public void changePosition(Position position){
         this.position = position;
     }
 
-    public abstract boolean canMoveTo(Position target, Board board);
+    public abstract boolean verifyMovePosition(Position target, Board board);
 
     @Override
     public String toString() {

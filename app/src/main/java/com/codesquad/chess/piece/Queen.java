@@ -10,7 +10,7 @@ public class Queen extends Piece {
     }
 
     @Override
-    public boolean canMoveTo(Position target, Board board){
+    public boolean verifyMovePosition(Position target, Board board){
 
         return true;
     }

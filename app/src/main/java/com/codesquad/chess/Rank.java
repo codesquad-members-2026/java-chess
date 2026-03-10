@@ -17,19 +17,12 @@ public class Rank {
     public void add(Piece p){
         rank.add(p);
     }
-
     public Piece get(int index){
         return rank.get(index);
     }
-
-    public Stream<Piece> getStream(){
-        return rank.stream();
-    }
-
     public Piece set(int index, Piece p){
         return rank.set(index, p);
     }
-
     public int size(){
         return rank.size();
     }

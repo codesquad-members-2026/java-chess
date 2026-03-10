@@ -8,13 +8,11 @@ import static com.codesquad.chess.piece.Piece.*;
 
 public class Board {
     private List<Rank> ranks;
-    private ChessGame game;
 
     public static final int BOARD_LENGTH = 8;
 
     public Board(){
         ranks = new ArrayList<>();
-        game = new ChessGame();
     }
 
     public void initialize(){
@@ -91,70 +89,26 @@ public class Board {
     public int pieceCount(){
         return ranks.stream().mapToInt(Rank::size).sum();
     }
-    public int checkPieceNum(Piece piece, String inputBoard){
-        char representation = piece.getRepresentation();
-        List<String> splitsList = Arrays.asList(inputBoard.split("\n"));
-        return Math.toIntExact(splitsList.stream().mapToLong(s -> s.chars().filter(c -> representation == c).count()).sum());
-    }
 
     // 기물 이동을 위한 메서드들
     public Piece findPiece(Position pos){
         return ranks.get(pos.getY()).get(pos.getX());
     }
     public void move(String source, String target){
-        Piece originPiece = findPiece(Position.of(source));
-        addPiece(source, Piece.createBlank(Position.of(source)));
+        Position sourcePosition = Position.of(source);
+        Position targetPosition = Position.of(target);
+        Piece originPiece = findPiece(sourcePosition);
+        if(!originPiece.verifyMovePosition(sourcePosition, this)){
+            System.out.println("유효하지 않은 이동입니다.");
+            return;
+        }
 
-        originPiece.changePosition(Position.of(target));
-        addPiece(target, originPiece);
+        setPiece(sourcePosition, Piece.createBlank(sourcePosition));
+        originPiece.changePosition(targetPosition);
+        setPiece(targetPosition, originPiece);
     }
-    private void addPiece(String position, Piece piece){
-        Position pos = Position.of(position);
+    private void setPiece(Position pos, Piece piece){
         ranks.get(pos.getY()).set(pos.getX(), piece);
-    }
-
-    // 남아있는 기물의 점수 계산 메서드들
-    public double calculatePoint(Color color){
-        int rankLen = ranks.size();
-        double sum = 0.0;
-
-        for(int i = 0; i < rankLen; i++){
-            int fileLen = ranks.get(i).size();
-            Rank rank = ranks.get(i);
-
-            for(int j = 0; j < fileLen; j++){
-                Piece piece = rank.get(j);
-
-                if(color == piece.getColor()){
-                    if(piece.getType() == Type.PAWN){
-                        sum += calculatePawnPoint(j, i, piece);
-                        continue;
-                    }
-
-                    sum += piece.getPoint();
-                }
-            }
-        }
-
-        return sum;
-    }
-    private double calculatePawnPoint(int fileIdx, int rankIdx, Piece pawn){
-        double pawnPoint = Type.PAWN.getPoint();
-
-        int rankLen = ranks.size();
-        for(int i = 0; i < rankLen && i != rankIdx; i++){
-            Piece piece = ranks.get(i).get(fileIdx);
-
-            if((pawn.getType() == piece.getType()) && (pawn.getColor() == piece.getColor()))
-                return pawnPoint / 2;
-        }
-
-        return pawnPoint;
-    }
-    public List<Piece> orderPieceList(Color color, Comparator<Piece> sortRule){
-        return ranks.stream().flatMap(r -> r.getStream().filter(p -> p.getColor() == color))
-                .sorted(sortRule)
-                .toList();
     }
 
     public List<Rank> getRanks(){

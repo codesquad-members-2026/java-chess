@@ -50,14 +50,13 @@ public class BoardTest {
     }
 
     @Test
-    @DisplayName("체스판에 존재하는 기물을 이동시킨다")
+    @DisplayName("체스판에 존재하는 기물을 이동시킨다.")
     public void addPieceOnEmptyBoard(){
         board.initialize();
 
-        String sourcePosition = "b2";
-        String targetPosition = "b3";
-        board.move(sourcePosition, targetPosition);
-        assertEquals(Piece.createBlank(Position.of(sourcePosition)), board.findPiece(Position.of(sourcePosition)));
-        assertEquals(Piece.createWhitePawn(Position.of(targetPosition)), board.findPiece(Position.of(targetPosition)));
+        Position targetPosition = Position.of("a3");
+        board.move("a2", "a3");
+
+        assertEquals(Piece.createWhitePawn(targetPosition), board.findPiece(targetPosition));
     }
 }

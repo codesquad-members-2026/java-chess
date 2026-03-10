@@ -10,7 +10,6 @@ public class Position {
         this.x = x;
         this.y = y;
     }
-
     public static Position of(String position) {
         char[] coordinates = position.toCharArray();
         int x = coordinates[0] - 'a';
@@ -19,14 +18,9 @@ public class Position {
         return new Position(x, y);
     }
 
-    public static Position of(int x, int y){
-        return new Position(x, y);
-    }
-
     public int getX(){
         return x;
     }
-
     public int getY(){
         return y;
     }
@@ -37,7 +31,6 @@ public class Position {
         Position position = (Position) object;
         return x == position.getX() && y == position.getY();
     }
-
     @Override
     public int hashCode() {
         return Objects.hash(x, y);
