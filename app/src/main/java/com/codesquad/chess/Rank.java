@@ -5,6 +5,7 @@ import com.codesquad.chess.piece.Piece;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.IntStream;
+import java.util.stream.Stream;
 
 public class Rank {
     private List<Piece> rank;
@@ -19,6 +20,10 @@ public class Rank {
 
     public Piece get(int index){
         return rank.get(index);
+    }
+
+    public Stream<Piece> getStream(){
+        return rank.stream();
     }
 
     public Piece set(int index, Piece p){

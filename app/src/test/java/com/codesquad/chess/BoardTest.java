@@ -6,6 +6,12 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.List;
+import java.util.stream.Collectors;
+
 import static com.codesquad.chess.piece.Piece.*;
 import static com.codesquad.chess.utils.StringUtils.appendNewLine;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -165,5 +171,44 @@ public class BoardTest {
 
     private void addPiece(String position, Piece piece){
         board.move(position, piece);
+    }
+
+    @Test
+    @DisplayName("하얀색과 검정색 기물을 나눠서 점수가 높은 순대로 리스트에 저장")
+    public void saveWhiteAndBlackPiecesOrderByPoint(){
+        board.initializeEmptyBoard();
+        List<Piece> whiteExpectedList = new ArrayList<>();
+        List<Piece> blackExpectedList = new ArrayList<>();
+
+        addPiece("f2", Piece.createWhitePawn());
+        addPiece("g2", Piece.createWhitePawn());
+        addPiece("e1", Piece.createWhiteRook());
+        addPiece("f1", Piece.createWhiteKing());
+        whiteExpectedList.add(Piece.createWhiteKing());
+        whiteExpectedList.add(Piece.createWhitePawn());
+        whiteExpectedList.add(Piece.createWhitePawn());
+        whiteExpectedList.add(Piece.createWhiteRook());
+
+        addPiece("b6", Piece.createBlackPawn());
+        addPiece("e6", Piece.createBlackQueen());
+        addPiece("b8", Piece.createBlackKing());
+        addPiece("c8", Piece.createBlackRook());
+        blackExpectedList.add(Piece.createBlackKing());
+        blackExpectedList.add(Piece.createBlackPawn());
+        blackExpectedList.add(Piece.createBlackRook());
+        blackExpectedList.add(Piece.createBlackQueen());
+
+        // 오름차순
+        assertEquals(whiteExpectedList, board.orderPieceList(Color.WHITE, Comparator.comparing(Piece::getPoint)));
+        assertEquals(blackExpectedList, board.orderPieceList(Color.BLACK, Comparator.comparing(Piece::getPoint)));
+
+        // 내림차순
+        whiteExpectedList.sort(Comparator.comparing(Piece::getPoint).reversed());
+        blackExpectedList.sort(Comparator.comparing(Piece::getPoint).reversed());
+
+        assertEquals(whiteExpectedList, board.orderPieceList(Color.WHITE,
+                Comparator.comparing(Piece::getPoint).reversed()));
+        assertEquals(blackExpectedList, board.orderPieceList(Color.BLACK,
+                Comparator.comparing(Piece::getPoint).reversed()));
     }
 }

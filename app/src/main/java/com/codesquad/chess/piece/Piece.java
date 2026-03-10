@@ -121,7 +121,7 @@ public class Piece {
 
     @Override
     public String toString() {
-        return "[기물 종류]: " + getRepresentation() + ", [기물 색깔]: " + getColor();
+        return "[기물 종류: " + getRepresentation() + " | 기물 색깔: " + getColor() + "]";
     }
     @Override
     public boolean equals(Object obj) {

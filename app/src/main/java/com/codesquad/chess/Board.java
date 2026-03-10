@@ -1,9 +1,9 @@
 package com.codesquad.chess;
 
 import com.codesquad.chess.piece.Piece;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+
+import java.util.*;
+import java.util.stream.Collectors;
 
 import static com.codesquad.chess.piece.Piece.*;
 import static com.codesquad.chess.utils.StringUtils.appendNewLine;
@@ -158,5 +158,11 @@ public class Board {
         }
 
         return pawnPoint;
+    }
+
+    public List<Piece> orderPieceList(Color color, Comparator<Piece> sortRule){
+        return ranks.stream().flatMap(r -> r.getStream().filter(p -> p.getColor() == color))
+                .sorted(sortRule)
+                .toList();
     }
 }
