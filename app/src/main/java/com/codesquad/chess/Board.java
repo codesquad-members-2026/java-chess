@@ -3,7 +3,6 @@ package com.codesquad.chess;
 import com.codesquad.chess.piece.Piece;
 
 import java.util.*;
-import java.util.stream.Collectors;
 
 import static com.codesquad.chess.piece.Piece.*;
 import static com.codesquad.chess.utils.StringUtils.appendNewLine;
@@ -32,40 +31,39 @@ public class Board {
         // 하얀색 기물 추가
         addWhitePieces();
     }
-    public void initializeEmptyBoard(){
-        AddFourRowBlanks();
-        AddFourRowBlanks();
-    }
     private void addBlackPieces(){
         Rank rank = new Rank();
 
         // 검은색 기물 추가
         // 폰 X
-        rank.add(createBlackRook());
-        rank.add(createBlackKnight());
-        rank.add(createBlackBishop());
-        rank.add(createBlackQueen());
-        rank.add(createBlackKing());
-        rank.add(createBlackBishop());
-        rank.add(createBlackKnight());
-        rank.add(createBlackRook());
+        rank.add(createBlackRook(Position.of("a8")));
+        rank.add(createBlackKnight(Position.of("b8")));
+        rank.add(createBlackBishop(Position.of("c8")));
+        rank.add(createBlackQueen(Position.of("d8")));
+        rank.add(createBlackKing(Position.of("e8")));
+        rank.add(createBlackBishop(Position.of("f8")));
+        rank.add(createBlackKnight(Position.of("g8")));
+        rank.add(createBlackRook(Position.of("h8")));
         this.ranks.add(rank);
 
         // 폰 O
         rank = new Rank();
+        final int SEVENTH_ROW = 7;
         for(int i = 0; i < BOARD_LENGTH; i++){
-            rank.add(createBlackPawn());
+            String position = String.valueOf((char)('a' + i)) + SEVENTH_ROW;
+            rank.add(createBlackPawn(Position.of(position)));
         }
         this.ranks.add(rank);
     }
     private void AddFourRowBlanks(){
+        final int SIXTH_ROW = 6;
         // 중간 빈칸 추가
-        final int BOARD_LEN_HALF = BOARD_LENGTH / 2;
-        for(int i = 0; i < BOARD_LEN_HALF; i++){
+        for(int i = 0; i < BOARD_LENGTH / 2; i++){
             Rank rank = new Rank();
 
             for(int j = 0; j < BOARD_LENGTH; j++){
-                rank.add(createBlank());
+                String position = String.valueOf((char)('a' + j)) + (SIXTH_ROW - i);
+                rank.add(createBlank(Position.of(position)));
             }
 
             this.ranks.add(rank);
@@ -74,21 +72,39 @@ public class Board {
     private void addWhitePieces(){
         // 하얀색 기물 추가
         Rank rank = new Rank();
+        final int SECOND_ROW = 2;
         for(int i = 0; i < BOARD_LENGTH; i++){
-            rank.add(createWhitePawn());
+            String position = String.valueOf((char)('a' + i)) + SECOND_ROW;
+            rank.add(createWhitePawn(Position.of(position)));
         }
         this.ranks.add(rank);
 
         rank = new Rank();
-        rank.add(createWhiteRook());
-        rank.add(createWhiteKnight());
-        rank.add(createWhiteBishop());
-        rank.add(createWhiteQueen());
-        rank.add(createWhiteKing());
-        rank.add(createWhiteBishop());
-        rank.add(createWhiteKnight());
-        rank.add(createWhiteRook());
+        rank.add(createWhiteRook(Position.of("a1")));
+        rank.add(createWhiteKnight(Position.of("a2")));
+        rank.add(createWhiteBishop(Position.of("a3")));
+        rank.add(createWhiteQueen(Position.of("a4")));
+        rank.add(createWhiteKing(Position.of("a5")));
+        rank.add(createWhiteBishop(Position.of("a6")));
+        rank.add(createWhiteKnight(Position.of("a7")));
+        rank.add(createWhiteRook(Position.of("a8")));
         this.ranks.add(rank);
+    }
+    public void initializeEmptyBoard(){
+        final int FIRST_ROW = 8;
+        // 중간 빈칸 추가
+        Rank rank = null;
+        char[] alphabet = new char[]{'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h'};
+        for(int i = 0; i < BOARD_LENGTH; i++){
+            rank = new Rank();
+
+            for(int j = 0; j < BOARD_LENGTH; j++){
+                String position = "" + alphabet[j] + (FIRST_ROW - i);
+                rank.add(createBlank(Position.of(position)));
+            }
+
+            this.ranks.add(rank);
+        }
     }
 
     public String showBoard(){
@@ -116,7 +132,15 @@ public class Board {
         return ranks.get(pos.getY()).get(pos.getX());
     }
 
-    public void move(String position, Piece piece){
+    public void move(String source, String target){
+        Piece originPiece = findPiece(source);
+        add(source, Piece.createBlank(Position.of(source)));
+
+        originPiece.changePosition(Position.of(target));
+        add(target, originPiece);
+    }
+
+    public void add(String position, Piece piece){
         Position pos = Position.of(position);
         ranks.get(pos.getY()).set(pos.getX(), piece);
     }
