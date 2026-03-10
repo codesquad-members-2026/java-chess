@@ -5,7 +5,7 @@ import java.util.Scanner;
 public class Main {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
-        Board board = new Board();
+        ChessGame game = new ChessGame();
 
         System.out.println("Play Chess Game.");
         System.out.println("start,OR,end");
@@ -14,8 +14,8 @@ public class Main {
             System.out.print("> ");
             String command = scanner.nextLine().toLowerCase();
             if (command.equals("start")) {
-                board.initialize();
-                System.out.println(board.showBoard());
+                game.initialize();
+                System.out.println(ChessView.showBoard(game.getBoard()));
                 continue;
             }
 
@@ -23,10 +23,10 @@ public class Main {
                 String[] tokens = command.split(" ");
 
                 if(tokens.length == 3) {
-                    board.move(tokens[1], tokens[2]);
-                    System.out.println(board.showBoard());
+                    game.move(tokens[1], tokens[2]);
+                    System.out.println(ChessView.showBoard(game.getBoard()));
                 } else {
-                    System.out.println("ERROR ex) move b2, b3");
+                    System.out.println("ERROR ex) move b2 b3");
                 }
                 continue;
             }
