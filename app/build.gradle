@@ -10,76 +10,46 @@ repositories {
     mavenCentral()
 }
 
-<<<<<<< HEAD
-// 최신 Gradle 방식의 application 설정입니다.
 application {
     mainClass = 'com.codesquad.chess.Main'
-=======
-application {
-    mainClass = 'com.codesquad.chess.Main'
-}
-
-dependencies {
-    testImplementation 'junit:junit:4.13.2'
-    testImplementation 'org.assertj:assertj-core:3.25.3'
-}
-
-// 모든 JavaExec 타입 태스크(run, runGame 등)에 공통 적용
-tasks.withType(JavaExec) {
-    standardInput = System.in
-    jvmArgs("-Dfile.encoding=UTF-8")
-    // 중요: 캐시 문제 방지를 위해 입력이 필요한 태스크임을 명시
-    outputs.upToDateWhen { false }
-}
-
-tasks.withType(JavaCompile) {
-    options.encoding = 'UTF-8'
-}
-
-tasks.withType(Test) {
-    systemProperty "file.encoding", "UTF-8"
->>>>>>> upstream/Hana
 }
 
 java {
     toolchain {
-<<<<<<< HEAD
-        // 현재 설치된 자바 버전과 일치하도록 21로 유지합니다.
-=======
->>>>>>> upstream/Hana
         languageVersion = JavaLanguageVersion.of(21)
     }
 }
 
-<<<<<<< HEAD
 dependencies {
-    // JUnit 5를 사용하는 최신 프로젝트라면 jupiter를 권장하지만,
-    // 기존 코드가 4 버전 기반이라면 아래 설정을 유지하세요.
+    // JUnit 4 기반 테스트 코드를 위해 jupiter 대신 이걸 유지합니다.
     testImplementation 'junit:junit:4.13.2'
-    testImplementation 'org.assertj:assertj-core:3.25.3'
+    testImplementation 'org.assertj:assertj-core:3.27.7'
 }
 
-// 모든 자바 실행 작업에 대한 공통 설정입니다.
-tasks.withType(JavaExec).configureEach {
-    standardInput = System.in
-    jvmArgs("-Dfile.encoding=UTF-8")
-}
-
-// 컴파일 인코딩 설정입니다.
-tasks.withType(JavaCompile).configureEach {
+// 컴파일 시 UTF-8 강제 (한글 주석/경로 대응)
+tasks.withType(JavaCompile) {
     options.encoding = 'UTF-8'
 }
 
-// 테스트 실행 설정입니다.
-test {
-    useJUnitPlatform() // 만약 JUnit 5를 섞어 쓰신다면 이 설정이 필요합니다.
-    systemProperty "file.encoding", "UTF-8"
+// 실행 및 테스트 시 시스템 인코딩 강제
+tasks.withType(JavaExec).configureEach {
+    standardInput = System.in
+    jvmArgs("-Dfile.encoding=UTF-8", "-Dsun.jnu.encoding=UTF-8")
 }
 
-// 직접 만든 실행 작업입니다.
-=======
-// 원재님이 만드신 실행 전용 태스크
->>>>>>> upstream/Hana
+test {
+    // JUnit 4를 사용하므로 useJUnitPlatform()은 삭제하거나 주석 처리해야 합니다.
+    // useJUnitPlatform()
+
+    systemProperty "file.encoding", "UTF-8"
+    systemProperty "sun.jnu.encoding", "UTF-8"
+
+    // 테스트 실패 시에도 로그를 상세히 보려면 추가
+    testLogging {
+        events "passed", "skipped", "failed"
+    }
+}
+
 tasks.register('runGame', JavaExec) {
     group = 'application'
     description = '체스 게임 실행'
