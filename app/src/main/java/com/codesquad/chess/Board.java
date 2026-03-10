@@ -20,13 +20,13 @@ public class Board {
     }
 
     public void move(String sourcePosition, String targetPosition) {
-        Piece sourcePiece = findPiece(targetPosition);
+        Piece sourcePiece = findPiece(sourcePosition);
 
         Position targetPos = new Position(targetPosition);
         ranks.get(targetPos.getY()).setPiece(targetPos.getX(), sourcePiece);
 
         Position sourcePos = new Position(sourcePosition);
-        ranks.get(targetPos.getY()).setPiece(sourcePos.getX(), Piece.createBlank());
+        ranks.get(sourcePos.getY()).setPiece(sourcePos.getX(), Piece.createBlank());
     }
 
     public Piece findPiece(String positionStr) {
