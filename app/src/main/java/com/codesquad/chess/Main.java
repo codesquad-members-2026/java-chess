@@ -7,25 +7,36 @@ public class Main {
         Scanner scanner = new Scanner(System.in);
         Board board = new Board();
 
-        System.out.println("체스 게임을 시작합니다.");
-        System.out.println("시작: start, 종료: end");
+        System.out.println("Play Chess Game.");
+        System.out.println("start,OR,end");
 
         while (true) {
             System.out.print("> ");
             String command = scanner.nextLine().toLowerCase();
-
             if (command.equals("start")) {
-                board.initializeEmpty();
+                board.initialize();
                 System.out.println(board.showBoard());
                 continue;
             }
 
+            if (command.startsWith("move")) {
+                String[] tokens = command.split(" ");
+
+                if(tokens.length == 3) {
+                    board.move(tokens[1], tokens[2]);
+                    System.out.println(board.showBoard());
+                } else {
+                    System.out.println("ERROR ex) move b2, b3");
+                }
+                continue;
+            }
+
             if (command.equals("end")) {
-                System.out.println("게임을 종료합니다.");
+                System.out.println("End Game.");
                 break;
             }
 
-            System.out.println("지원하지 않는 명령어입니다. 'start' 또는 'end'를 입력하세요.");
+            System.out.println("Error.");
         }
         scanner.close();
     }
