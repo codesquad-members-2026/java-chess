@@ -38,7 +38,7 @@ public abstract class Piece {
 
     public abstract Set<Position> getValidMoves(Position from, Board board);
 
-    protected Set<Position> slidingMoves(Position from, Board board, List<Direction> directions) {
+    protected Set<Position> steppingMoves(Position from, Board board, List<Direction> directions) {
         Set<Position> validMoves = new HashSet<>();
 
         for (Direction direction : directions) {
@@ -60,7 +60,7 @@ public abstract class Piece {
         return validMoves;
     }
 
-    protected Set<Position> steppingMoves(Position from, Board board, List<Direction> directions) {
+    protected Set<Position> slidingMoves(Position from, Board board, List<Direction> directions) {
         Set<Position> validMoves = new HashSet<>();
 
         for (Direction direction : directions) {
