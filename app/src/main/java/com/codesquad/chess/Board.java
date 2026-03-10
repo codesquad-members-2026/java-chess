@@ -5,20 +5,14 @@ import com.codesquad.chess.piece.Piece;
 import java.util.*;
 
 import static com.codesquad.chess.piece.Piece.*;
-import static com.codesquad.chess.utils.StringUtils.appendNewLine;
 
 public class Board {
     private List<Rank> ranks;
 
     public static final int BOARD_LENGTH = 8;
-    public static final String FILE_STR = "abcdefgh";
 
     public Board(){
         ranks = new ArrayList<>();
-    }
-
-    public int pieceCount(){
-        return ranks.stream().mapToInt(Rank::size).sum();
     }
 
     public void initialize(){
@@ -90,61 +84,35 @@ public class Board {
         rank.add(createWhiteRook(Position.of("a8")));
         this.ranks.add(rank);
     }
-    public void initializeEmptyBoard(){
-        final int FIRST_ROW = 8;
-        // 중간 빈칸 추가
-        Rank rank = null;
-        char[] alphabet = new char[]{'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h'};
-        for(int i = 0; i < BOARD_LENGTH; i++){
-            rank = new Rank();
 
-            for(int j = 0; j < BOARD_LENGTH; j++){
-                String position = "" + alphabet[j] + (FIRST_ROW - i);
-                rank.add(createBlank(Position.of(position)));
-            }
-
-            this.ranks.add(rank);
-        }
+    // 남아있는 기물의 수 계산
+    public int pieceCount(){
+        return ranks.stream().mapToInt(Rank::size).sum();
     }
-
-    public String showBoard(){
-        StringBuilder result = new StringBuilder();
-        int len = ranks.size();
-
-        for(int i = 0; i < len; i++){
-            result.append(appendNewLine(ranks.get(i).toString() + "  " + (len - i)));
-        }
-
-        result.append(appendNewLine(""));
-        result.append(appendNewLine(FILE_STR));
-
-        return result.toString();
-    }
-
     public int checkPieceNum(Piece piece, String inputBoard){
         char representation = piece.getRepresentation();
         List<String> splitsList = Arrays.asList(inputBoard.split("\n"));
         return Math.toIntExact(splitsList.stream().mapToLong(s -> s.chars().filter(c -> representation == c).count()).sum());
     }
 
+    // 기물 이동을 위한 메서드들
     public Piece findPiece(String position){
         Position pos = Position.of(position);
         return ranks.get(pos.getY()).get(pos.getX());
     }
-
     public void move(String source, String target){
         Piece originPiece = findPiece(source);
-        add(source, Piece.createBlank(Position.of(source)));
+        addPiece(source, Piece.createBlank(Position.of(source)));
 
         originPiece.changePosition(Position.of(target));
-        add(target, originPiece);
+        addPiece(target, originPiece);
     }
-
-    public void add(String position, Piece piece){
+    private void addPiece(String position, Piece piece){
         Position pos = Position.of(position);
         ranks.get(pos.getY()).set(pos.getX(), piece);
     }
 
+    // 남아있는 기물의 점수 계산 메서드들
     public double calculatePoint(Color color){
         int rankLen = ranks.size();
         double sum = 0.0;
@@ -169,7 +137,6 @@ public class Board {
 
         return sum;
     }
-
     private double calculatePawnPoint(int fileIdx, int rankIdx, Piece pawn){
         double pawnPoint = Type.PAWN.getPoint();
 
@@ -183,10 +150,13 @@ public class Board {
 
         return pawnPoint;
     }
-
     public List<Piece> orderPieceList(Color color, Comparator<Piece> sortRule){
         return ranks.stream().flatMap(r -> r.getStream().filter(p -> p.getColor() == color))
                 .sorted(sortRule)
                 .toList();
+    }
+
+    public List<Rank> getRanks(){
+        return ranks;
     }
 }
