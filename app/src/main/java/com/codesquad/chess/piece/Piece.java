@@ -115,6 +115,10 @@ public class Piece {
 
         return type;
     }
+    public Position getPosition() {
+        return position;
+    }
+
     public boolean isWhite() {
         return color.equals(Color.WHITE);
     }

@@ -8,11 +8,13 @@ import static com.codesquad.chess.piece.Piece.*;
 
 public class Board {
     private List<Rank> ranks;
+    private ChessGame game;
 
     public static final int BOARD_LENGTH = 8;
 
     public Board(){
         ranks = new ArrayList<>();
+        game = new ChessGame();
     }
 
     public void initialize(){
@@ -21,7 +23,7 @@ public class Board {
         // 검은색 기물 추가
         addBlackPieces();
         // 빈칸 4줄 추가
-        AddFourRowBlanks();
+        addFourRowBlanks();
         // 하얀색 기물 추가
         addWhitePieces();
     }
@@ -49,7 +51,7 @@ public class Board {
         }
         this.ranks.add(rank);
     }
-    private void AddFourRowBlanks(){
+    private void addFourRowBlanks(){
         final int SIXTH_ROW = 6;
         // 중간 빈칸 추가
         for(int i = 0; i < BOARD_LENGTH / 2; i++){
@@ -98,6 +100,9 @@ public class Board {
     // 기물 이동을 위한 메서드들
     public Piece findPiece(String position){
         Position pos = Position.of(position);
+        return ranks.get(pos.getY()).get(pos.getX());
+    }
+    public Piece findPiece(Position pos){
         return ranks.get(pos.getY()).get(pos.getX());
     }
     public void move(String source, String target){
