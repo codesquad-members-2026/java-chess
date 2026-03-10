@@ -1,9 +1,9 @@
 package chess;
 
-import static utils.StringUtils.appendNewLine;
-
-import chess.pieces.Piece.Color;
-import chess.pieces.Piece.Type;
+import chess.pieces.Blank;
+import chess.pieces.Color;
+import chess.pieces.Pawn;
+import chess.pieces.Type;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -17,13 +17,13 @@ public class Board {
     private int pieceCount = 0;
 
     public void initialize() {
-        board.add(Rank.fillWithWhiteMajorPieces());
-        board.add(Rank.fillWithWhitePawns());
+        board.add(Rank.fillWithMajorPieces(Color.WHITE));
+        board.add(Rank.fillWithPawns(Color.WHITE));
         for (int i = 0; i < 4; i++) {
             board.add(Rank.emptyRank());
         }
-        board.add(Rank.fillWithBlackPawns());
-        board.add(Rank.fillWithBlackMajorPieces());
+        board.add(Rank.fillWithPawns(Color.BLACK));
+        board.add(Rank.fillWithMajorPieces(Color.BLACK));
 
         pieceCount = 32;
     }
@@ -39,31 +39,31 @@ public class Board {
         return pieceCount;
     }
 
-    public String showBoard() {
-        StringBuilder sb = new StringBuilder();
-        for (int rankNum = 0; rankNum < SIZE; rankNum++) {
-            Rank rank = board.get(rankNum);
-            sb.append(appendNewLine(rank.showRank()));
-        }
-        return sb.toString();
+    public Rank getRank(int rank) {
+        return board.get(rank);
     }
 
-    public int countPieces(Color color, Type type) {
-        int count = 0;
-        for (Rank rank : board) {
-            count += rank.countPieces(color, type);
-        }
-        return count;
-    }
+//    public int countPieces(Color color, Type type) {
+//        int count = 0;
+//        for (Rank rank : board) {
+//            count += rank.countPieces(color, type);
+//        }
+//        return count;
+//    }
 
-    public Piece findPiece(String positionInput) {
-        Position position = Position.from(positionInput);
+    public Piece findPiece(Position position) {
         return board.get(position.rank).get(position.file);
     }
 
-    public void move(String positionInput, Piece piece) {
-        Position position = Position.from(positionInput);
-        board.get(position.rank).set(piece, position.file);
+
+    public void move(Piece piece, Position from, Position to) {
+        board.get(from.rank).set(Blank.getBlank(), from.file);
+        board.get(to.rank).set(piece, to.file);
+
+        if (piece instanceof Pawn pawn) {
+            pawn.moved();
+            // 프로모션 코드 작성하기
+        }
     }
 
     public double calculatePoint(Color color) {

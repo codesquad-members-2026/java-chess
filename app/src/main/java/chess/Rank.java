@@ -1,85 +1,60 @@
 package chess;
 
+
+import static chess.pieces.Type.*;
+
+import chess.pieces.Blank;
 import chess.pieces.Piece;
-import chess.pieces.Piece.Color;
-import chess.pieces.Piece.Type;
+import chess.pieces.Color;
+import chess.pieces.Type;
 import java.util.ArrayList;
 import java.util.List;
 
 public class Rank {
+    private static final List<Type> MAJOR_PIECES = List.of(ROOK, KNIGHT, BISHOP, QUEEN, KING, BISHOP, KNIGHT, ROOK);
     private List<Piece> rank;
 
     private Rank(List<Piece> rank) {
         this.rank = rank;
     }
 
-    public static Rank fillWithWhiteMajorPieces() {
+    public static Rank fillWithMajorPieces(Color color) {
         List<Piece> rank = new ArrayList<>();
-        rank.add(Piece.createWhiteRook());
-        rank.add(Piece.createWhiteKnight());
-        rank.add(Piece.createWhiteBishop());
-        rank.add(Piece.createWhiteQueen());
-        rank.add(Piece.createWhiteKing());
-        rank.add(Piece.createWhiteBishop());
-        rank.add(Piece.createWhiteKnight());
-        rank.add(Piece.createWhiteRook());
-        return new Rank(rank);
-    }
-
-    public static Rank fillWithBlackMajorPieces() {
-        List<Piece> rank = new ArrayList<>();
-        rank.add(Piece.createBlackRook());
-        rank.add(Piece.createBlackKnight());
-        rank.add(Piece.createBlackBishop());
-        rank.add(Piece.createBlackQueen());
-        rank.add(Piece.createBlackKing());
-        rank.add(Piece.createBlackBishop());
-        rank.add(Piece.createBlackKnight());
-        rank.add(Piece.createBlackRook());
+        for (int file = 0; file < 8; file++) {
+            rank.add(Piece.create(MAJOR_PIECES.get(file), color));
+        }
         return new Rank(rank);
     }
 
     public static Rank emptyRank() {
         List<Piece> rank = new ArrayList<>();
-        for (int i = 0; i < Board.SIZE; i++) {
-            rank.add(Piece.createBlank());
+        for (int fileNum = 0; fileNum < Board.SIZE; fileNum++) {
+            rank.add(Blank.getBlank());
         }
         return new Rank(rank);
     }
 
-    public static Rank fillWithWhitePawns() {
+    public static Rank fillWithPawns(Color color) {
         List<Piece> rank = new ArrayList<>();
-        for (int i = 0; i < Board.SIZE; i++) {
-            rank.add(Piece.createWhitePawn());
+        for (int file = 0; file < 8; file++) {
+            rank.add(Piece.create(PAWN, color));
         }
         return new Rank(rank);
     }
 
-    public static Rank fillWithBlackPawns() {
-        List<Piece> rank = new ArrayList<>();
-        for (int i = 0; i < Board.SIZE; i++) {
-            rank.add(Piece.createBlackPawn());
-        }
-        return new Rank(rank);
+    public Piece getPiece(int file) {
+        return rank.get(file);
     }
 
-    public String showRank() {
-        StringBuilder sb = new StringBuilder();
-        for (Piece piece : rank) {
-            sb.append(piece.getRepresentation());
-        }
-        return sb.toString();
-    }
-
-    public int countPieces(Color color, Type type) {
-        int count = 0;
-        for (Piece piece : rank) {
-            if (piece.isMatch(color, type)) {
-                count++;
-            }
-        }
-        return count;
-    }
+//    public int countPieces(Color color, Type type) {
+//        int count = 0;
+//        for (Piece piece : rank) {
+//            if (piece.isMatch(color, type)) {
+//                count++;
+//            }
+//        }
+//        return count;
+//    }
 
     public Piece get(int file) {
         return rank.get(file);

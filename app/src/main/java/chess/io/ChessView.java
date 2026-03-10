@@ -1,0 +1,39 @@
+package chess.io;
+
+import static chess.Board.SIZE;
+import static utils.StringUtils.appendNewLine;
+
+import chess.Board;
+import chess.Rank;
+import chess.pieces.Piece;
+
+public class ChessView {
+    private Board board;
+
+    public void showMessage(String message) {
+        System.out.println(message);
+    }
+
+    public void setBoard(Board board) {
+        this.board = board;
+    }
+
+
+    public void showBoard() {
+        StringBuilder sb = new StringBuilder();
+        for (int rankNum = SIZE - 1; rankNum >= 0; rankNum--) {
+            Rank rank = board.getRank(rankNum);
+            sb.append(appendNewLine(showRank(rank)));
+        }
+        System.out.print(sb);
+    }
+
+    private String showRank(Rank rank) {
+        StringBuilder sb = new StringBuilder();
+        for (int fileNum = 0; fileNum < SIZE; fileNum++) {
+            Piece piece = rank.get(fileNum);
+            sb.append(piece.getType().getRepresentation(piece.getColor()));
+        }
+        return sb.toString();
+    }
+}
