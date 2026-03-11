@@ -1,11 +1,10 @@
 package com.codesquad.chess.pieces;
-
-import com.codesquad.chess.Board;
-import com.codesquad.chess.Position;
+import com.codesquad.chess.*;
 
 import java.util.Objects;
 
-public class Piece implements Comparable<Piece> {
+public abstract class Piece {
+
     public enum Color { WHITE, BLACK, NOCOLOR }
     public enum Type {
         PAWN('p', 1.0),
@@ -31,24 +30,26 @@ public class Piece implements Comparable<Piece> {
     private final Color color;
     private final Type type;
 
-    private Piece(Color color, Type type) {
+    protected Piece(Color color, Type type) {
         this.color = color;
         this.type = type;
     }
 
-    public static Piece createWhitePawn() { return new Piece(Color.WHITE, Type.PAWN); }
-    public static Piece createBlackPawn() { return new Piece(Color.BLACK, Type.PAWN); }
-    public static Piece createWhiteRook() { return new Piece(Color.WHITE, Type.ROOK); }
-    public static Piece createBlackRook() { return new Piece(Color.BLACK, Type.ROOK); }
-    public static Piece createWhiteKnight() { return new Piece(Color.WHITE, Type.KNIGHT); }
-    public static Piece createBlackKnight() { return new Piece(Color.BLACK, Type.KNIGHT); }
-    public static Piece createWhiteBishop() { return new Piece(Color.WHITE, Type.BISHOP); }
-    public static Piece createBlackBishop() { return new Piece(Color.BLACK, Type.BISHOP); }
-    public static Piece createWhiteQueen() { return new Piece(Color.WHITE, Type.QUEEN); }
-    public static Piece createBlackQueen() { return new Piece(Color.BLACK, Type.QUEEN); }
-    public static Piece createWhiteKing() { return new Piece(Color.WHITE, Type.KING); }
-    public static Piece createBlackKing() { return new Piece(Color.BLACK, Type.KING); }
-    public static Piece createBlank() { return new Piece(Color.NOCOLOR, Type.NO_PIECE); }
+    public static Piece createWhiteQueen() {return new Queen(Color.WHITE);}
+    public static Piece createBlackQueen() {return new Queen(Color.BLACK);}
+    public static Piece createWhiteKing() {return new King(Color.WHITE);}
+    public static Piece createBlackKing() {return new King(Color.BLACK);}
+    public static Piece createBlank() {return new Blank();}
+    public static Piece createWhitePawn() {return new Pawn(Color.WHITE);}
+    public static Piece createBlackPawn() {return new Pawn(Color.BLACK);}
+
+    public static Piece createWhiteRook() {return new Rook(Color.WHITE);}
+    public static Piece createBlackRook() {return new Rook(Color.BLACK);}
+    public static Piece createWhiteBishop() {return new Bishop(Color.WHITE);}
+    public static Piece createBlackBishop() {return new Bishop(Color.BLACK);}
+    public static Piece createWhiteKnight() {return new Knight(Color.WHITE);}
+    public static Piece createBlackKnight() {return new Knight(Color.BLACK);}
+
 
     public Color getColor() { return color; }
     public Type getType() { return type; }
@@ -58,46 +59,13 @@ public class Piece implements Comparable<Piece> {
         return type.getRepresentation();
     }
 
-    public double getPoint() { return type.getDefaultPoint(); }
+    public abstract boolean canMove(Position sourcePos, Position targetPos, Board board);
 
-    public boolean queenMoving(Position sourcePos, Position targetPos, Board board) {
-        int queenX = targetPos.getX() - sourcePos.getX();
-        int queenY = targetPos.getY() - sourcePos.getY();
-
-        boolean isStraight = (queenX == 0 || queenY == 0);
-        boolean isDiagonal = Math.abs(queenX) == Math.abs(queenY);
-
-        if(!(isStraight || isDiagonal)) return false;
-
-        int dirX = Integer.compare(targetPos.getX(), sourcePos.getX());
-        int dirY = Integer.compare(targetPos.getY(), sourcePos.getY());
-
-        return queenCanGo(sourcePos, targetPos, dirX, dirY, board) ;
-    }
-    public boolean queenCanGo(Position current, Position target, int dirX,
-                              int dirY, Board board) {
-        Position next = new Position(current.getX() + dirX, current.getY() + dirY);
-
-        if(next.equals(target)) {
-            return true;
-        }
-
-        if(board.findPiece(next).getType() != Type.NO_PIECE) {
-            return false;
-        }
-
-        return queenCanGo(next, target, dirX, dirY, board);
-    }
-
-    @Override
-    public int compareTo(Piece other) {
-        return Double.compare(other.getPoint(), this.getPoint());
-    }
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (!(o instanceof Piece)) return false;
         Piece piece = (Piece) o;
         return color == piece.color && type == piece.type;
     }

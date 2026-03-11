@@ -3,7 +3,6 @@ package com.codesquad.chess;
 import com.codesquad.chess.pieces.Piece;
 
 public class ChessGame {
-    private static final int SIZE = 8;
     private final Board board;
 
     public ChessGame() {
@@ -20,56 +19,24 @@ public class ChessGame {
 
         Piece sourcePiece = board.findPiece(sourcePos);
 
-        if(sourcePiece.getType() == Piece.Type.KING) {
-            if(!kingMoving(sourcePos, targetPos)) {
-                System.out.println("ERROR : King's Moving is ERROR.");
-                return;
-            }
-        } else if (sourcePiece.getType() == Piece.Type.QUEEN) {
+        if (sourcePiece.getType() == Piece.Type.NO_PIECE) {
+            System.out.println("ERROR. 선택한 위치에 기물이 없습니다.");
+            return;
+        }
 
-            if (!sourcePiece.queenMoving(sourcePos, targetPos, board)) {
-                System.out.println("ERROR : Queen's moving is ERROR.");
-                return;
-            }
+        if (!sourcePiece.canMove(sourcePos, targetPos, board)) {
+            System.out.println("ERROR. 움직임이 올바르지 않습니다.");
+            return;
         }
 
         Piece targetPiece = board.findPiece(targetPos);
         if (sourcePiece.getColor() == targetPiece.getColor()) {
-            System.out.println("Error: There is a same color Object.");
+            System.out.println("ERROR. 같은 색의 기물이 있습니다.");
             return;
         }
 
         board.setPiece(targetPos, sourcePiece);
         board.setPiece(sourcePos, Piece.createBlank());
-
-
-    }
-
-    private boolean kingMoving(Position sourcePos, Position targetPos) {
-        int KingX = Math.abs(targetPos.getX() - sourcePos.getX());
-        int KingY = Math.abs(targetPos.getY() - sourcePos.getY());
-
-        return (KingX <= 1 && KingY <= 1) && !(KingX == 0 && KingY == 0);
-    }
-
-
-    public double calculatePoint(Piece.Color color) {
-        double totalPoint = 0;
-        for (Rank rank : board.getRanks()) {
-            for (int i = 0; i < SIZE; i++) {
-                Piece piece = rank.getPiece(i);
-                if (piece.getColor() == color) totalPoint += piece.getPoint();
-            }
-        }
-        for (int x = 0; x < SIZE; x++) {
-            int pawnCount = 0;
-            for (int y = 0; y < SIZE; y++) {
-                Piece piece = board.getRanks().get(y).getPiece(x);
-                if (piece.getColor() == color && piece.getType() == Piece.Type.PAWN) pawnCount++;
-            }
-            if (pawnCount > 1) totalPoint -= (pawnCount * 0.5);
-        }
-        return totalPoint;
     }
 
     public Board getBoard() {

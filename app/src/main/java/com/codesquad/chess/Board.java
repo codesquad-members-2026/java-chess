@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Board {
-    private List<Rank> ranks = new ArrayList<>();
+    private final List<Rank> ranks = new ArrayList<>();
     public static final int SIZE = 8;
 
     public void initialize() {
