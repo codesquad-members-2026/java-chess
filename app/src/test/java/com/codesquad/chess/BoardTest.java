@@ -32,5 +32,21 @@ public class BoardTest {
         assertEquals(Piece.createBlank(), board.findPiece("e1"));
     }
 
+    @Test
+    public void moveQueenSuccess() throws Exception {
+        // d2 폰을 치워서 길을 엽니다.
+        game.move("d2", "d3");
+        // d1 퀸을 d2로 이동 (한 칸)
+        game.move("d1", "d2");
+        assertEquals(Piece.createWhiteQueen(), board.findPiece("d2"));
+
+        // d2 퀸을 h6로 이동 (대각선 멀리 이동)
+        game.move("d2", "h6");
+        assertEquals(Piece.createWhiteQueen(), board.findPiece("h6"));
+        assertEquals(Piece.createBlank(), board.findPiece("d2"));
+
+
+    }
+
 
 }

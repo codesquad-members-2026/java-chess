@@ -1,5 +1,8 @@
 package com.codesquad.chess.pieces;
 
+import com.codesquad.chess.Board;
+import com.codesquad.chess.Position;
+
 import java.util.Objects;
 
 public class Piece implements Comparable<Piece> {
@@ -56,6 +59,35 @@ public class Piece implements Comparable<Piece> {
     }
 
     public double getPoint() { return type.getDefaultPoint(); }
+
+    public boolean queenMoving(Position sourcePos, Position targetPos, Board board) {
+        int queenX = targetPos.getX() - sourcePos.getX();
+        int queenY = targetPos.getY() - sourcePos.getY();
+
+        boolean isStraight = (queenX == 0 || queenY == 0);
+        boolean isDiagonal = Math.abs(queenX) == Math.abs(queenY);
+
+        if(!(isStraight || isDiagonal)) return false;
+
+        int dirX = Integer.compare(targetPos.getX(), sourcePos.getX());
+        int dirY = Integer.compare(targetPos.getY(), sourcePos.getY());
+
+        return queenCanGo(sourcePos, targetPos, dirX, dirY, board) ;
+    }
+    public boolean queenCanGo(Position current, Position target, int dirX,
+                              int dirY, Board board) {
+        Position next = new Position(current.getX() + dirX, current.getY() + dirY);
+
+        if(next.equals(target)) {
+            return true;
+        }
+
+        if(board.findPiece(next).getType() != Type.NO_PIECE) {
+            return false;
+        }
+
+        return queenCanGo(next, target, dirX, dirY, board);
+    }
 
     @Override
     public int compareTo(Piece other) {

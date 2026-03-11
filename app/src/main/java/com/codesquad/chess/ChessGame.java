@@ -25,9 +25,13 @@ public class ChessGame {
                 System.out.println("ERROR : King's Moving is ERROR.");
                 return;
             }
+        } else if (sourcePiece.getType() == Piece.Type.QUEEN) {
+
+            if (!sourcePiece.queenMoving(sourcePos, targetPos, board)) {
+                System.out.println("ERROR : Queen's moving is ERROR.");
+                return;
+            }
         }
-
-
 
         Piece targetPiece = board.findPiece(targetPos);
         if (sourcePiece.getColor() == targetPiece.getColor()) {
@@ -47,6 +51,7 @@ public class ChessGame {
 
         return (KingX <= 1 && KingY <= 1) && !(KingX == 0 && KingY == 0);
     }
+
 
     public double calculatePoint(Piece.Color color) {
         double totalPoint = 0;
