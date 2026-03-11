@@ -100,6 +100,9 @@ public abstract class Piece {
     public Position getPosition() {
         return position;
     }
+    public void setPosition(Position position){
+        this.position = position;
+    }
     public double getPoint() {
         return point;
     }
@@ -113,11 +116,11 @@ public abstract class Piece {
 
         return type;
     }
-    public void changePosition(Position position){
-        this.position = position;
-    }
 
     public abstract boolean verifyMovePosition(Position target, Board board);
+    boolean verifySameColor(Position target, Board board){
+        return this.getColor() == board.findPiece(target).getColor();
+    }
 
     @Override
     public String toString() {

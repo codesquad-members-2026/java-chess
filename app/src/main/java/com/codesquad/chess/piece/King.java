@@ -15,10 +15,6 @@ public class King extends Piece {
         return !verifySameColor(target, board) && verifyDirection(target);
     }
 
-    private boolean verifySameColor(Position target, Board board){
-        return this.getColor() == board.findPiece(target).getColor();
-    }
-
     private boolean verifyDirection(Position target){
         int srcX = this.getPosition().getX();
         int srcY = this.getPosition().getY();

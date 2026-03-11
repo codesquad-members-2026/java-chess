@@ -113,7 +113,7 @@ public class Board {
         }
 
         setPiece(sourcePosition, Piece.createBlank(sourcePosition));
-        originPiece.changePosition(targetPosition);
+        originPiece.setPosition(targetPosition);
         setPiece(targetPosition, originPiece);
     }
     public void setPiece(Position pos, Piece piece){
