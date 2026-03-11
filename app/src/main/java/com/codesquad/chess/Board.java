@@ -107,7 +107,7 @@ public class Board {
         Position sourcePosition = Position.of(source);
         Position targetPosition = Position.of(target);
         Piece originPiece = findPiece(sourcePosition);
-        if(!originPiece.verifyMovePosition(sourcePosition, targetPosition, this)){
+        if(!originPiece.verifyMovePosition(targetPosition, this)){
             System.out.println("유효하지 않은 이동입니다.");
             return;
         }

@@ -11,9 +11,17 @@ public class King extends Piece {
     }
 
     @Override
-    public boolean verifyMovePosition(Position source, Position target, Board board){
-        int srcX = source.getX();
-        int srcY = source.getY();
+    public boolean verifyMovePosition(Position target, Board board){
+        return !verifySameColor(target, board) && verifyDirection(target);
+    }
+
+    private boolean verifySameColor(Position target, Board board){
+        return this.getColor() == board.findPiece(target).getColor();
+    }
+
+    private boolean verifyDirection(Position target){
+        int srcX = this.getPosition().getX();
+        int srcY = this.getPosition().getY();
         int targetX = target.getX();
         int targetY = target.getY();
 
@@ -22,6 +30,7 @@ public class King extends Piece {
                 return true;
             }
         }
+
         return false;
     }
 }
