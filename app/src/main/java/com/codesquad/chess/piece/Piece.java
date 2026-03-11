@@ -114,7 +114,7 @@ public abstract class Piece {
         this.position = position;
     }
 
-    public abstract boolean verifyMovePosition(Position target, Board board);
+    public abstract boolean verifyMovePosition(Position source, Position target, Board board);
 
     @Override
     public String toString() {
