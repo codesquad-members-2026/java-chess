@@ -3,6 +3,8 @@ package com.codesquad.chess;
 import com.codesquad.chess.piece.Piece;
 
 import java.util.*;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 import static com.codesquad.chess.piece.Piece.*;
 
@@ -84,6 +86,13 @@ public class Board {
         rank.add(createWhiteRook(Position.of("a8")));
         this.ranks.add(rank);
     }
+    public void initializeEmptyBoard(){
+        this.ranks = IntStream.range(0, BOARD_LENGTH).mapToObj(i -> {
+            Rank r = new Rank();
+            IntStream.range(0, BOARD_LENGTH).forEach(j -> r.add(createBlank(Position.of(j, BOARD_LENGTH - i))));
+            return r;
+        }).collect(Collectors.toList());
+    }
 
     // 남아있는 기물의 수 계산
     public int pieceCount(){
@@ -107,7 +116,7 @@ public class Board {
         originPiece.changePosition(targetPosition);
         setPiece(targetPosition, originPiece);
     }
-    private void setPiece(Position pos, Piece piece){
+    public void setPiece(Position pos, Piece piece){
         ranks.get(pos.getY()).set(pos.getX(), piece);
     }
 

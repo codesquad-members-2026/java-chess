@@ -1,11 +1,13 @@
 package com.codesquad.chess.piece;
 
 import com.codesquad.chess.Board;
+import com.codesquad.chess.ChessView;
 import com.codesquad.chess.Position;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
+import static com.codesquad.chess.utils.StringUtils.appendNewLine;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class KingTest {
@@ -18,17 +20,33 @@ public class KingTest {
     }
 
     @Test
+    @DisplayName("빈 체스판 구현 테스트")
+    public void createEmptyChessBoard(){
+        board.initializeEmptyBoard();
+
+        String expectedBoard =
+                appendNewLine("........  8") +
+                appendNewLine("........  7") +
+                appendNewLine("........  6") +
+                appendNewLine("........  5") +
+                appendNewLine("........  4") +
+                appendNewLine("........  3") +
+                appendNewLine("........  2") +
+                appendNewLine("........  1") +
+                appendNewLine("") +
+                appendNewLine("abcdefgh");
+
+
+        assertEquals(expectedBoard, ChessView.showBoard(board.getRanks()));
+    }
+
+    @Test
     @DisplayName("King은 모든 방향으로 한 칸씩 이동할 수 있어야 한다.")
     public void kingMovesOneSquareInAllDirections(){
-        board.initialize();
+        board.initializeEmptyBoard();
 
-        // 킹 주변의 기물들 치우기
-        board.move("d2", "d5");
-        board.move("e2", "e5");
-        board.move("f2", "f5");
-        board.move("d1", "d6");
-        board.move("f1", "f6");
-        Piece king = Piece.createWhiteKing(Position.of("a3"));
+        Piece king = Piece.createWhiteKing(Position.of("e1"));
+        board.setPiece(Position.of("e1"), king);
 
         // 전진
         board.move("e1", "e2");

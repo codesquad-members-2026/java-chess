@@ -17,6 +17,9 @@ public class Position {
 
         return new Position(x, y);
     }
+    public static Position of(int x, int y){
+        return new Position(x, y);
+    }
 
     public int getX(){
         return x;
