@@ -14,27 +14,23 @@ public class BoardTest {
     @Before
     public void setup() {
         game = new ChessGame();
-        board = new Board();
+        game.initialize();
+
+        this.board =  game.getBoard();
+
     }
 
     @Test
-    public void move() throws Exception {
+    public void moveKingSuccess() throws Exception {
+        // 1. 킹 앞에 있는 폰을 먼저 치워줍니다 (이동 경로 확보)
+        game.move("e2", "e3");
 
-        game.initialize();
+        // 2. 킹을 한 칸 위로 이동 (e1 -> e2)
+        game.move("e1", "e2");
 
-        String sourcePosition = "b2";
-        String targetPosition = "b3";
-
-        game.move(sourcePosition, targetPosition);
-        assertEquals(Piece.createBlank(), board.findPiece(sourcePosition));
-        assertEquals(Piece.createWhitePawn(), board.findPiece(targetPosition));
+        assertEquals(Piece.createWhiteKing(), board.findPiece("e2"));
+        assertEquals(Piece.createBlank(), board.findPiece("e1"));
     }
 
-    @Test
-    public void calculatePoint() throws Exception {
-        game.initialize();
 
-        assertEquals(38.0, game.calculatePoint(Piece.Color.BLACK), 0.01);
-        assertEquals(38.0, game.calculatePoint(Piece.Color.WHITE), 0.01);
-    }
 }

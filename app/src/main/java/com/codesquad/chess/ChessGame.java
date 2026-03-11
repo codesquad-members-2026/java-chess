@@ -20,8 +20,32 @@ public class ChessGame {
 
         Piece sourcePiece = board.findPiece(sourcePos);
 
+        if(sourcePiece.getType() == Piece.Type.KING) {
+            if(!kingMoving(sourcePos, targetPos)) {
+                System.out.println("ERROR : King's Moving is ERROR.");
+                return;
+            }
+        }
+
+
+
+        Piece targetPiece = board.findPiece(targetPos);
+        if (sourcePiece.getColor() == targetPiece.getColor()) {
+            System.out.println("Error: There is a same color Object.");
+            return;
+        }
+
         board.setPiece(targetPos, sourcePiece);
         board.setPiece(sourcePos, Piece.createBlank());
+
+
+    }
+
+    private boolean kingMoving(Position sourcePos, Position targetPos) {
+        int KingX = Math.abs(targetPos.getX() - sourcePos.getX());
+        int KingY = Math.abs(targetPos.getY() - sourcePos.getY());
+
+        return (KingX <= 1 && KingY <= 1) && !(KingX == 0 && KingY == 0);
     }
 
     public double calculatePoint(Piece.Color color) {
