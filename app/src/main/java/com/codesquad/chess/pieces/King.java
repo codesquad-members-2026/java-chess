@@ -1,6 +1,7 @@
-package com.codesquad.chess;
+package com.codesquad.chess.pieces;
 
-import com.codesquad.chess.pieces.Piece;
+import com.codesquad.chess.Board;
+import com.codesquad.chess.Position;
 
 public class King extends Piece {
 
