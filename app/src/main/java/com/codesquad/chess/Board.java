@@ -27,6 +27,13 @@ public class Board {
         // 하얀색 기물 추가
         addWhitePieces();
     }
+    public void initializeEmptyBoard(){
+        this.ranks = IntStream.range(0, BOARD_LENGTH).mapToObj(i -> {
+            Rank r = new Rank();
+            IntStream.range(0, BOARD_LENGTH).forEach(j -> r.add(createBlank(Position.of(j, BOARD_LENGTH - i))));
+            return r;
+        }).collect(Collectors.toList());
+    }
     private void addBlackPieces(){
         Rank rank = new Rank();
 
@@ -86,13 +93,6 @@ public class Board {
         rank.add(createWhiteRook(Position.of("a8")));
         this.ranks.add(rank);
     }
-    public void initializeEmptyBoard(){
-        this.ranks = IntStream.range(0, BOARD_LENGTH).mapToObj(i -> {
-            Rank r = new Rank();
-            IntStream.range(0, BOARD_LENGTH).forEach(j -> r.add(createBlank(Position.of(j, BOARD_LENGTH - i))));
-            return r;
-        }).collect(Collectors.toList());
-    }
 
     // 남아있는 기물의 수 계산
     public int pieceCount(){
@@ -107,6 +107,7 @@ public class Board {
         Position sourcePosition = Position.of(source);
         Position targetPosition = Position.of(target);
         Piece originPiece = findPiece(sourcePosition);
+
         if(!originPiece.verifyMovePosition(targetPosition, this)){
             System.out.println("유효하지 않은 이동입니다.");
             return;

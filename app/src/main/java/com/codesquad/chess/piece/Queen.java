@@ -43,6 +43,7 @@ public class Queen extends Piece {
 
         return recurTarget(nextPosition, target, direction, board);
     }
+
     private Direction findDirection(Position source, Position target){
         int xSignum = Integer.signum(target.getX() - source.getX());
         // y 좌표는 도메인적으로 [0]을 8번째 Rank, [7]을 첫 번째 Rank로 인지한다.
