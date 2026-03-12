@@ -23,23 +23,20 @@ public abstract class DiagonalStraightPiece extends Piece {
 
         Direction direction = findDirection(source, target);
 
-        return recurTarget(source, target, direction, board);
+        return recurTarget(nextPosition(source, direction), target, direction, board);
     }
 
     protected boolean recurTarget(Position source, Position target, Direction direction, Board board){
         // 종료 조건
         if(isEqual(source, target)){
-            return true;
+            return !isTeam(source, board);
         }
 
-        int nextX = source.getX() + direction.getXDegree();
-        int nextY = source.getY() - direction.getYDegree();
-        Position nextPosition = Position.of(nextX, nextY);
-
-        if(!board.findPiece(nextPosition).getType().equals(Type.NO_PIECE)) // verifySameColor() 사용? 흐음.. 고민
+        Type srcType = board.findPiece(source).getType();
+        if(srcType != Type.NO_PIECE)
             return false;
 
-        return recurTarget(nextPosition, target, direction, board);
+        return recurTarget(nextPosition(source, direction), target, direction, board);
     }
     protected Direction findDirection(Position source, Position target){
         int xSignum = Integer.signum(target.getX() - source.getX());
@@ -59,6 +56,17 @@ public abstract class DiagonalStraightPiece extends Piece {
     }
     protected boolean isEqual(Position source, Position target){
         return source.getX() == target.getX() && source.getY() == target.getY();
+    }
+    protected boolean isTeam(Position target, Board board){
+        Color myColor = this.getColor();
+        Color enemyColor = board.findPiece(target).getColor();
+
+        return myColor == enemyColor;
+    }
+    protected Position nextPosition(Position source, Direction direction){
+        int nextX = source.getX() + direction.getXDegree();
+        int nextY = source.getY() - direction.getYDegree();
+        return Position.of(nextX, nextY);
     }
 
     abstract boolean isValidPath(Position source, Position target);

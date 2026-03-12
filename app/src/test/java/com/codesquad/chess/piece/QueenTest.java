@@ -1,6 +1,7 @@
 package com.codesquad.chess.piece;
 
 import com.codesquad.chess.Board;
+import com.codesquad.chess.ChessView;
 import com.codesquad.chess.Position;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -71,5 +72,25 @@ public class QueenTest {
         // blackPawn에 의해 움직임 취소
         board.move("h8", "h1");
         assertEquals(queen, board.findPiece(Position.of("h8")));
+    }
+
+    @Test
+    @DisplayName("퀸은 목표 지점에 팀 기물이 있으면 이동하지 않고, 적이나 빈칸이 있으면 이동한다.")
+    public void verifyMovePosition_WhenTargetIsTeam_ReturnFalse(){
+        board.initializeEmptyBoard();
+
+        Piece queen = Piece.createWhiteQueen(Position.of("e5"));
+        board.setPiece(Position.of("e5"), queen);
+        Piece whitePawn = Piece.createWhitePawn(Position.of("c3"));
+        board.setPiece(Position.of("c3"), whitePawn);
+        Piece blackPawn = Piece.createBlackPawn(Position.of("e8"));
+        board.setPiece(Position.of("e8"), blackPawn);
+
+        // 같은 팀에게 move
+        board.move("e5", "c3");
+        assertEquals(queen, board.findPiece(Position.of("e5")));
+        // 다른 팀에게 move
+        board.move("e5", "e8");
+        assertEquals(queen, board.findPiece(Position.of("e8")));
     }
 }
