@@ -5,27 +5,38 @@ import java.util.Scanner;
 public class Main {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
-        Board board = new Board();
+        ChessGame game = new ChessGame();
 
-        System.out.println("체스 게임을 시작합니다.");
-        System.out.println("시작: start, 종료: end");
+        System.out.println("Play Chess Game.");
+        System.out.println("start,OR,end");
 
         while (true) {
             System.out.print("> ");
             String command = scanner.nextLine().toLowerCase();
-
             if (command.equals("start")) {
-                board.initializeEmpty();
-                System.out.println(board.showBoard());
+                game.initialize();
+                System.out.println(ChessView.showBoard(game.getBoard()));
+                continue;
+            }
+
+            if (command.startsWith("move")) {
+                String[] tokens = command.split(" ");
+
+                if(tokens.length == 3) {
+                    game.move(tokens[1], tokens[2]);
+                    System.out.println(ChessView.showBoard(game.getBoard()));
+                } else {
+                    System.out.println("ERROR ex) move b2 b3");
+                }
                 continue;
             }
 
             if (command.equals("end")) {
-                System.out.println("게임을 종료합니다.");
+                System.out.println("End Game.");
                 break;
             }
 
-            System.out.println("지원하지 않는 명령어입니다. 'start' 또는 'end'를 입력하세요.");
+            System.out.println("Error.");
         }
         scanner.close();
     }

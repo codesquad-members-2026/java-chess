@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Rank {
-    private List<Piece> pieces = new ArrayList<>();
+    private final List<Piece> pieces = new ArrayList<>();
 
     public void addPiece(Piece piece) { pieces.add(piece); }
     public void setPiece(int xPos, Piece piece) { pieces.set(xPos, piece); }
