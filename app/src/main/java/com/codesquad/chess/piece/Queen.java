@@ -28,7 +28,6 @@ public class Queen extends Piece {
     }
 
     private boolean recurTarget(Position source, Position target, Direction direction, Board board){
-        // 종료 조건
         if(isEqual(source, target)){
             return true;
         }
@@ -37,8 +36,7 @@ public class Queen extends Piece {
         int nextY = source.getY() - direction.getYDegree();
         Position nextPosition = Position.of(nextX, nextY);
 
-        // 다음 이동 경로에 BLANK 기물이 아닌 기물이 존재한다면
-        if(!board.findPiece(nextPosition).getType().equals(Type.NO_PIECE))
+        if(!board.findPiece(nextPosition).getType().equals(Type.NO_PIECE)) // verifySameColor() 사용? 흐음.. 고민
             return false;
 
         return recurTarget(nextPosition, target, direction, board);

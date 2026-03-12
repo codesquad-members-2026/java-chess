@@ -86,7 +86,7 @@ public class Board {
         rank.add(createWhiteRook(Position.of("a1")));
         rank.add(createWhiteKnight(Position.of("a2")));
         rank.add(createWhiteBishop(Position.of("a3")));
-        rank.add(createWhiteQueen(Position.of("a4")));
+        rank.add(Piece.createWhiteQueen(Position.of("a4")));
         rank.add(createWhiteKing(Position.of("a5")));
         rank.add(createWhiteBishop(Position.of("a6")));
         rank.add(createWhiteKnight(Position.of("a7")));
