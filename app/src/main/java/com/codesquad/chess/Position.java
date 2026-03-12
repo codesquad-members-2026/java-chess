@@ -3,6 +3,7 @@ package com.codesquad.chess;
 public class Position {
     private final int x;
     private final int y;
+    private final int SIZE = 8;
 
     public Position(String position) {
         position = position.trim();
@@ -29,7 +30,10 @@ public class Position {
 
     @Override
     public int hashCode() {
-        // equals를 만들면 hashCode도 세트로 만들어주는 것이 자바의 정석입니다.
         return java.util.Objects.hash(x, y);
+    }
+
+    public boolean isVaild() {
+        return x >= 0 && x < SIZE && y >= 0 && y < SIZE;
     }
 }
