@@ -1,7 +1,6 @@
 package com.codesquad.chess.piece;
 
 import com.codesquad.chess.Board;
-import com.codesquad.chess.ChessView;
 import com.codesquad.chess.Position;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
