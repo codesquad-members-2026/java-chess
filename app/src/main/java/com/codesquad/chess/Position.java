@@ -9,6 +9,10 @@ public class Position {
         position = position.trim();
         this.x = position.charAt(0) - 'a';
         this.y = Board.SIZE - Character.getNumericValue(position.charAt(1));
+
+        if(!isVaild()) {
+            throw new IllegalArgumentException("체스판 범위를 벗어났습니다.");
+        }
     }
 
     public Position(int x, int y) {
