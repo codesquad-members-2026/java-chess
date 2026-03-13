@@ -1,5 +1,6 @@
 package com.codesquad.chess;
 
+import com.codesquad.chess.exception.OutOfBoardException;
 import com.codesquad.chess.piece.Piece;
 
 import java.util.*;
@@ -84,13 +85,13 @@ public class Board {
 
         rank = new Rank();
         rank.add(createWhiteRook(Position.of("a1")));
-        rank.add(createWhiteKnight(Position.of("a2")));
-        rank.add(createWhiteBishop(Position.of("a3")));
-        rank.add(createWhiteQueen(Position.of("a4")));
-        rank.add(createWhiteKing(Position.of("a5")));
-        rank.add(createWhiteBishop(Position.of("a6")));
-        rank.add(createWhiteKnight(Position.of("a7")));
-        rank.add(createWhiteRook(Position.of("a8")));
+        rank.add(createWhiteKnight(Position.of("b1")));
+        rank.add(createWhiteBishop(Position.of("c1")));
+        rank.add(Piece.createWhiteQueen(Position.of("d1")));
+        rank.add(createWhiteKing(Position.of("e1")));
+        rank.add(createWhiteBishop(Position.of("f1")));
+        rank.add(createWhiteKnight(Position.of("g1")));
+        rank.add(createWhiteRook(Position.of("h1")));
         this.ranks.add(rank);
     }
 
@@ -106,12 +107,16 @@ public class Board {
     public void move(String source, String target){
         Position sourcePosition = Position.of(source);
         Position targetPosition = Position.of(target);
-        Piece originPiece = findPiece(sourcePosition);
+        if(!isValid(sourcePosition, targetPosition)){
+            throw new OutOfBoardException("유효하지 않은 범위의 값입니다.");
+        }
 
+        Piece originPiece = findPiece(sourcePosition);
         if(!originPiece.verifyMovePosition(targetPosition, this)){
             System.out.println("유효하지 않은 이동입니다.");
             return;
         }
+
 
         setPiece(sourcePosition, Piece.createBlank(sourcePosition));
         originPiece.setPosition(targetPosition);
@@ -123,5 +128,18 @@ public class Board {
 
     public List<Rank> getRanks(){
         return ranks;
+    }
+
+    private boolean isValid(Position source, Position target){
+        int sourceX = source.getX();
+        int sourceY = source.getY();
+        int targetX = target.getX();
+        int targetY = target.getY();
+
+        return isValidRange(sourceX, sourceY) && isValidRange(targetX, targetY);
+    }
+
+    private boolean isValidRange(int sourceX, int sourceY){
+        return (0 <= sourceX && sourceX < BOARD_LENGTH) && (0 <= sourceY && sourceY < BOARD_LENGTH);
     }
 }

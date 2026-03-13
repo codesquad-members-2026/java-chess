@@ -11,7 +11,6 @@ public class Blank extends Piece{
 
     @Override
     public boolean verifyMovePosition(Position target, Board board){
-
-        return true;
+        return false;
     }
 }

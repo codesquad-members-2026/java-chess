@@ -1,5 +1,7 @@
 package com.codesquad.chess;
 
+import com.codesquad.chess.exception.OutOfBoardException;
+
 import java.util.Objects;
 
 public class Position {
@@ -15,7 +17,7 @@ public class Position {
         int x = coordinates[0] - 'a';
         int y = Board.BOARD_LENGTH - Character.getNumericValue(coordinates[1]);
 
-        return new Position(x, y);
+        return Position.of(x, y);
     }
     public static Position of(int x, int y){
         return new Position(x, y);

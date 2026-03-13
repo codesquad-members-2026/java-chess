@@ -13,6 +13,9 @@ public enum Direction {
     WEST(-1, 0),
     EAST(1, 0),
 
+    NN(0, 2),
+    SS(0, -2),
+
     NNE(1, 2),
     NNW(-1, 2),
     SSE(1, -2),
