@@ -4,9 +4,12 @@ import com.codesquad.chess.pieces.Piece;
 
 public class ChessGame {
     private final Board board;
+    private Piece.Color currentTurn;
 
     public ChessGame() {
         this.board = new Board();
+        this.currentTurn = Piece.Color.WHITE;
+
     }
 
     public void initialize() {
@@ -18,6 +21,11 @@ public class ChessGame {
         Position targetPos = new Position(targetPosition);
 
         Piece sourcePiece = board.findPiece(sourcePos);
+
+        if (sourcePiece.getColor() != currentTurn) {
+            System.out.println("ERROR. It's " + currentTurn + "'s turn now.");
+            return;
+        }
 
         if (sourcePiece.getType() == Piece.Type.NO_PIECE) {
             System.out.println("ERROR. 선택한 위치에 기물이 없습니다.");
@@ -37,9 +45,15 @@ public class ChessGame {
 
         board.setPiece(targetPos, sourcePiece);
         board.setPiece(sourcePos, Piece.createBlank());
+
+        changeTurn();
     }
 
     public Board getBoard() {
         return board;
+    }
+
+    private void changeTurn() {
+        currentTurn = (currentTurn == Piece.Color.WHITE) ? Piece.Color.BLACK : Piece.Color.WHITE;
     }
 }
