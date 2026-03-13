@@ -1,11 +1,14 @@
 package com.codesquad.chess.piece;
 
+import com.codesquad.chess.Board;
+import com.codesquad.chess.Position;
 import java.util.Objects;
 
-public class Piece {
+public abstract class Piece {
     private final Color color;
     private final char representation;
     private final double point;
+    private Position position;
 
     public enum Color{
         WHITE, BLACK, NOCOLOR;
@@ -39,58 +42,53 @@ public class Piece {
         public double getPoint(){return point;}
     }
 
-    private Piece(Color color, char representation, double point) {
+    protected Piece(Color color, char representation, double point, Position position) {
         this.color = color;
         this.representation = representation;
         this.point = point;
+        this.position = position;
     }
 
-    private static Piece createWhite(Type type){
-        return new Piece(Color.WHITE, type.getWhiteRepresentation(), type.getPoint());
+    public static Piece createWhitePawn(Position position){
+        return new Pawn(Color.WHITE, Type.PAWN.getWhiteRepresentation(), Type.PAWN.getPoint(), position);
     }
-    private static Piece createBlack(Type type){
-        return new Piece(Color.BLACK, type.getBlackRepresentation(), type.getPoint());
+    public static Piece createWhiteKing(Position position){
+        return new King(Color.WHITE, Type.KING.getWhiteRepresentation(), Type.KING.getPoint(), position);
     }
-
-    public static Piece createWhitePawn(){
-        return createWhite(Type.PAWN);
+    public static Piece createWhiteQueen(Position position){
+        return new Queen(Color.WHITE, Type.QUEEN.getWhiteRepresentation(), Type.QUEEN.getPoint(), position);
     }
-    public static Piece createWhiteKing(){
-        return createWhite(Type.KING);
+    public static Piece createWhiteRook(Position position){
+        return new Rook(Color.WHITE, Type.ROOK.getWhiteRepresentation(), Type.ROOK.getPoint(), position);
     }
-    public static Piece createWhiteQueen(){
-        return createWhite(Type.QUEEN);
+    public static Piece createWhiteKnight(Position position){
+        return new Knight(Color.WHITE, Type.KNIGHT.getWhiteRepresentation(), Type.KNIGHT.getPoint(), position);
     }
-    public static Piece createWhiteRook(){
-        return createWhite(Type.ROOK);
-    }
-    public static Piece createWhiteKnight(){
-        return createWhite(Type.KNIGHT);
-    }
-    public static Piece createWhiteBishop(){
-        return createWhite(Type.BISHOP);
+    public static Piece createWhiteBishop(Position position){
+        return new Bishop(Color.WHITE, Type.BISHOP.getWhiteRepresentation(), Type.BISHOP.getPoint(), position);
     }
 
-    public static Piece createBlackPawn(){
-        return createBlack(Type.PAWN);
+    public static Piece createBlackPawn(Position position){
+        return new Pawn(Color.BLACK, Type.PAWN.getBlackRepresentation(), Type.PAWN.getPoint(), position);
     }
-    public static Piece createBlackKing(){
-        return createBlack(Type.KING);
+    public static Piece createBlackKing(Position position){
+        return new King(Color.BLACK, Type.KING.getBlackRepresentation(), Type.KING.getPoint(), position);
     }
-    public static Piece createBlackQueen(){
-        return createBlack(Type.QUEEN);
+    public static Piece createBlackQueen(Position position){
+        return new Queen(Color.BLACK, Type.QUEEN.getBlackRepresentation(), Type.QUEEN.getPoint(), position);
     }
-    public static Piece createBlackRook(){
-        return createBlack(Type.ROOK);
+    public static Piece createBlackRook(Position position){
+        return new Rook(Color.BLACK, Type.ROOK.getBlackRepresentation(), Type.ROOK.getPoint(), position);
     }
-    public static Piece createBlackKnight(){
-        return createBlack(Type.KNIGHT);
+    public static Piece createBlackKnight(Position position){
+        return new Knight(Color.BLACK, Type.KNIGHT.getBlackRepresentation(), Type.KNIGHT.getPoint(), position);
     }
-    public static Piece createBlackBishop(){
-        return createBlack(Type.BISHOP);
+    public static Piece createBlackBishop(Position position){
+        return new Bishop(Color.BLACK, Type.BISHOP.getBlackRepresentation(), Type.BISHOP.getPoint(), position);
     }
-    public static Piece createBlank(){
-        return new Piece(Color.NOCOLOR, Type.NO_PIECE.getWhiteRepresentation(), Type.NO_PIECE.getPoint());
+
+    public static Piece createBlank(Position position){
+        return new Blank(Color.NOCOLOR, Type.NO_PIECE.getBlackRepresentation(), Type.NO_PIECE.getPoint(), position);
     }
 
     public Color getColor() {
@@ -98,6 +96,12 @@ public class Piece {
     }
     public char getRepresentation() {
         return representation;
+    }
+    public Position getPosition() {
+        return position;
+    }
+    public void setPosition(Position position){
+        this.position = position;
     }
     public double getPoint() {
         return point;
@@ -112,11 +116,10 @@ public class Piece {
 
         return type;
     }
-    public boolean isWhite() {
-        return color.equals(Color.WHITE);
-    }
-    public boolean isBlack() {
-        return color.equals(Color.BLACK);
+
+    public abstract boolean verifyMovePosition(Position target, Board board);
+    boolean verifySameColor(Position target, Board board){
+        return this.getColor() == board.findPiece(target).getColor();
     }
 
     @Override
