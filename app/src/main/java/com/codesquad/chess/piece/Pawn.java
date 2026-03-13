@@ -28,7 +28,7 @@ public class Pawn extends Piece {
             if(!isTwoStep(xMinus, yMinus))
                 return false;
 
-            return canMoveTwoStep(target, board);
+            return canMoveTwoStep(board);
         }
 
         // 전진 혹은 대각 이동 로직
@@ -51,7 +51,7 @@ public class Pawn extends Piece {
 
         return null;
     }
-    private boolean canMoveTwoStep(Position target, Board board){
+    private boolean canMoveTwoStep(Board board){
         // 현재 위치가 백이면 rank 2 or 흑이면 rank 7 에 위치
         Color srcColor = this.getColor();
         Position srcPos = this.getPosition();
